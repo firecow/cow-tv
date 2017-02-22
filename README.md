@@ -1,5 +1,5 @@
 # cow-tv
-A media browser for danish state televsion and radio.
+A media browser for danish state television and radio.
 
 Cow-tv's main purpose is to outperform DR's existing apps, by being a lot simpler, and only providing the most needed features of the api.
 
