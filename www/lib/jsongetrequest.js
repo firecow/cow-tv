@@ -22,20 +22,20 @@ var JsonGetRequest = function(path) {
 };
 
 /**
- * @param {function(?Error)} callback
+ * @param {function(?Error, JsonGetRequest)} callback
  */
 JsonGetRequest.prototype.prepare = function(callback) {
     this.xmlHttp.addEventListener('load', function() {
         if (this.xmlHttp.readyState === 4) {
             if (this.xmlHttp.status === 200) {
                 try {
-                    this.data = JSON.parse(this.xmlHttp.responseText);
-                    callback(null);
+                    this.data_ = JSON.parse(this.xmlHttp.responseText);
+                    callback(null, this);
                 } catch (e) {
-                    callback(e)
+                    callback(e, this)
                 }
             } else {
-                callback(new Error('Request failed Status code: ' + this.xmlHttp.status));
+                callback(new Error('Request failed Status code: ' + this.xmlHttp.status), this);
             }
         }
     }.bind(this));
@@ -52,4 +52,13 @@ JsonGetRequest.prototype.getData = function() {
         throw new Error('Data not yet prepared');
     }
     return this.data_;
+};
+
+/**
+ * @param {string} path
+ * @param {function(?Error, JsonGetRequest)} callback
+ */
+JsonGetRequest.prepare = function(path, callback) {
+    var jsonGetRequest = new JsonGetRequest(path);
+    jsonGetRequest.prepare(callback);
 };

@@ -1,8 +1,9 @@
 var windowLoaded = function() {
-    var resize = new Resizer();
+    var resize = new Resizer(),
+        itemManager = new ItemManager();
 
-    // 'http://www.dr.dk/mu/bundle?BundleType=%22Channel%22&DrChannel=true&ChannelType=TV&WebChannel=false&ApprovedByEditor=true'
-
+    itemManager.showLiveTVItems();
+    resize.onResize();
 };
 
 window.addEventListener('load', windowLoaded);

@@ -18,3 +18,23 @@ body {
     width: 3840px;
     height: 2160px
 }
+
+.item {
+    display:inline-block;
+}
+
+.itemimg {
+    border: 10px solid;
+    border-radius: 50px;
+    margin: 20px 20px 0px 20px;
+    width: 580px;
+}
+
+.itemtitle {
+    color: #FFFFFF;
+    font-family: Arial, monospace;
+    font-weight: bold;
+    font-size: 50px;
+    text-align: center;
+    width: 100%;
+}

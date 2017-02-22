@@ -9,7 +9,6 @@ Resizer = function() {
     this.content = new Wrapper(document.getElementById('content'));
 
     window.addEventListener('resize', this.onResize.bind(this));
-    this.onResize();
 };
 
 /**
