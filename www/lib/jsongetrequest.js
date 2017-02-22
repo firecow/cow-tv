@@ -1,6 +1,5 @@
 /**
  * @constructor
- * @struct
  * @param {string} path
  */
 var JsonGetRequest = function(path) {
