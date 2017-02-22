@@ -1,0 +1,31 @@
+{
+  "name": "cow-tv",
+  "version": "1.0.0",
+  "description": "A media browser for danish state radio and televsion, using http://dr.dk/mu REST API",
+  "scripts": {
+    "cordova": "cordova",
+    "webserver": "ogs-webserver",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/firecow/cow-tv.git"
+  },
+  "keywords": [
+    "dr",
+    "tv",
+    "dr tv",
+    "cow",
+    "tv",
+    "cow tv"
+  ],
+  "author": "Mads Jon Nielsen <madsjon@gmail.com>",
+  "license": "ISC",
+  "homepage": "https://github.com/firecow/cow-tv#readme",
+  "dependencies": {
+    "cordova": "^6.5.0"
+  },
+  "devDependencies": {
+    "ogs-webserver": "git+ssh://git@git.firecow.dk:ogs-tools/ogs-webserver.git"
+  }
+}
