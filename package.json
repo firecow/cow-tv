@@ -4,6 +4,7 @@
   "description": "A media browser for danish state radio and televsion, using http://dr.dk/mu REST API",
   "scripts": {
     "cordova": "cordova",
+    "webserver": "http-server www/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,5 +24,8 @@
   "homepage": "https://github.com/firecow/cow-tv#readme",
   "dependencies": {
     "cordova": "^6.5.0"
+  },
+  "devDependencies": {
+    "http-server": "^0.9.0"
   }
 }
