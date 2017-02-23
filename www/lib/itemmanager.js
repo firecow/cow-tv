@@ -5,47 +5,42 @@ var ItemManager = function() {
     /**
      * @type {HTMLDivElement}
      */
-    this.itemsElement = document.getElementById('items');
+    this.liveElement = document.getElementById('live');
 };
-
-
-ItemManager.prototype.showLiveTVItems = function() {
-    var url = 'http://www.dr.dk/mu/bundle?BundleType=%22Channel%22&DrChannel=true&ChannelType=TV&WebChannel=false&ApprovedByEditor=true';
-    JsonGetRequest.prepare(url, this.initLiveTVItems.bind(this));
-};
-
 
 /**
- * @param {?Error} err
- * @param {JsonGetRequest} request
+ * @param {function()=} opt_callback
  */
-ItemManager.prototype.initLiveTVItems = function(err, request) {
-    var itemDatas;
+ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
+    var url = 'http://www.dr.dk/mu/bundle?BundleType=%22Channel%22&DrChannel=true&ChannelType=TV&WebChannel=false&ApprovedByEditor=true',
+        callback = opt_callback || function() {};
+    JsonGetRequest.prepare(url, function(err, request) {
+        var itemDatas;
 
-    if (err) {
-        throw err;
-    }
+        if (err) {
+            throw err;
+        }
 
-    itemDatas = request.getData()['Data'];
+        itemDatas = request.getData()['Data'];
 
-    itemDatas.forEach(function(itemData) {
-        var item = document.createElement('div'),
-            img = document.createElement('img'),
-            title = document.createElement('div');
+        itemDatas.forEach(function(itemData) {
+            var item = document.createElement('div'),
+                img = document.createElement('img'),
+                title = document.createElement('div');
 
-        item.classList.add('item');
-        img.classList.add('itemimg');
-        title.classList.add('itemtitle');
+            item.classList.add('item');
+            img.classList.add('itemimg');
+            title.classList.add('itemtitle');
 
-        img.src = itemData['Assets'][0]['Uri'];
+            img.src = itemData['Assets'][0]['Uri'];
 
-        title.innerText = itemData['Title'];
+            title.innerText = itemData['Title'];
 
-        console.log(itemData);
+            item.appendChild(img);
+            item.appendChild(title);
 
-        item.appendChild(img);
-        item.appendChild(title);
-
-        this.itemsElement.appendChild(item);
+            this.liveElement.appendChild(item);
+        }.bind(this));
+        callback();
     }.bind(this));
 };

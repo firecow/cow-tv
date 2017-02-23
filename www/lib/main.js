@@ -1,8 +1,11 @@
 var windowLoaded = function() {
     var resize = new Resizer(),
-        itemManager = new ItemManager();
+        itemManager = new ItemManager(),
+        dpadNavigation = new DPadNavigation();
 
-    itemManager.showLiveTVItems();
+    itemManager.prepareLiveTVItems(function() {
+        dpadNavigation.selectElement(document.getElementsByClassName('item')[0])
+    }.bind(this));
     resize.onResize();
 };
 
