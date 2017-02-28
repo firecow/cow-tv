@@ -51,6 +51,10 @@ video {
     padding-bottom: 10px;
 }
 
+.item .img {
+    width: 600px;
+}
+
 .item {
     margin: 10px;
     background-color: #1c1c1c;
