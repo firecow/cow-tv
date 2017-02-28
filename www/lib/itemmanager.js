@@ -36,10 +36,6 @@ ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
                 img = document.createElement('img'),
                 title = document.createElement('div');
 
-            if (index === 0) {
-                this.dPadNavigation.selectItem(item);
-            }
-
             item.classList.add('item');
             img.classList.add('img');
             title.classList.add('title', 'text', 'font-size-small');

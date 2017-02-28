@@ -70,7 +70,16 @@ DPadNavigation.prototype.getSelectedItem = function() {
  */
 DPadNavigation.prototype.moveCursor = function(dx, dy) {
     var selectedItem = this.getSelectedItem(),
-        newSelectedItem = null;
+        newSelectedItem = null,
+        firstItem;
+
+    if (selectedItem === null) {
+        firstItem = document.getElementsByClassName('item')[0];
+        if (firstItem != null) {
+            this.selectItem(firstItem);
+        }
+        return;
+    }
 
     newSelectedItem = dx === -1 ? selectedItem.previousSibling || newSelectedItem : newSelectedItem;
     newSelectedItem = dx === 1 ? selectedItem.nextSibling || newSelectedItem : newSelectedItem;
