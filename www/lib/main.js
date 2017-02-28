@@ -1,11 +1,9 @@
 var windowLoaded = function() {
-    var resize = new Resizer(),
-        itemManager = new ItemManager(),
-        dpadNavigation = new DPadNavigation();
+    var dpadNavigation = new DPadNavigation(),
+        resize = new Resizer(dpadNavigation),
+        itemManager = new ItemManager(dpadNavigation);
 
-    itemManager.prepareLiveTVItems(function() {
-        dpadNavigation.selectElement(document.getElementsByClassName('item')[0])
-    }.bind(this));
+    itemManager.prepareLiveTVItems();
     resize.onResize();
 };
 

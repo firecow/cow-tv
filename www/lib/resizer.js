@@ -1,12 +1,20 @@
 /**
  * @constructor
+ * @param {DPadNavigation} dPadNavigation
  */
-Resizer = function() {
+Resizer = function(dPadNavigation) {
+
+    this.dPadNavigation = dPadNavigation;
 
     /**
-     * @type {Wrapper}
+     * @type {HTMLElement}
      */
-    this.content = new Wrapper(document.getElementById('content'));
+    this.scaler = document.getElementById('scaler');
+
+    /**
+     * @type {number}
+     */
+    this.source = 2160;
 
     window.addEventListener('resize', this.onResize.bind(this));
 };
@@ -15,29 +23,18 @@ Resizer = function() {
  * Window have been resized
  */
 Resizer.prototype.onResize = function() {
-    var content = this.content,
-        contentAspect = content.getAspect(),
-        contentWidth = content.getWidth(),
-        contentHeight = content.getHeight(),
-        screenAspect = this.getScreenAspect(),
-        screenWidth = this.getScreenWidth(),
-        screenHeight = this.getScreenHeight(),
-        ratio;
+    var scaler = this.scaler,
+        minScreenDimension = Math.min(this.getScreenWidth(), this.getScreenHeight()),
+        scale;
 
-    if (screenAspect < contentAspect) {
-        ratio = screenWidth / contentWidth;
-    } else {
-        ratio = screenHeight / contentHeight;
-    }
-    this.content.setScale(ratio, ratio);
-    this.content.setPosition((screenWidth - ratio * contentWidth) * 0.5, (screenHeight - ratio * contentHeight) * 0.5);
-};
+    scale = minScreenDimension / this.source;
 
-/**
- * @returns {number}
- */
-Resizer.prototype.getScreenAspect = function() {
-    return this.getScreenWidth() / this.getScreenHeight();
+    scaler.style.width = 1 / scale * this.getScreenWidth() + 'px';
+    scaler.style.height = 1 / scale * this.getScreenHeight() + 'px';
+    scaler.style.transform = 'scale(' + scale + ', ' + scale + ')';
+
+
+    this.dPadNavigation.layoutStrip();
 };
 
 /**

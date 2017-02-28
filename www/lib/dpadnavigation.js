@@ -2,10 +2,11 @@
  * @constructor
  */
 var DPadNavigation = function() {
+
     /**
-     * @type {string}
+     * @type {HTMLElement}
      */
-    this.selectedClassName = 'selected';
+    this.liveStrip = document.getElementById('live-strip');
 
     /**
      * @type {Object<number, function()>}
@@ -31,91 +32,108 @@ var DPadNavigation = function() {
         var keyCode = e.keyCode;
         if (this.keyDownCodeMap[keyCode]) {
             this.keyDownCodeMap[keyCode]();
-            // e.preventDefault();
+            e.preventDefault();
         }
     }.bind(this));
     window.addEventListener('keyup', function(e) {
         var keyCode = e.keyCode;
         if (this.keyUpCodeMap[keyCode]) {
             this.keyUpCodeMap[keyCode]();
-            // e.preventDefault();
+            e.preventDefault();
         }
     }.bind(this));
-};
 
-/**
- * @return {HTMLElement}
- */
-DPadNavigation.prototype.getSelectedElement = function() {
-    var selectedElements = document.getElementsByClassName(this.selectedClassName);
-    if (selectedElements.length === 1) {
-        return selectedElements[0];
-    } else if (selectedElements.length > 1) {
-        // Fail safe, is something went wrong.
-        selectedElements.forEach(function(selectedElement) {
-            selectedElement.classList.remove(this.selectedClassName);
-        }.bind(this));
-        selectedElements[0].classList.add(this.selectedClassName);
-        return selectedElements[0];
-    }
-    return null;
+    /**
+     * @type {HTMLDivElement}
+     */
+    this.liveChildren = document.getElementById('live_children');
 };
 
 
 /**
- * @return {number}
+ * @return {?HTMLElement}
  */
-DPadNavigation.prototype.getElementIndex = function(element) {
-    var i = 0;
-    while( (element = element.previousSibling) != null ) {
-        i++;
+DPadNavigation.prototype.getSelectedItem = function() {
+    var matches = document.querySelectorAll('.item.selected');
+    if (matches.length === 0) {
+        return null;
+    } else if (matches.length > 1) {
+        console.warn(matches.length + ' items selected');
+        return matches[0];
     }
-    return i;
+    return matches[0];
 };
 
 /**
- * @param {HTMLElement} element
+ * @param {number} dx
+ * @param {number} dy
  */
-DPadNavigation.prototype.selectElement = function(element) {
-    var selectedElement = this.getSelectedElement();
-    if (selectedElement) {
-        selectedElement.classList.remove(this.selectedClassName);
+DPadNavigation.prototype.moveCursor = function(dx, dy) {
+    var selectedItem = this.getSelectedItem(),
+        newSelectedItem = null;
+
+    newSelectedItem = dx === -1 ? selectedItem.previousSibling || newSelectedItem : newSelectedItem;
+    newSelectedItem = dx === 1 ? selectedItem.nextSibling || newSelectedItem : newSelectedItem;
+
+    if (newSelectedItem !== null) {
+        this.selectItem(newSelectedItem);
     }
-    element.classList.add(this.selectedClassName);
+};
+
+/**
+ * Selects this item.
+ * @param {HTMLElement} item
+ */
+DPadNavigation.prototype.selectItem = function(item) {
+    var selectedItem = this.getSelectedItem();
+
+    // Move selected
+    if (selectedItem !== null) {
+        selectedItem.classList.remove('selected');
+    }
+    item.classList.add('selected');
+    this.layoutStrip();
+};
+
+/**
+ * Layout selected item.
+ */
+DPadNavigation.prototype.layoutStrip = function() {
+    var item = this.getSelectedItem();
+
+    if (item === null) {
+        return;
+    }
+
+    this.liveStrip.scrollLeft = item.offsetLeft - this.liveStrip.offsetWidth * 0.5 + item.offsetWidth * 0.5;
 };
 
 /**
  * Move left pressed.
  */
 DPadNavigation.prototype.moveLeft = function() {
-    var selectedElement = this.getSelectedElement();
-    if (selectedElement.previousSibling) {
-        this.selectElement(selectedElement.previousSibling);
-    }
+    this.moveCursor(-1, 0);
 };
 
 /**
  * Move right pressed.
  */
 DPadNavigation.prototype.moveRight = function() {
-    var selectedElement = this.getSelectedElement();
-    if (selectedElement.nextSibling) {
-        this.selectElement(selectedElement.nextSibling);
-    }
+    this.moveCursor(1, 0);
 };
 
 /**
  * Move up pressed.
  */
 DPadNavigation.prototype.moveUp = function() {
-
+    this.moveCursor(0, -1);
 };
 
 /**
  * Move down pressed.
  */
 DPadNavigation.prototype.moveDown = function() {
-
+    this.moveCursor(0, 1);
 };
 
 /**

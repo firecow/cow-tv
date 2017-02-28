@@ -2,25 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="lib/wrapper.js"></script>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
     <script src="lib/resizer.js"></script>
     <script src="lib/main.js"></script>
     <script src="lib/jsongetrequest.js"></script>
     <script src="lib/itemmanager.js"></script>
     <script src="lib/dpadnavigation.js"></script>
+
     <title>Cow TV</title>
 </head>
 <body>
 <div id="background"></div>
-<div id="content">
-    <div id="navigation"></div>
-    <div id="liveheader">Live</div>
-    <div id="live"></div>
-    <div id="news"></div>
-    <div id="mostviewed"></div>
-</div>
+<div id="scaler">
 
+    <div class="header font-size-medium text">Live TV</div>
+
+    <div id="live-strip" class="strip">
+        <div id="live-children" class="children"></div>
+    </div>
+
+    <div class="header font-size-medium text">Populære</div>
+
+    <div id="popular-strip" class="strip">
+        <div id="popular-children" class="children"></div>
+    </div>
+
+    <div class="header font-size-medium text">Nyheder</div>
+
+    <div id="news-strip" class="strip">
+        <div id="news-children" class="children"></div>
+    </div>
+
+    <div class="header font-size-medium text">Favoritter</div>
+
+    <div id="favorite-stripe" class="strip">
+        <div id="favorite-children" class="children"></div>
+    </div>
+
+</div>
 
 </body>
 </html>
