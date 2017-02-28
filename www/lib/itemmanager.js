@@ -34,11 +34,18 @@ ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
         itemDatas.forEach(function(itemData, index) {
             var item = document.createElement('div'),
                 img = document.createElement('img'),
-                title = document.createElement('div');
+                title = document.createElement('div'),
+                streams, streamingServer ,quality;
 
             item.classList.add('item');
             img.classList.add('img');
             title.classList.add('title', 'text', 'font-size-small');
+
+            streamingServer = itemData['StreamingServers'][1];
+            quality = streamingServer['Qualities'][0];
+            streams = quality['Streams'][0];
+
+            item.dataset.videoUrl = streamingServer['Server'] + '/' + streams['Stream'];
 
             img.src = itemData['Assets'][0]['Uri'];
 

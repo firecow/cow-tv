@@ -1,5 +1,6 @@
 var windowLoaded = function() {
-    var dpadNavigation = new DPadNavigation(),
+    var videoPlayer = new VideoPlayer(),
+        dpadNavigation = new DPadNavigation(videoPlayer),
         resize = new Resizer(dpadNavigation),
         itemManager = new ItemManager(dpadNavigation);
 

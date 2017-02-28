@@ -1,7 +1,13 @@
 /**
  * @constructor
+ * @param {VideoPlayer} videoPlayer
  */
-var DPadNavigation = function() {
+var DPadNavigation = function(videoPlayer) {
+
+    /**
+     * @type {VideoPlayer}
+     */
+    this.videoPlayer = videoPlayer;
 
     /**
      * @type {HTMLElement}
@@ -149,7 +155,10 @@ DPadNavigation.prototype.moveDown = function() {
  * Enter pressed.
  */
 DPadNavigation.prototype.enter = function() {
-
+    var selectedItem = this.getSelectedItem();
+    if (selectedItem != null) {
+        this.videoPlayer.play(selectedItem.dataset.videoUrl);
+    }
 };
 
 /**
