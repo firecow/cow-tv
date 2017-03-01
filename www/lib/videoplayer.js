@@ -11,5 +11,5 @@ var VideoPlayer = function() {
  * @param {string} url
  */
 VideoPlayer.prototype.play = function(url) {
-
+    console.log(url);
 };
