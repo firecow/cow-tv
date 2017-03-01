@@ -29,7 +29,7 @@ var TouchNavigation = function() {
         var newTouch = e.changedTouches.item(0),
             dx;
         if (this.prevTouch.identifier === newTouch.identifier) {
-            dx = newTouch.clientX - this.prevTouch.clientX;
+            dx = this.prevTouch.clientX - newTouch.clientX;
             this.liveStrip.scrollLeft += dx * 1 / Resizer.getScale();
             this.prevTouch = newTouch;
         }
