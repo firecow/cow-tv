@@ -14,16 +14,6 @@ var DPadNavigation = function(videoPlayer) {
      */
     this.liveStrip = document.getElementById('live-strip');
 
-    // TODO: Create elements class.
-    this.liveStrip.addEventListener('touchstart', function(e) {
-        console.log('liveStrip touchstart', this, e.target);
-        e.preventDefault();
-    });
-    this.liveStrip.addEventListener('touchend', function(e) {
-        console.log('liveStrip touchend', this, e.target);
-        e.preventDefault();
-    });
-
     /**
      * @type {Object<number, function()>}
      */
