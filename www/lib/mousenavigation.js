@@ -20,6 +20,10 @@ var MouseNavigation = function() {
 
     this.prevMousePos = {x: 0, y: 0};
 
+    this.liveStrip.addEventListener('wheel', function(e) {
+        this.liveStrip.scrollLeft += e.deltaX;
+    }.bind(this));
+
     this.liveStrip.addEventListener('mousedown', function(e) {
         if (e.button === 0) {
             this.mouseDown = {x: e.offsetX, y: e.offsetY};
