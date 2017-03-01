@@ -4,17 +4,15 @@
  */
 Resizer = function(dPadNavigation) {
 
+    /**
+     * @type {DPadNavigation}
+     */
     this.dPadNavigation = dPadNavigation;
 
     /**
      * @type {HTMLElement}
      */
     this.scaler = document.getElementById('scaler');
-
-    /**
-     * @type {number}
-     */
-    this.source = 2160;
 
     window.addEventListener('resize', this.onResize.bind(this));
 };
@@ -24,29 +22,37 @@ Resizer = function(dPadNavigation) {
  */
 Resizer.prototype.onResize = function() {
     var scaler = this.scaler,
-        minScreenDimension = Math.min(this.getScreenWidth(), this.getScreenHeight()),
-        scale;
+        scale = Resizer.getScale();
 
-    scale = minScreenDimension / this.source;
-
-    scaler.style.width = 1 / scale * this.getScreenWidth() + 'px';
-    scaler.style.height = 1 / scale * this.getScreenHeight() + 'px';
+    scaler.style.width = 1 / scale * Resizer.getScreenWidth() + 'px';
+    scaler.style.height = 1 / scale * Resizer.getScreenHeight() + 'px';
     scaler.style.transform = 'scale(' + scale + ', ' + scale + ')';
 
 
     this.dPadNavigation.layoutStrip();
 };
 
+
+Resizer.source = 2160;
+
+/**
+ * @return {number}
+ */
+Resizer.getScale = function() {
+    var minScreenDimension = Math.min(Resizer.getScreenWidth(), Resizer.getScreenHeight());
+    return minScreenDimension / Resizer.source;
+};
+
 /**
  * @returns {number}
  */
-Resizer.prototype.getScreenWidth = function() {
+Resizer.getScreenWidth = function() {
     return window.innerWidth;
 };
 
 /**
  * @returns {number}
  */
-Resizer.prototype.getScreenHeight = function() {
+Resizer.getScreenHeight = function() {
     return window.innerHeight;
 };

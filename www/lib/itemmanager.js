@@ -1,13 +1,19 @@
 /**
  * @constructor
  * @param {DPadNavigation} dPadNavigation
+ * @param {MouseNavigation} mouseNavigation
  */
-var ItemManager = function(dPadNavigation) {
+var ItemManager = function(dPadNavigation, mouseNavigation) {
 
     /**
      * @type {DPadNavigation}
      */
     this.dPadNavigation = dPadNavigation;
+
+    /**
+     * @type {MouseNavigation}
+     */
+    this.mouseNavigation = mouseNavigation;
 
     /**
      * @type {HTMLDivElement}
@@ -31,7 +37,7 @@ ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
 
         itemDatas = request.getData()['Data'];
 
-        itemDatas.forEach(function(itemData, index) {
+        itemDatas.forEach(function(itemData) {
             var item = document.createElement('div'),
                 img = document.createElement('img'),
                 title = document.createElement('div'),
@@ -50,6 +56,15 @@ ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
             img.src = itemData['Assets'][0]['Uri'];
 
             title.innerText = itemData['Title'];
+
+            item.addEventListener('mousedown', function(e) {
+                this.mouseNavigation.mouseDownItem(item, e);
+                e.preventDefault();
+            }.bind(this));
+            item.addEventListener('mouseup', function(e) {
+                this.mouseNavigation.mouseUpItem(item, e);
+                e.preventDefault();
+            }.bind(this));
 
             item.appendChild(img);
             item.appendChild(title);
