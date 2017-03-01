@@ -18,8 +18,6 @@ var MouseNavigation = function() {
      */
     this.mouseDown = null;
 
-    this.prevMousePos = {x: 0, y: 0};
-
     this.liveStrip.addEventListener('wheel', function(e) {
         this.liveStrip.scrollLeft += e.deltaX;
     }.bind(this));
@@ -35,8 +33,6 @@ var MouseNavigation = function() {
         if (this.mouseDown !== null) {
             this.liveStrip.scrollLeft += e.movementX * 1 / Resizer.getScale();
         }
-        this.prevMousePos.x = e.offsetX;
-        this.prevMousePos.y = e.offsetY;
 
         this.downedItem = null;
         e.preventDefault();

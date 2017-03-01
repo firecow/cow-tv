@@ -2,8 +2,14 @@
  * @constructor
  * @param {DPadNavigation} dPadNavigation
  * @param {MouseNavigation} mouseNavigation
+ * @param {TouchNavigation} touchNavigation
  */
-var ItemManager = function(dPadNavigation, mouseNavigation) {
+var ItemManager = function(dPadNavigation, mouseNavigation, touchNavigation) {
+
+    /**
+     * @type {TouchNavigation}
+     */
+    this.touchNavigation = touchNavigation;
 
     /**
      * @type {DPadNavigation}
@@ -63,6 +69,14 @@ ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
             }.bind(this));
             item.addEventListener('mouseup', function(e) {
                 this.mouseNavigation.mouseUpItem(item, e);
+                e.preventDefault();
+            }.bind(this));
+            item.addEventListener('touchstart', function(e) {
+                this.touchNavigation.touchStartItem(item, e);
+                e.preventDefault();
+            }.bind(this));
+            item.addEventListener('touchend', function(e) {
+                this.touchNavigation.touchEndItem(item, e);
                 e.preventDefault();
             }.bind(this));
 
