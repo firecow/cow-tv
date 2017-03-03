@@ -21,6 +21,14 @@ ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
         }
 
         itemDatas = request.getData()['Data'];
+        itemDatas.sort(function(a, b) {
+            var aTitle = a['Title'].toUpperCase().replace(/\s+/g, ''),
+                bTitle = b['Title'].toUpperCase().replace(/\s+/g, '');
+            if (aTitle === bTitle) {
+                return 0;
+            }
+            return aTitle > bTitle;
+        });
 
         itemDatas.forEach(function(itemData) {
             var item = document.createElement('div'),
