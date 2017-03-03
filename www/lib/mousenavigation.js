@@ -38,6 +38,7 @@ MouseNavigation = function() {
         this.downedItem = null;
         e.preventDefault();
     }.bind(this));
+
     window.addEventListener('mouseup', function(e) {
         this.downedItem = null;
         this.mouseDown = null;
