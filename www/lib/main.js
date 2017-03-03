@@ -1,13 +1,16 @@
 var windowLoaded = function() {
-    var videoPlayer = new VideoPlayer(),
-        dpadNavigation = new DPadNavigation(videoPlayer),
-        mouseNavigation = new MouseNavigation(),
-        touchNavigation = new TouchNavigation(),
-        resize = new Resizer(dpadNavigation),
-        itemManager = new ItemManager(dpadNavigation, mouseNavigation, touchNavigation);
+    window.app = {
+        videoPlayer: new VideoPlayer(),
+        dPadNavigation: new DPadNavigation(),
+        mouseNavigation: new MouseNavigation(),
+        touchNavigation: new TouchNavigation(),
+        resizer: new Resizer(),
+        itemManager: new ItemManager()
 
-    itemManager.prepareLiveTVItems();
-    resize.onResize();
+    };
+
+    app.itemManager.prepareLiveTVItems();
+    app.resizer.onResize();
 };
 
 window.addEventListener('load', windowLoaded);

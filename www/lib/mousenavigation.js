@@ -1,12 +1,9 @@
 /**
  * @constructor
  */
-var MouseNavigation = function() {
-
-    /**
-     * @type {HTMLElement}
-     */
-    this.liveStrip = document.getElementById('live-strip');
+MouseNavigation = function() {
+    var mediaPlayer = document.getElementById('media-player'),
+        liveStrip = document.getElementById('live-strip');
 
     /**
      * @type {?HTMLElement}
@@ -18,11 +15,15 @@ var MouseNavigation = function() {
      */
     this.mouseDown = null;
 
-    this.liveStrip.addEventListener('wheel', function(e) {
-        this.liveStrip.scrollLeft += e.deltaX;
+    mediaPlayer.addEventListener('mouseup', function() {
+        app.videoPlayer.stop();
     }.bind(this));
 
-    this.liveStrip.addEventListener('mousedown', function(e) {
+    liveStrip.addEventListener('wheel', function(e) {
+        liveStrip.scrollLeft += e.deltaX * 1 / Resizer.getScale();
+    }.bind(this));
+
+    liveStrip.addEventListener('mousedown', function(e) {
         if (e.button === 0) {
             this.mouseDown = {x: e.offsetX, y: e.offsetY};
         }
@@ -31,7 +32,7 @@ var MouseNavigation = function() {
 
     window.addEventListener('mousemove', function(e) {
         if (this.mouseDown !== null) {
-            this.liveStrip.scrollLeft += e.movementX * 1 / Resizer.getScale();
+            liveStrip.scrollLeft += e.movementX * 1 / Resizer.getScale();
         }
 
         this.downedItem = null;
@@ -58,6 +59,6 @@ MouseNavigation.prototype.mouseDownItem = function(item, e) {
  */
 MouseNavigation.prototype.mouseUpItem = function(item, e) {
     if (this.downedItem !== null) {
-        console.log(this.downedItem.dataset.videoUrl);
+        app.videoPlayer.play(this.downedItem.dataset.videoUrl);
     }
 };

@@ -1,18 +1,7 @@
 /**
  * @constructor
- * @param {VideoPlayer} videoPlayer
  */
-var DPadNavigation = function(videoPlayer) {
-
-    /**
-     * @type {VideoPlayer}
-     */
-    this.videoPlayer = videoPlayer;
-
-    /**
-     * @type {HTMLElement}
-     */
-    this.liveStrip = document.getElementById('live-strip');
+DPadNavigation = function() {
 
     /**
      * @type {Object<number, function()>}
@@ -48,11 +37,6 @@ var DPadNavigation = function(videoPlayer) {
             e.preventDefault();
         }
     }.bind(this));
-
-    /**
-     * @type {HTMLDivElement}
-     */
-    this.liveChildren = document.getElementById('live_children');
 };
 
 
@@ -114,13 +98,14 @@ DPadNavigation.prototype.selectItem = function(item) {
  * Layout selected item.
  */
 DPadNavigation.prototype.layoutStrip = function() {
-    var item = this.getSelectedItem();
+    var item = this.getSelectedItem(),
+        liveStrip = document.getElementById('live-strip');
 
     if (item === null) {
         return;
     }
 
-    this.liveStrip.scrollLeft = item.offsetLeft - this.liveStrip.offsetWidth * 0.5 + item.offsetWidth * 0.5;
+    liveStrip.scrollLeft = item.offsetLeft - liveStrip.offsetWidth * 0.5 + item.offsetWidth * 0.5;
 };
 
 /**
@@ -156,14 +141,20 @@ DPadNavigation.prototype.moveDown = function() {
  */
 DPadNavigation.prototype.enter = function() {
     var selectedItem = this.getSelectedItem();
-    if (selectedItem != null) {
-        this.videoPlayer.play(selectedItem.dataset.videoUrl);
+
+    if (app.videoPlayer.isPlaying()) {
+        app.videoPlayer.stop();
+    } else if (selectedItem != null) {
+        app.videoPlayer.play(selectedItem.dataset.videoUrl);
     }
 };
 
 /**
  * Back button pressed.
+ *
  */
 DPadNavigation.prototype.back = function() {
-
+    if (app.videoPlayer.isPlaying()) {
+        app.videoPlayer.stop();
+    }
 };

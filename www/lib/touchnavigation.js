@@ -1,12 +1,10 @@
 /**
  * @constructor
  */
-var TouchNavigation = function() {
+TouchNavigation = function() {
+    var mediaPlayer = document.getElementById('media-player'),
+        liveStrip = document.getElementById('live-strip');
 
-    /**
-     * @type {HTMLElement}
-     */
-    this.liveStrip = document.getElementById('live-strip');
 
     /**
      * @type {{item: HTMLElement, touch: ?}}
@@ -18,7 +16,11 @@ var TouchNavigation = function() {
      */
     this.prevTouch = null;
 
-    this.liveStrip.addEventListener('touchstart', function(e) {
+    mediaPlayer.addEventListener('touchend', function() {
+         app.videoPlayer.stop();
+    }.bind(this));
+
+    liveStrip.addEventListener('touchstart', function(e) {
         if (this.prevTouch === null) {
             this.prevTouch = e.changedTouches.item(0);
         }
@@ -30,14 +32,14 @@ var TouchNavigation = function() {
             dx;
         if (this.prevTouch.identifier === newTouch.identifier) {
             dx = this.prevTouch.clientX - newTouch.clientX;
-            this.liveStrip.scrollLeft += dx * 1 / Resizer.getScale();
+            liveStrip.scrollLeft += dx * 1 / Resizer.getScale();
             this.prevTouch = newTouch;
         }
 
         this.downedItem = null;
     }.bind(this));
     window.addEventListener('touchend', function(e) {
-        if (e.changedTouches.item(0).identifier === this.prevTouch.identifier) {
+        if (this.prevTouch && e.changedTouches.item(0).identifier === this.prevTouch.identifier) {
             this.prevTouch = null;
         }
         e.preventDefault();
@@ -58,6 +60,6 @@ TouchNavigation.prototype.touchStartItem = function(item, e) {
  */
 TouchNavigation.prototype.touchEndItem = function(item, e) {
     if (this.downedItem !== null && this.downedItem.touch.identifier === e.changedTouches.item(0).identifier) {
-        console.log(this.downedItem.item.dataset.videoUrl);
+        app.videoPlayer.play(this.downedItem.item.dataset.videoUrl);
     }
 };

@@ -2,7 +2,7 @@
  * @constructor
  * @param {string} path
  */
-var JsonGetRequest = function(path) {
+JsonGetRequest = function(path) {
 
     /**
      * @type {XMLHttpRequest}

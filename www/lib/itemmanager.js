@@ -1,30 +1,8 @@
 /**
  * @constructor
- * @param {DPadNavigation} dPadNavigation
- * @param {MouseNavigation} mouseNavigation
- * @param {TouchNavigation} touchNavigation
  */
-var ItemManager = function(dPadNavigation, mouseNavigation, touchNavigation) {
+ItemManager = function() {
 
-    /**
-     * @type {TouchNavigation}
-     */
-    this.touchNavigation = touchNavigation;
-
-    /**
-     * @type {DPadNavigation}
-     */
-    this.dPadNavigation = dPadNavigation;
-
-    /**
-     * @type {MouseNavigation}
-     */
-    this.mouseNavigation = mouseNavigation;
-
-    /**
-     * @type {HTMLDivElement}
-     */
-    this.liveChildren = document.getElementById('live-children');
 };
 
 /**
@@ -32,7 +10,8 @@ var ItemManager = function(dPadNavigation, mouseNavigation, touchNavigation) {
  */
 ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
     var url = 'http://www.dr.dk/mu/bundle?BundleType=%22Channel%22&DrChannel=true&ChannelType=TV&WebChannel=false&ApprovedByEditor=true',
-        callback = opt_callback || function() {};
+        callback = opt_callback || function() {},
+        liveChildren = document.getElementById('live-children');
 
     JsonGetRequest.prepare(url, function(err, request) {
         var itemDatas;
@@ -64,26 +43,26 @@ ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
             title.innerText = itemData['Title'];
 
             item.addEventListener('mousedown', function(e) {
-                this.mouseNavigation.mouseDownItem(item, e);
+                app.mouseNavigation.mouseDownItem(item, e);
                 e.preventDefault();
             }.bind(this));
             item.addEventListener('mouseup', function(e) {
-                this.mouseNavigation.mouseUpItem(item, e);
+                app.mouseNavigation.mouseUpItem(item, e);
                 e.preventDefault();
             }.bind(this));
             item.addEventListener('touchstart', function(e) {
-                this.touchNavigation.touchStartItem(item, e);
+                app.touchNavigation.touchStartItem(item, e);
                 e.preventDefault();
             }.bind(this));
             item.addEventListener('touchend', function(e) {
-                this.touchNavigation.touchEndItem(item, e);
+                app.touchNavigation.touchEndItem(item, e);
                 e.preventDefault();
             }.bind(this));
 
             item.appendChild(img);
             item.appendChild(title);
 
-            this.liveChildren.appendChild(item);
+            liveChildren.appendChild(item);
         }.bind(this));
         callback();
     }.bind(this));

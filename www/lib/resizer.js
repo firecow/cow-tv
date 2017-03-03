@@ -1,19 +1,7 @@
 /**
  * @constructor
- * @param {DPadNavigation} dPadNavigation
  */
-Resizer = function(dPadNavigation) {
-
-    /**
-     * @type {DPadNavigation}
-     */
-    this.dPadNavigation = dPadNavigation;
-
-    /**
-     * @type {HTMLElement}
-     */
-    this.scaler = document.getElementById('scaler');
-
+Resizer = function() {
     window.addEventListener('resize', this.onResize.bind(this));
 };
 
@@ -21,7 +9,7 @@ Resizer = function(dPadNavigation) {
  * Window have been resized
  */
 Resizer.prototype.onResize = function() {
-    var scaler = this.scaler,
+    var scaler = document.getElementById('scaler'),
         scale = Resizer.getScale();
 
     scaler.style.width = 1 / scale * Resizer.getScreenWidth() + 'px';
@@ -29,7 +17,7 @@ Resizer.prototype.onResize = function() {
     scaler.style.transform = 'scale(' + scale + ', ' + scale + ')';
 
 
-    this.dPadNavigation.layoutStrip();
+    app.dPadNavigation.layoutStrip();
 };
 
 
