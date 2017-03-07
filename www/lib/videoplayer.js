@@ -24,15 +24,14 @@ VideoPlayer.prototype.play = function(url) {
 
     console.log(url);
     this.mediaPlayer.classList.remove('hidden');
+
+    this.video.src = url;
     if(Hls.isSupported()) {
         hls = new Hls();
         hls.loadSource(url);
         hls.attachMedia(video);
-        this.video.autoplay = true;
-    } else {
-        this.video.src = url;
-        this.video.autoplay = true;
     }
+    this.video.play();
 
 };
 
