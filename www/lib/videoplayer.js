@@ -28,9 +28,7 @@ VideoPlayer.prototype.play = function(url) {
         hls = new Hls();
         hls.loadSource(url);
         hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function () {
-            video.play();
-        });
+        this.video.autoplay = true;
     } else {
         this.video.src = url;
         this.video.autoplay = true;
