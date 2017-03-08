@@ -16,3 +16,6 @@ Getting Started:
 - `npm install`
 - `npm run webserver -- -p 8081`
 - Open http://localhost:8081 in a browser
+
+
+You can see the app running here http://tv.firecow.dk
