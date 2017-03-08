@@ -1,0 +1,6 @@
+/**
+ * @constructor
+ */
+BeamMedia = function() {
+
+};
