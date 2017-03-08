@@ -24,6 +24,10 @@ video {
     height: 100%;
 }
 
+video::-webkit-media-controls {
+    display: none;
+}
+
 #scaler {
     position:absolute;
     transform-origin: 0 0 0;
