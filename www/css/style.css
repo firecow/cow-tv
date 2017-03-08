@@ -36,6 +36,12 @@ video::-webkit-media-controls {
     background-color: #1c1c1c;
     padding: 20px;
     margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#top-bar-right-aligned {
+    margin-left: auto;
 }
 
 #scaler {
