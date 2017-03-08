@@ -4,6 +4,7 @@
   "description": "A media browser for danish state radio and televsion, using http://dr.dk/mu REST API",
   "scripts": {
     "cordova": "cordova",
+    "run-android": "cordova run android",
     "webserver": "http-server www/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
