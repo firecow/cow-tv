@@ -4,6 +4,7 @@ var windowLoaded = function() {
         dPadNavigation: new DPadNavigation(),
         mouseNavigation: new MouseNavigation(),
         touchNavigation: new TouchNavigation(),
+        fullscreenApi: new FullscreenApi(),
         resizer: new Resizer(),
         itemManager: new ItemManager()
 
