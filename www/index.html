@@ -15,7 +15,9 @@
     <script src="lib/dpadnavigation.js"></script>
     <script src="lib/mousenavigation.js"></script>
     <script src="lib/touchnavigation.js"></script>
+    <script src="lib/fullscreenapi.js"></script>
     <script src="lib/videoplayer.js"></script>
+    <script src="lib/beammedia.js"></script>
     <script src="vendor/hls.js"></script>
     <script src="cordova.js"></script>
 
@@ -23,33 +25,67 @@
 </head>
 <body>
 <div id="background"></div>
+
 <div id="scaler">
 
-    <div class="header font-size-medium text">Live TV</div>
-
-    <div id="live-strip" class="strip">
-        <div id="live-children" class="children"></div>
+    <div id="top-bar">
+        <div id="fullscreen-icon" class="icon-holder hidden">
+            <svg id="fullscreen-disabled" class="icon" viewBox="0 0 24 24">
+                <use xlink:href="media/fullscreen.svg#request"></use>
+            </svg>
+            <svg id="fullscreen-enabled" class="icon hidden" viewBox="0 0 24 24">
+                <use xlink:href="media/fullscreen.svg#exit"></use>
+            </svg>
+        </div>
+        <div id="cast-icon" class="icon-holder hidden">
+            <svg class="icon" viewBox="0 0 24 24">
+                <use xlink:href="media/cast.svg#normal"></use>
+            </svg>
+            <svg class="icon hidden" viewBox="0 0 24 24">
+                <use xlink:href="media/cast.svg#anim_0"></use>
+            </svg>
+            <svg class="icon hidden" viewBox="0 0 24 24">
+                <use xlink:href="media/cast.svg#anim_1"></use>
+            </svg>
+            <svg class="icon hidden" viewBox="0 0 24 24">
+                <use xlink:href="media/cast.svg#anim_2"></use>
+            </svg>
+            <svg class="icon hidden" viewBox="0 0 24 24">
+                <use xlink:href="media/cast.svg#connected"></use>
+            </svg>
+        </div>
     </div>
 
-    <div class="header font-size-medium text">Populære</div>
+    <div id="home-content">
+        <div class="header font-size-medium text">Live TV</div>
 
-    <div id="popular-strip" class="strip">
-        <div id="popular-children" class="children"></div>
-    </div>
+        <div id="live-strip" class="strip">
+            <div id="live-children" class="children"></div>
+        </div>
 
-    <div class="header font-size-medium text">Nyheder</div>
+        <div class="header font-size-medium text">Populære</div>
 
-    <div id="news-strip" class="strip">
-        <div id="news-children" class="children"></div>
-    </div>
+        <div id="popular-strip" class="strip">
+            <div id="popular-children" class="children"></div>
+        </div>
 
-    <div class="header font-size-medium text">Favoritter</div>
+        <div class="header font-size-medium text">Nyheder</div>
 
-    <div id="favorite-stripe" class="strip">
-        <div id="favorite-children" class="children"></div>
+        <div id="news-strip" class="strip">
+            <div id="news-children" class="children"></div>
+        </div>
+
+        <div class="header font-size-medium text">Favoritter</div>
+
+        <div id="favorite-stripe" class="strip">
+            <div id="favorite-children" class="children"></div>
+        </div>
     </div>
 
 </div>
+
+
+
 <div id="media-player" class="hidden">
     <video id="video"></video>
 </div>
