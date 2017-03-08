@@ -17,8 +17,6 @@ VideoPlayer.prototype.play = function(url) {
     console.log(url);
     mediaPlayer.classList.remove('hidden');
 
-    app.fullscreenApi.requestFullscreen(video);
-
     video.src = url;
     if(Hls.isSupported()) {
         hls = new Hls();
@@ -47,7 +45,5 @@ VideoPlayer.prototype.stop = function() {
     if (this.isPlaying()) {
         mediaPlayer.classList.add('hidden');
         video.pause();
-
-        app.fullscreenApi.exitFullscreen(video);
     }
 };

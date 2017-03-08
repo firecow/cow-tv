@@ -6,7 +6,8 @@ var windowLoaded = function() {
         touchNavigation: new TouchNavigation(),
         fullscreenApi: new FullscreenApi(),
         resizer: new Resizer(),
-        itemManager: new ItemManager()
+        itemManager: new ItemManager(),
+        beamMedia: new BeamMedia()
 
     };
 
