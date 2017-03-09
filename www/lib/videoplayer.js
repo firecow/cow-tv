@@ -45,5 +45,8 @@ VideoPlayer.prototype.stop = function() {
     if (this.isPlaying()) {
         mediaPlayer.classList.add('hidden');
         video.pause();
+        video.currentTime = 0;
+        video.src = '';
+        video.load();
     }
 };
