@@ -1,8 +1,21 @@
 /**
  * @constructor
  */
-var VideoPlayer = function() {
+VideoPlayer = function() {
+    var video = document.getElementById('video'),
+        spinner = document.getElementById('spinner'),
+        mediaPlayer = document.getElementById('media-player');
 
+    video.addEventListener('loadstart', function() {
+        spinner.classList.remove('hidden');
+    });
+    video.addEventListener('loadeddata', function() {
+        spinner.classList.add('hidden');
+    });
+    video.addEventListener('error', function() {
+        spinner.classList.add('hidden');
+        mediaPlayer.classList.add('hidden');
+    });
 };
 
 
@@ -12,6 +25,7 @@ var VideoPlayer = function() {
 VideoPlayer.prototype.play = function(url) {
     var video = document.getElementById('video'),
         mediaPlayer = document.getElementById('media-player'),
+        spinner = document.getElementById('spinner'),
         hls;
 
     console.log(url);
