@@ -50,20 +50,16 @@ ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
 
             title.innerText = itemData['Title'];
 
-            item.addEventListener('mousedown', function(e) {
-                app.mouseNavigation.mouseDownItem(item, e);
-                e.preventDefault();
-            }.bind(this));
             item.addEventListener('mouseup', function(e) {
-                app.mouseNavigation.mouseUpItem(item, e);
-                e.preventDefault();
-            }.bind(this));
-            item.addEventListener('touchstart', function(e) {
-                app.touchNavigation.touchStartItem(item, e);
+                if (app.scrollingControl.totalDx < 5) {
+                    app.videoPlayer.play(item.dataset.videoUrl);
+                }
                 e.preventDefault();
             }.bind(this));
             item.addEventListener('touchend', function(e) {
-                app.touchNavigation.touchEndItem(item, e);
+                if (app.scrollingControl.totalDx < 5) {
+                    app.videoPlayer.play(item.dataset.videoUrl);
+                }
                 e.preventDefault();
             }.bind(this));
 
