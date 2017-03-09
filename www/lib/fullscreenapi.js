@@ -3,13 +3,28 @@
  */
 FullscreenApi = function() {
     var fullscreenIcon = document.getElementById('fullscreen-icon'),
-        clickFunction;
+        clickFunction,
+        iconChangeFunction;
 
     if (this.isFullscreenSupported()) {
+        iconChangeFunction = function() {
+            if (this.isInFullscreen()) {
+                document.getElementById('fullscreen-enabled').classList.remove('hidden');
+                document.getElementById('fullscreen-disabled').classList.add('hidden');
+            } else {
+                document.getElementById('fullscreen-enabled').classList.add('hidden');
+                document.getElementById('fullscreen-disabled').classList.remove('hidden');
+            }
+        }.bind(this);
+
+
+        document.addEventListener('fullscreenchange', iconChangeFunction);
+        document.addEventListener('webkitfullscreenchange', iconChangeFunction);
+        document.addEventListener('mozfullscreenchange', iconChangeFunction);
+        document.addEventListener('MSFullscreenChange', iconChangeFunction);
+
         clickFunction = function() {
             this.toggleFullscreen();
-            document.getElementById('fullscreen-enabled').classList.toggle('hidden');
-            document.getElementById('fullscreen-disabled').classList.toggle('hidden');
         }.bind(this);
         fullscreenIcon.addEventListener('touchend', clickFunction);
         fullscreenIcon.addEventListener('mouseup', clickFunction);
@@ -38,10 +53,12 @@ FullscreenApi.prototype.toggleFullscreen = function() {
  * @return {boolean}
  */
 FullscreenApi.prototype.isInFullscreen = function() {
+    var fullscreenElement;
     if (window.cordova) {
         return false;
     }
-    return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement || document.msFullscreenElement || false;
+    fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement || document.msFullscreenElement;
+    return fullscreenElement != null;
 };
 
 /**
