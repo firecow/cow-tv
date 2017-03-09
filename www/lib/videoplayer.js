@@ -31,14 +31,19 @@ VideoPlayer.prototype.play = function(url) {
     console.log(url);
     mediaPlayer.classList.remove('hidden');
 
-    video.src = url;
-    if(Hls.isSupported()) {
-        hls = new Hls();
-        hls.loadSource(url);
-        hls.attachMedia(video);
+    try {
+        video.src = url;
+        if(Hls.isSupported()) {
+            hls = new Hls();
+            hls.loadSource(url);
+            hls.attachMedia(video);
+        }
+        video.play();
+    } catch(e) {
+        spinner.classList.add('hidden');
+        mediaPlayer.classList.add('hidden');
+        console.error(e);
     }
-    video.play();
-
 };
 
 /**
