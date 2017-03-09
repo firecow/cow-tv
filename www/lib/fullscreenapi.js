@@ -9,11 +9,11 @@ FullscreenApi = function() {
     if (this.isFullscreenSupported()) {
         iconChangeFunction = function() {
             if (this.isInFullscreen()) {
-                document.getElementById('fullscreen-enabled').classList.remove('hidden');
-                document.getElementById('fullscreen-disabled').classList.add('hidden');
+                document.getElementById('exit-fullscreen').classList.remove('hidden');
+                document.getElementById('enable-fullscreen').classList.add('hidden');
             } else {
-                document.getElementById('fullscreen-enabled').classList.add('hidden');
-                document.getElementById('fullscreen-disabled').classList.remove('hidden');
+                document.getElementById('exit-fullscreen').classList.add('hidden');
+                document.getElementById('enable-fullscreen').classList.remove('hidden');
             }
         }.bind(this);
 
