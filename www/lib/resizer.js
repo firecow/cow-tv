@@ -10,12 +10,16 @@ Resizer = function() {
  */
 Resizer.prototype.onResize = function() {
     var scaler = document.getElementById('scaler'),
+        spinner = document.getElementById('spinner'),
         scale = Resizer.getScale();
 
     scaler.style.width = 1 / scale * Resizer.getScreenWidth() + 'px';
     scaler.style.height = 1 / scale * Resizer.getScreenHeight() + 'px';
     scaler.style.transform = 'scale(' + scale + ', ' + scale + ')';
 
+    spinner.style.width = 1 / scale * Resizer.getScreenWidth() + 'px';
+    spinner.style.height = 1 / scale * Resizer.getScreenHeight() + 'px';
+    spinner.style.transform = 'scale(' + scale + ', ' + scale + ')';
 
     app.dPadNavigation.layoutStrip();
 };

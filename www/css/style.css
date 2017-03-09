@@ -32,6 +32,19 @@ video::-webkit-media-controls {
     height: 100%;
 }
 
+#spinner {
+    position: absolute;
+    background-color: #000000;
+    transform-origin: 0 0 0;
+}
+
+#spinner-icon {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 #top-bar {
     background-color: #1c1c1c;
     padding: 20px;
