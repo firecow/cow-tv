@@ -9,7 +9,7 @@ ItemManager = function() {
  * @param {function()=} opt_callback
  */
 ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
-    var url = 'http://www.dr.dk/mu/bundle?BundleType=%22Channel%22&DrChannel=true&ChannelType=TV&WebChannel=false&ApprovedByEditor=true',
+    var url = 'https://www.dr.dk/mu/bundle?BundleType=%22Channel%22&DrChannel=true&ChannelType=TV&WebChannel=false',
         callback = opt_callback || function() {},
         liveChildren = document.getElementById('live-children');
 
@@ -21,6 +21,7 @@ ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
         }
 
         itemDatas = request.getData()['Data'];
+
         itemDatas.sort(function(a, b) {
             var aTitle = a['Title'].toUpperCase().replace(/\s+/g, ''),
                 bTitle = b['Title'].toUpperCase().replace(/\s+/g, '');
@@ -31,22 +32,32 @@ ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
         });
 
         itemDatas.forEach(function(itemData) {
-            var item = document.createElement('div'),
-                img = document.createElement('img'),
-                title = document.createElement('div'),
-                streams, streamingServer ,quality;
+            var streamingServers = itemData['StreamingServers'];
+            if (!streamingServers || streamingServers.length == 0) {
+                return;
+            }
+
+            var item = document.createElement('div');
+            var img = document.createElement('img');
+            var title = document.createElement('div');
 
             item.classList.add('item');
             img.classList.add('img');
             title.classList.add('title', 'text', 'font-size-small');
 
-            streamingServer = itemData['StreamingServers'][1];
-            quality = streamingServer['Qualities'][0];
-            streams = quality['Streams'][0];
+            var streamingServer = itemData['StreamingServers'][1];
+            var quality = streamingServer['Qualities'][0];
+            var streams = quality['Streams'][0];
 
             item.dataset.videoUrl = streamingServer['Server'] + '/' + streams['Stream'];
 
-            img.src = itemData['Assets'][0]['Uri'];
+            var assets = itemData['Assets'];
+            var asset = assets.find(function(a) {
+                return a['Name'].indexOf("PAUSEBILLEDE") === -1;
+            });
+            asset = asset || assets[0];
+
+            img.src = asset['Uri'];
 
             title.innerText = itemData['Title'];
 
