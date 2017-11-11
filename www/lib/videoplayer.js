@@ -15,6 +15,7 @@ VideoPlayer = function() {
     video.addEventListener('error', function() {
         spinner.classList.add('hidden');
         mediaPlayer.classList.add('hidden');
+        video.classList.add('hidden');
     });
 };
 
@@ -30,6 +31,7 @@ VideoPlayer.prototype.play = function(url) {
 
     console.log(url);
     mediaPlayer.classList.remove('hidden');
+    video.classList.remove('hidden');
 
     try {
         video.src = url;
@@ -41,6 +43,7 @@ VideoPlayer.prototype.play = function(url) {
         video.play();
     } catch(e) {
         spinner.classList.add('hidden');
+        video.classList.add('hidden');
         mediaPlayer.classList.add('hidden');
         console.error(e);
     }
@@ -63,6 +66,7 @@ VideoPlayer.prototype.stop = function() {
 
     if (this.isPlaying()) {
         mediaPlayer.classList.add('hidden');
+        video.classList.add('hidden');
         video.pause();
         video.currentTime = 0;
         video.removeAttribute('src');
