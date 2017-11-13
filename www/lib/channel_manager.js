@@ -67,7 +67,7 @@ ChannelManager.prototype.prepareLiveChannelsStrip = function () {
         var quality = channel.streamingServer['Qualities'][0];
         var streams = quality['Streams'][0];
 
-        var tile = new Tile(channel.logoUrl, channel.title, channel.streamingServer['Server'] + '/' + streams['Stream']);
+        var tile = new Tile(channel.logoUrl, channel.title, channel.streamingServer['Server'] + '/' + streams['Stream'], Tile.type.EPISODE);
 
         liveChildren.appendChild(tile.createDOMElement());
 

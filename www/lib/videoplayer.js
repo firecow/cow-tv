@@ -23,7 +23,7 @@ VideoPlayer = function() {
 /**
  * @param {string} url
  */
-VideoPlayer.prototype.play = function(url) {
+VideoPlayer.prototype.play = function(url, type) {
     var video = document.getElementById('video'),
         mediaPlayer = document.getElementById('media-player'),
         spinner = document.getElementById('spinner'),
@@ -41,10 +41,19 @@ VideoPlayer.prototype.play = function(url) {
             hls.attachMedia(video);
         }
         video.play();
+        switch(type) {
+            case Tile.type.LIVE_CHANNEL:
+                app.state = app.states.PLAYING_LIVE_CHANNEL;
+                break;
+            case Tile.type.EPISODE:
+                app.state = app.states.PLAYING_EPISODE;
+                break;
+        }
     } catch(e) {
         spinner.classList.add('hidden');
         video.classList.add('hidden');
         mediaPlayer.classList.add('hidden');
+        app.state = app.states.DEFAULT;
         console.error(e);
     }
 };
