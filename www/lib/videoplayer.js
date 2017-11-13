@@ -6,9 +6,6 @@ VideoPlayer = function() {
         spinner = document.getElementById('spinner'),
         mediaPlayer = document.getElementById('media-player');
 
-    video.addEventListener('loadstart', function() {
-        spinner.classList.remove('hidden');
-    });
     video.addEventListener('loadeddata', function() {
         spinner.classList.add('hidden');
     });
@@ -29,7 +26,7 @@ VideoPlayer.prototype.play = function(url) {
         spinner = document.getElementById('spinner'),
         hls;
 
-    console.log(url);
+    spinner.classList.remove('hidden');
     mediaPlayer.classList.remove('hidden');
     video.classList.remove('hidden');
 
