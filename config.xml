@@ -12,7 +12,7 @@
     <allow-intent href="*" />
     <access origin="*" />
     <platform name="android">
-        <preference name="android-minSdkVersion" value="22" />
+        <preference name="android-minSdkVersion" value="23" />
         <allow-intent href="market:*" />
     </platform>
     <engine name="android" spec="^6.3.0" />
