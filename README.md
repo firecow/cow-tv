@@ -19,3 +19,12 @@ Getting Started:
 
 
 You can see the app running here http://tv.firecow.dk
+
+## webOs 3.5
+Packing and installing on device:
+- Open webOS CLI
+- Navigate to the folder containing the project
+- Setup device with: `ares-setup-device`
+- Create IPK with: `ares-package ./cow-tv`
+- Install to device with: `ares-install --device [name_of_device] [path_to_ipk]` 
+ie. `ares-install --device emulator ./dk.rocha.dr-tv-player_0.0.1_all.ipk`
