@@ -31,12 +31,11 @@ VideoPlayer.prototype.play = function(url) {
     video.classList.remove('hidden');
 
     try {
+        video.src = url;
         if(Hls.isSupported()) {
             hls = new Hls();
             hls.loadSource(url);
             hls.attachMedia(video);
-        } else {
-            video.src = url;
         }
         video.play();
     } catch(e) {
