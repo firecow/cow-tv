@@ -21,10 +21,11 @@ VideoPlayer = function() {
  * @param {string} url
  */
 VideoPlayer.prototype.play = function(url) {
-    var video = document.getElementById('video'),
-        mediaPlayer = document.getElementById('media-player'),
-        spinner = document.getElementById('spinner'),
-        hls;
+    var video = document.getElementById('video');
+    var mediaPlayer = document.getElementById('media-player');
+    var spinner = document.getElementById('spinner');
+    var isCordova = !!window.cordova;
+    var hls;
 
     spinner.classList.remove('hidden');
     mediaPlayer.classList.remove('hidden');
@@ -32,7 +33,7 @@ VideoPlayer.prototype.play = function(url) {
 
     try {
         video.src = url;
-        if(Hls.isSupported()) {
+        if(Hls.isSupported() && !isCordova) {
             hls = new Hls();
             hls.loadSource(url);
             hls.attachMedia(video);
