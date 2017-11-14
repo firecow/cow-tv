@@ -11,6 +11,7 @@
     <content src="index.html" />
     <allow-intent href="*" />
     <access origin="*" />
+    <preference name="Fullscreen" value="true" />
     <platform name="android">
         <preference name="android-minSdkVersion" value="23" />
         <allow-intent href="market:*" />
