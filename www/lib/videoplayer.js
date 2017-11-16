@@ -6,6 +6,9 @@ VideoPlayer = function() {
         spinner = document.getElementById('spinner'),
         mediaPlayer = document.getElementById('media-player');
 
+    video.addEventListener("click", function(e) {
+        app.clickHandler.onVideoPlayerClick(e);
+    });
     video.addEventListener('loadeddata', function() {
         spinner.classList.add('hidden');
     });

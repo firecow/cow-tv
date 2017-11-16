@@ -8,23 +8,23 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
+    <script src="vendor/hls.js"></script>
+    <script src="vendor/dragscroll.js"></script>
     <script src="polyfill/arraypoly.js"></script>
+    <script src="lib/clickhandler.js"></script>
     <script src="lib/resizer.js"></script>
     <script src="lib/main.js"></script>
     <script src="lib/jsongetrequest.js"></script>
     <script src="lib/itemmanager.js"></script>
     <script src="lib/dpadnavigation.js"></script>
-    <script src="lib/scrollingcontrol.js"></script>
     <script src="lib/fullscreenapi.js"></script>
     <script src="lib/videoplayer.js"></script>
-    <script src="lib/beammedia.js"></script>
-    <script src="vendor/hls.js"></script>
+
     <script src="cordova.js"></script>
 
     <title>Cow TV</title>
 </head>
 <body>
-<div id="background"></div>
 
 <div id="scaler">
 
@@ -59,32 +59,23 @@
         </div>
     </div>
 
-    <div id="home-content">
-        <div class="header font-size-medium text">Live TV</div>
+    <div id="home-content" class="dragscroll noselect">
+        <div class="header font-size-medium text noselect">Live TV</div>
 
-        <div id="live-strip" class="strip">
-            <div id="live-children" class="children"></div>
-        </div>
+        <div id="live-strip" class="strip dragscroll"></div>
 
-        <div class="header font-size-medium text">Populære</div>
+        <div class="header font-size-medium text noselect">Populære</div>
 
-        <div id="popular-strip" class="strip">
-            <div id="popular-children" class="children"></div>
-        </div>
+        <div id="popular-strip" class="strip dragscroll"></div>
 
-        <div class="header font-size-medium text">Nyheder</div>
+        <div class="header font-size-medium text noselect">Nyheder</div>
 
-        <div id="news-strip" class="strip">
-            <div id="news-children" class="children"></div>
-        </div>
+        <div id="news-strip" class="strip dragscroll"></div>
 
-        <div class="header font-size-medium text">Favoritter</div>
+        <div class="header font-size-medium text noselect title">Favoritter</div>
 
-        <div id="favorite-stripe" class="strip">
-            <div id="favorite-children" class="children"></div>
-        </div>
+        <div id="favorite-strip" class="strip dragscroll"></div>
     </div>
-
 </div>
 
 <div id="media-player" class="hidden">

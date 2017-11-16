@@ -11,7 +11,10 @@ ItemManager = function() {
 ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
     var url = 'https://www.dr.dk/mu/bundle?BundleType=%22Channel%22&DrChannel=true&ChannelType=TV&WebChannel=false',
         callback = opt_callback || function() {},
-        liveChildren = document.getElementById('live-children');
+        liveStrip = document.getElementById('live-strip'),
+        newsStrip = document.getElementById('news-strip'),
+        favoriteStrip = document.getElementById('favorite-strip'),
+        popularStrip = document.getElementById('popular-strip');
 
     JsonGetRequest.prepare(url, function(err, request) {
         var itemDatas;
@@ -44,6 +47,7 @@ ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
             item.classList.add('item');
             img.classList.add('img');
             title.classList.add('title', 'text', 'font-size-small');
+            img.draggable = false;
 
             var streamingServer = itemData['StreamingServers'][1];
             var quality = streamingServer['Qualities'][0];
@@ -61,23 +65,14 @@ ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
 
             title.innerText = itemData['Title'];
 
-            item.addEventListener('mouseup', function(e) {
-                if (app.scrollingControl.totalDx < 5) {
-                    app.videoPlayer.play(item.dataset.videoUrl);
-                }
-                e.preventDefault();
-            }.bind(this));
-            item.addEventListener('touchend', function(e) {
-                if (app.scrollingControl.totalDx < 5) {
-                    app.videoPlayer.play(item.dataset.videoUrl);
-                }
-                e.preventDefault();
-            }.bind(this));
+            item.addEventListener('click', function() {
+                app.clickHandler.onItemClick(item);
+            }, false);
 
             item.appendChild(img);
             item.appendChild(title);
 
-            liveChildren.appendChild(item);
+            liveStrip.appendChild(item);
         }.bind(this));
         callback();
     }.bind(this));

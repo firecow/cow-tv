@@ -2,12 +2,10 @@ var windowLoaded = function() {
     window.app = {
         videoPlayer: new VideoPlayer(),
         dPadNavigation: new DPadNavigation(),
-        scrollingControl: new ScrollingControl(),
         fullscreenApi: new FullscreenApi(),
+        clickHandler: new ClickHandler(),
         resizer: new Resizer(),
-        itemManager: new ItemManager(),
-        beamMedia: new BeamMedia()
-
+        itemManager: new ItemManager()
     };
 
     app.itemManager.prepareLiveTVItems();
