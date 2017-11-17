@@ -9,7 +9,7 @@ ItemManager = function() {
  * @param {function()=} opt_callback
  */
 ItemManager.prototype.prepareLiveStrip = function(opt_callback) {
-    var url = 'https://www.dr.dk/mu/bundle?BundleType="Channel"&ChannelType=TV&WebChannel=false&StreamingServers=$exists(true)&Slug=$orderby("asc")',
+    var url = 'https://www.dr.dk/mu-online/api/1.4/channel/all-active-dr-tv-channels',
         callback = opt_callback || function() {},
         liveStrip = document.getElementById('live-strip'),
         request = new JsonGetRequest(url);
@@ -20,10 +20,10 @@ ItemManager.prototype.prepareLiveStrip = function(opt_callback) {
             throw err;
         }
 
-        itemDatas = request.getData()['Data'];
-
-        // Hack
-        // Can't find a way to sort the way we want in the dr.dk/mu query language
+        itemDatas = request.getData();
+        itemDatas = itemDatas.filter(function(itemData) {
+            return itemData['WebChannel'] === false;
+        });
         itemDatas.sort(function(a, b) {
             var aTitle = a['Title'].toUpperCase().replace(/\s+/g, ''),
                 bTitle = b['Title'].toUpperCase().replace(/\s+/g, '');
@@ -32,11 +32,12 @@ ItemManager.prototype.prepareLiveStrip = function(opt_callback) {
             }
             return aTitle > bTitle;
         });
-        // End Hack
 
-        itemDatas.forEach(function(itemData) {
+        for (var i = 0; i < itemDatas.length; i++) {
+            var itemData = itemDatas[i];
             liveStrip.appendChild(this.createItem(itemData));
-        }.bind(this));
+        }
+
         callback();
     }.bind(this));
 };
@@ -55,7 +56,7 @@ ItemManager.prototype.createItem = function(itemData) {
 
     img.classList.add('img');
     img.draggable = false;
-    img.src = this.getAssetUrl(itemData)['Uri'];
+    img.src = itemData['PrimaryImageUri'];
 
     title.classList.add('title', 'text', 'font-size-small');
     title.innerText = itemData['Title'];
