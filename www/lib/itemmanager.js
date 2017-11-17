@@ -48,7 +48,7 @@ ItemManager.prototype.prepareLiveStrip = function(opt_callback) {
 ItemManager.prototype.prepareMostViewed = function(opt_callback) {
     var url = 'https://www.dr.dk/mu-online/api/1.4/list/view/mostviewed?channeltype=TV',
         callback = opt_callback || function() {},
-        popularStrip = document.getElementById('popular-strip'),
+        mostviewedStrip = document.getElementById('mostviewed-strip'),
         request = new JsonGetRequest(url);
 
     request.prepare(function(err, request) {
@@ -60,7 +60,7 @@ ItemManager.prototype.prepareMostViewed = function(opt_callback) {
         data = request.getData();
         for (var i = 0; i < data['Items'].length; i++) {
             var itemData = data['Items'][i];
-            popularStrip.appendChild(this.createItem(itemData));
+            mostviewedStrip.appendChild(this.createItem(itemData));
         }
 
         callback();
