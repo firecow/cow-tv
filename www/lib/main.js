@@ -9,7 +9,7 @@ var windowLoaded = function() {
         itemManager: new ItemManager()
     };
 
-    app.itemManager.prepareLiveTVItems();
+    app.itemManager.prepareLiveStrip();
     app.resizer.onResize();
 };
 
