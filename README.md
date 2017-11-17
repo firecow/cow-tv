@@ -1,7 +1,7 @@
-# cow-tv
+# dr-play
 A media browser for danish state radio and televsion, using http://dr.dk/mu REST API
 
-Cow-tv's main purpose is to be faster than DR's existing apps, by being a lot simpler, and only providing the most needed features of the api.
+DR-Play's main purpose is to be faster than DR TV's existing app, by being a lot simpler, and only providing the most needed features of the api, and to be working on Android TV and LG TV's.
 
 Cordova is used to deploy on multiple platforms.
 
