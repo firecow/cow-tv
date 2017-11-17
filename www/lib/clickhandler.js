@@ -16,5 +16,10 @@ ClickHandler.prototype.onVideoPlayerClick = function() {
  * @param item
  */
 ClickHandler.prototype.onItemClick = function(item) {
-    app.videoPlayer.play(item.dataset.videoUrl);
+    if (item.dataset.type === "Channel") {
+        app.videoPlayer.play(item.dataset.videoUrl);
+    } else {
+        console.warn('Nothing implemented for ' + item.dataset.type);
+    }
+
 };

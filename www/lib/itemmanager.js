@@ -15,16 +15,16 @@ ItemManager.prototype.prepareLiveStrip = function(opt_callback) {
         request = new JsonGetRequest(url);
 
     request.prepare(function(err, request) {
-        var itemDatas;
+        var data;
         if (err) {
             throw err;
         }
 
-        itemDatas = request.getData();
-        itemDatas = itemDatas.filter(function(itemData) {
-            return itemData['WebChannel'] === false;
+        data = request.getData();
+        data = data.filter(function(e) {
+            return e['WebChannel'] === false;
         });
-        itemDatas.sort(function(a, b) {
+        data.sort(function(a, b) {
             var aTitle = a['Title'].toUpperCase().replace(/\s+/g, ''),
                 bTitle = b['Title'].toUpperCase().replace(/\s+/g, '');
             if (aTitle === bTitle) {
@@ -33,9 +33,34 @@ ItemManager.prototype.prepareLiveStrip = function(opt_callback) {
             return aTitle > bTitle;
         });
 
-        for (var i = 0; i < itemDatas.length; i++) {
-            var itemData = itemDatas[i];
+        for (var i = 0; i < data.length; i++) {
+            var itemData = data[i];
             liveStrip.appendChild(this.createItem(itemData));
+        }
+
+        callback();
+    }.bind(this));
+};
+
+/**
+ * @param {function()=} opt_callback
+ */
+ItemManager.prototype.prepareMostViewed = function(opt_callback) {
+    var url = 'https://www.dr.dk/mu-online/api/1.4/list/view/mostviewed?channeltype=TV',
+        callback = opt_callback || function() {},
+        popularStrip = document.getElementById('popular-strip'),
+        request = new JsonGetRequest(url);
+
+    request.prepare(function(err, request) {
+        var data;
+        if (err) {
+            throw err;
+        }
+
+        data = request.getData();
+        for (var i = 0; i < data['Items'].length; i++) {
+            var itemData = data['Items'][i];
+            popularStrip.appendChild(this.createItem(itemData));
         }
 
         callback();
@@ -50,8 +75,10 @@ ItemManager.prototype.createItem = function(itemData) {
     var item = document.createElement('div');
     var img = document.createElement('img');
     var title = document.createElement('div');
+    var type = itemData['Type'];
 
     item.classList.add('item');
+    item.dataset.type = type;
     item.dataset.videoUrl = this.getStreamingUrl(itemData);
 
     img.classList.add('img');
@@ -72,21 +99,13 @@ ItemManager.prototype.createItem = function(itemData) {
 
 /**
  * @param {*} itemData
- * @return {string}
- */
-ItemManager.prototype.getAssetUrl = function(itemData) {
-    var assets = itemData['Assets'];
-    var asset = assets.find(function(a) {
-        return a['Name'].indexOf("PAUSEBILLEDE") === -1;
-    });
-    return asset || assets[0];
-};
-
-/**
- * @param {*} itemData
- * @return {string}
+ * @return {?string}
  */
 ItemManager.prototype.getStreamingUrl = function(itemData) {
+    if (!itemData['StreamingServers']) {
+        return null;
+    }
+
     var streamingServer = itemData['StreamingServers'].find(function(s) {
         return s['LinkType'] === 'HLS';
     });

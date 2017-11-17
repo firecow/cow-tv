@@ -10,6 +10,7 @@ var windowLoaded = function() {
     };
 
     app.itemManager.prepareLiveStrip();
+    app.itemManager.prepareMostViewed();
     app.resizer.onResize();
 };
 
