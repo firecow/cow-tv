@@ -1,0 +1,11 @@
+{
+    "vendor": "Rocha",
+    "largeIcon": "largeIcon.png",
+    "icon": "icon.png",
+    "main": "www/index.html",
+    "id": "dk.rocha.dr-tv-player",
+    "title": "DR TV Player",
+    "type": "web",
+    "version": "0.0.1",
+    "uiRevision":2
+}
