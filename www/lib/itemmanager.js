@@ -79,7 +79,15 @@ ItemManager.prototype.createItem = function(itemData) {
 
     item.classList.add('item');
     item.dataset.type = type;
-    item.dataset.videoUrl = this.getStreamingUrl(itemData);
+
+    var streamingUrl = this.getStreamingUrl(itemData);
+    if (streamingUrl) {
+        item.dataset.videoUrl = streamingUrl;
+    }
+    if (itemData["PrimaryAsset"] && itemData["PrimaryAsset"]["Uri"]) {
+        item.dataset.videoResource = itemData["PrimaryAsset"]["Uri"];
+    }
+
 
     img.classList.add('img');
     img.draggable = false;

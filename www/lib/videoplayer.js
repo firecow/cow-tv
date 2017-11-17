@@ -19,6 +19,18 @@ VideoPlayer = function() {
     });
 };
 
+/**
+ * Show the spinner.
+ */
+VideoPlayer.prototype.show = function() {
+    var video = document.getElementById('video');
+    var mediaPlayer = document.getElementById('media-player');
+    var spinner = document.getElementById('spinner');
+
+    spinner.classList.remove('hidden');
+    mediaPlayer.classList.remove('hidden');
+    video.classList.remove('hidden');
+};
 
 /**
  * @param {string} url
@@ -29,10 +41,6 @@ VideoPlayer.prototype.play = function(url) {
     var spinner = document.getElementById('spinner');
     var isCordova = !!window.cordova;
     var hls;
-
-    spinner.classList.remove('hidden');
-    mediaPlayer.classList.remove('hidden');
-    video.classList.remove('hidden');
 
     try {
         video.src = url;
