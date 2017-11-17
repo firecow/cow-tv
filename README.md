@@ -11,8 +11,8 @@ https://trello.com/b/MR8NZW2J/cow-tv
 Getting Started:
 - Get Node https://nodejs.org/en/
 - Fork this project
-- `git clone https://github.com/yourusername/cow-tv.git`
-- `cd cow-tv`
+- `git clone https://github.com/firecow/dr-play.git`
+- `cd dr-play`
 - `npm install`
 - `npm run webserver -- -p 8081`
 - Open http://localhost:8081 in a browser
