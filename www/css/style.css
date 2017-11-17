@@ -108,6 +108,8 @@ video::-webkit-media-controls {
 .item .title {
     text-align: center;
     margin-top: 10px;
+    white-space: normal;
+    width:566px;
 }
 
 .item .img {
