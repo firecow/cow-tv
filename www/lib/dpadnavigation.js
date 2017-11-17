@@ -145,7 +145,7 @@ DPadNavigation.prototype.enter = function() {
     if (app.videoPlayer.isPlaying()) {
         app.videoPlayer.stop();
     } else if (selectedItem != null) {
-        app.videoPlayer.play(selectedItem.dataset.videoUrl, selectedItem.dataset.type);
+        app.videoPlayer.play(selectedItem.dataset.videoUrl);
     }
 };
 
