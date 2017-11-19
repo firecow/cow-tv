@@ -5,7 +5,7 @@ html, body {
     padding: 0;
     height: 100%;
     width: 100%;
-    background-color: #FFFFFF;
+    background-color: #262626;
 }
 
 video {
@@ -15,14 +15,6 @@ video {
 
 video::-webkit-media-controls {
     display: none;
-}
-
-/* Id */
-#background {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #262626;
 }
 
 #media-player {
@@ -84,21 +76,11 @@ video::-webkit-media-controls {
 
 .header {
     margin: 0 0 0 0;
-    padding: 40px;
-    background: linear-gradient(to right, #262626 60%, #FFFFFF);
-}
+    padding: 20px;
 
-.text {
-    color: white;
-    font-family: Roboto, sans-serif;
-}
-
-.font-size-medium {
-    font-size: 80px
-}
-
-.font-size-small {
     font-size: 70px;
+    font-family: Roboto, sans-serif;
+    color: white;
 }
 
 .hidden {
@@ -116,6 +98,10 @@ video::-webkit-media-controls {
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: middle;
+
+    font-size: 70px;
+    font-family: Roboto, sans-serif;
+    color: white;
 }
 
 .item .img {
@@ -125,7 +111,7 @@ video::-webkit-media-controls {
 .item {
     width: 800px;
     margin: 10px;
-    background-color: #262626;
+    background: #575757;
 }
 
 .selected {
@@ -138,8 +124,6 @@ video::-webkit-media-controls {
 }
 
 .strip {
-    background: #575757;
-
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 60px;

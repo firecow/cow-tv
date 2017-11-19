@@ -94,12 +94,11 @@ ItemManager.prototype.createItem = function(itemData) {
     img.draggable = false;
     img.src = itemData['PrimaryImageUri'];
 
-    var parsedTitle = this.parseTitle(itemData['Title']);
-    title.classList.add('title', 'text', 'font-size-small');
-    title.innerText = parsedTitle.title;
+    title.classList.add('title');
+    title.innerText = itemData['Title'];
 
-    subTitle.classList.add('title', 'text', 'font-size-small');
-    subTitle.innerText = parsedTitle.subTitle;
+    subTitle.classList.add('title');
+    subTitle.innerText = "\n";
 
     item.addEventListener('click', function() {
         app.clickHandler.onItemClick(item);
@@ -109,34 +108,6 @@ ItemManager.prototype.createItem = function(itemData) {
     item.appendChild(img);
     item.appendChild(subTitle);
     return item;
-};
-
-
-/**
- * @param {string} itemDataTitle
- */
-ItemManager.prototype.parseTitle = function(itemDataTitle) {
-    var seriesRegExp = /(.*)(\(\d*:\d*\))/g;
-    var episodeNameRegExp = /(.*)[:-](.*)/g;
-    var title = itemDataTitle;
-    var subTitle = "\n";
-
-    var seriesExec = seriesRegExp.exec(itemDataTitle);
-    if (seriesExec != null) {
-        title = seriesExec[1];
-        subTitle = seriesExec[2];
-
-        var episodeNameExec = episodeNameRegExp.exec(seriesExec[1]);
-        if (episodeNameExec != null) {
-            title = episodeNameExec[1].trim();
-            subTitle = subTitle + " " + episodeNameExec[2].trim().capitalize();
-        }
-    }
-
-    return {
-        title: title,
-        subTitle: subTitle
-    }
 };
 
 /**
