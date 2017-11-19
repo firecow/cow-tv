@@ -75,6 +75,7 @@ ItemManager.prototype.createItem = function(itemData) {
     var item = document.createElement('div');
     var img = document.createElement('img');
     var title = document.createElement('div');
+    var subTitle = document.createElement('div');
     var type = itemData['Type'];
 
     item.classList.add('item');
@@ -93,16 +94,49 @@ ItemManager.prototype.createItem = function(itemData) {
     img.draggable = false;
     img.src = itemData['PrimaryImageUri'];
 
+    var parsedTitle = this.parseTitle(itemData['Title']);
     title.classList.add('title', 'text', 'font-size-small');
-    title.innerText = itemData['Title'];
+    title.innerText = parsedTitle.title;
+
+    subTitle.classList.add('title', 'text', 'font-size-small');
+    subTitle.innerText = parsedTitle.subTitle;
 
     item.addEventListener('click', function() {
         app.clickHandler.onItemClick(item);
     }, false);
 
-    item.appendChild(img);
     item.appendChild(title);
+    item.appendChild(img);
+    item.appendChild(subTitle);
     return item;
+};
+
+
+/**
+ * @param {string} itemDataTitle
+ */
+ItemManager.prototype.parseTitle = function(itemDataTitle) {
+    var seriesRegExp = /(.*)(\(\d*:\d*\))/g;
+    var episodeNameRegExp = /(.*)[:-](.*)/g;
+    var title = itemDataTitle;
+    var subTitle = "\n";
+
+    var seriesExec = seriesRegExp.exec(itemDataTitle);
+    if (seriesExec != null) {
+        title = seriesExec[1];
+        subTitle = seriesExec[2];
+
+        var episodeNameExec = episodeNameRegExp.exec(seriesExec[1]);
+        if (episodeNameExec != null) {
+            title = episodeNameExec[1].trim();
+            subTitle = subTitle + " " + episodeNameExec[2].trim().capitalize();
+        }
+    }
+
+    return {
+        title: title,
+        subTitle: subTitle
+    }
 };
 
 /**
