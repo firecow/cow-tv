@@ -57,7 +57,7 @@ video::-webkit-media-controls {
 }
 
 #home-content {
-    overflow-y: scroll;
+    overflow-y: overlay;
     height: 89%
 }
 
@@ -79,7 +79,7 @@ video::-webkit-media-controls {
     padding: 20px;
     text-align: center;
 
-    font-size: 70px;
+    font-size: 40px;
     font-family: Roboto, sans-serif;
     color: white;
 }
@@ -100,7 +100,7 @@ video::-webkit-media-controls {
     text-overflow: ellipsis;
     vertical-align: middle;
 
-    font-size: 70px;
+    font-size: 40px;
     font-family: Roboto, sans-serif;
     color: white;
 }
@@ -110,9 +110,9 @@ video::-webkit-media-controls {
 }
 
 .item {
-    width: 900px;
+    width: 620px;
     margin: 10px;
-    background: #575757;
+    background: #3b3b3b;
 }
 
 .selected {
@@ -130,7 +130,7 @@ video::-webkit-media-controls {
     margin-bottom: 60px;
     display: block;
     white-space: nowrap;
-    overflow-x: scroll;
+    overflow-x: overlay;
     -webkit-overflow-scrolling: touch;
 }
 
