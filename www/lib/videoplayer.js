@@ -4,6 +4,7 @@
 VideoPlayer = function() {
     var video = document.getElementById('video'),
         spinner = document.getElementById('spinner'),
+        scaler = document.getElementById('scaler'),
         mediaPlayer = document.getElementById('media-player');
 
     video.addEventListener("click", function(e) {
@@ -13,6 +14,7 @@ VideoPlayer = function() {
         spinner.classList.add('hidden');
     });
     video.addEventListener('error', function() {
+        scaler.classList.remove('hidden');
         spinner.classList.add('hidden');
         mediaPlayer.classList.add('hidden');
         video.classList.add('hidden');
@@ -26,7 +28,9 @@ VideoPlayer.prototype.show = function() {
     var video = document.getElementById('video');
     var mediaPlayer = document.getElementById('media-player');
     var spinner = document.getElementById('spinner');
+    var scaler = document.getElementById('scaler');
 
+    scaler.classList.add('hidden');
     spinner.classList.remove('hidden');
     mediaPlayer.classList.remove('hidden');
     video.classList.remove('hidden');
@@ -37,6 +41,7 @@ VideoPlayer.prototype.show = function() {
  */
 VideoPlayer.prototype.play = function(url) {
     var video = document.getElementById('video');
+    var scaler = document.getElementById('scaler');
     var mediaPlayer = document.getElementById('media-player');
     var spinner = document.getElementById('spinner');
     var isCordova = !!window.cordova;
@@ -51,6 +56,7 @@ VideoPlayer.prototype.play = function(url) {
         }
         video.play();
     } catch(e) {
+        scaler.classList.remove('hidden');
         spinner.classList.add('hidden');
         video.classList.add('hidden');
         mediaPlayer.classList.add('hidden');
@@ -70,12 +76,15 @@ VideoPlayer.prototype.isPlaying = function() {
  * Stop the play back
  */
 VideoPlayer.prototype.stop = function() {
-    var video = document.getElementById('video'),
-        mediaPlayer = document.getElementById('media-player');
+    var video = document.getElementById('video');
+    var mediaPlayer = document.getElementById('media-player');
+    var scaler = document.getElementById('scaler');
 
     if (this.isPlaying()) {
         mediaPlayer.classList.add('hidden');
         video.classList.add('hidden');
+        scaler.classList.remove('hidden');
+
         video.pause();
         video.currentTime = 0;
         video.removeAttribute('src');
