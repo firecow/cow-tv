@@ -53,12 +53,3 @@ JsonGetRequest.prototype.getData = function() {
     }
     return this.data_;
 };
-
-/**
- * @param {string} path
- * @param {function(?Error, JsonGetRequest)} callback
- */
-JsonGetRequest.prepare = function(path, callback) {
-    var jsonGetRequest = new JsonGetRequest(path);
-    jsonGetRequest.prepare(callback);
-};

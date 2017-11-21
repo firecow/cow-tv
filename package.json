@@ -1,32 +1,55 @@
 {
-  "name": "cow-tv",
+  "name": "dr-play",
   "version": "1.0.0",
   "description": "A media browser for danish state radio and televsion, using http://dr.dk/mu REST API",
   "scripts": {
     "cordova": "cordova",
-    "run-android": "cordova run android",
+    "android-run": "cordova run android",
+    "android-build-debug": "cordova build android",
+    "android-build-release": "cordova build android --release",
     "webserver": "http-server www/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/firecow/cow-tv.git"
+    "url": "https://github.com/firecow/dr-play.git"
   },
   "keywords": [
     "dr",
     "tv",
     "dr tv",
-    "cow",
-    "tv",
-    "cow tv"
+    "play",
+    "dr play"
   ],
   "author": "Mads Jon Nielsen <madsjon@gmail.com>",
   "license": "ISC",
-  "homepage": "https://github.com/firecow/cow-tv#readme",
+  "homepage": "https://github.com/firecow/dr-play#readme",
   "dependencies": {
-    "cordova": "^6.5.0"
+    "cordova": "^7.1.0",
+    "cordova-android": "^6.3.0",
+    "cordova-plugin-android-tv": "git+https://github.com/firecow/cordova-plugin-android-tv.git",
+    "cordova-plugin-console": "^1.1.0",
+    "cordova-plugin-crosswalk-webview": "^2.3.0",
+    "cordova-plugin-whitelist": "^1.3.3"
   },
   "devDependencies": {
-    "http-server": "^0.9.0"
+    "http-server": "^0.10.0"
+  },
+  "cordova": {
+    "platforms": [
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-console": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-android-tv": {},
+      "cordova-plugin-crosswalk-webview": {
+        "XWALK_VERSION": "23+",
+        "XWALK_LITEVERSION": "xwalk_core_library_canary:17+",
+        "XWALK_COMMANDLINE": "--disable-pull-to-refresh-effect",
+        "XWALK_MODE": "embedded",
+        "XWALK_MULTIPLEAPK": "true"
+      }
+    }
   }
 }

@@ -143,9 +143,9 @@ DPadNavigation.prototype.enter = function() {
     var selectedItem = this.getSelectedItem();
 
     if (app.videoPlayer.isPlaying()) {
-        app.videoPlayer.stop();
+        app.clickHandler.onVideoPlayerClick();
     } else if (selectedItem != null) {
-        app.videoPlayer.play(selectedItem.dataset.videoUrl, selectedItem.dataset.type);
+        app.clickHandler.onItemClicked(selectedItem);
     }
 };
 
@@ -155,6 +155,6 @@ DPadNavigation.prototype.enter = function() {
  */
 DPadNavigation.prototype.back = function() {
     if (app.videoPlayer.isPlaying()) {
-        app.videoPlayer.stop();
+        app.clickHandler.onVideoPlayerClick();
     }
 };

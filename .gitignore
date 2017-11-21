@@ -1,5 +1,7 @@
-.idea/
-node_modules/
-.gitconfig
-platforms/
-plugins/
+/.idea/
+/.settings/
+/node_modules/
+/platforms/
+/plugins/
+/.gitconfig
+/.project

@@ -2,58 +2,62 @@
  * @constructor
  */
 VideoPlayer = function() {
-    var video = document.getElementById('video'),
-        spinner = document.getElementById('spinner'),
-        mediaPlayer = document.getElementById('media-player');
+    this.video = document.getElementById('video');
+    this.video.addEventListener("click", function(e) {
+        app.clickHandler.onVideoPlayerClick(e);
+    });
+    this.video.addEventListener('canplaythrough', function() {
+        app.clickHandler.onVideoCanPlayThrough();
+    });
+    this.video.addEventListener('error', function() {
+        app.clickHandler.onVideoPlayError();
+    });
 
-    video.addEventListener('loadstart', function() {
-        spinner.classList.remove('hidden');
+    // Debug logs.
+    this.video.addEventListener('play', function(e) {
+        console.log(e.type, e);
     });
-    video.addEventListener('loadeddata', function() {
-        spinner.classList.add('hidden');
+    this.video.addEventListener('canplaythrough', function(e) {
+        console.log(e.type, e);
     });
-    video.addEventListener('error', function() {
-        spinner.classList.add('hidden');
-        mediaPlayer.classList.add('hidden');
-        video.classList.add('hidden');
+    this.video.addEventListener('canplay', function(e) {
+        console.log(e.type, e);
+    });
+    this.video.addEventListener('loadeddata', function(e) {
+        console.log(e.type, e);
+    });
+    this.video.addEventListener('loadedmetadata', function(e) {
+        console.log(e.type, e);
+    });
+    this.video.addEventListener('pause', function(e) {
+        console.log(e.type, e);
+    });
+
+    this.video.addEventListener('playing', function(e) {
+        console.log(e.type, e);
+    });
+    this.video.addEventListener('waiting', function(e) {
+        console.log(e.type, e);
     });
 };
-
 
 /**
  * @param {string} url
  */
-VideoPlayer.prototype.play = function(url, type) {
-    var video = document.getElementById('video'),
-        mediaPlayer = document.getElementById('media-player'),
-        spinner = document.getElementById('spinner'),
-        hls;
-
-    console.log(url);
-    mediaPlayer.classList.remove('hidden');
-    video.classList.remove('hidden');
+VideoPlayer.prototype.play = function(url) {
+    var isCordova = !!window.cordova;
+    var hls;
 
     try {
-        video.src = url;
-        if(Hls.isSupported()) {
+        this.video.src = url;
+        if(Hls.isSupported() && !isCordova) {
             hls = new Hls();
             hls.loadSource(url);
-            hls.attachMedia(video);
+            hls.attachMedia(this.video);
         }
-        video.play();
-        switch(type) {
-            case Tile.type.LIVE_CHANNEL:
-                app.state = app.states.PLAYING_LIVE_CHANNEL;
-                break;
-            case Tile.type.EPISODE:
-                app.state = app.states.PLAYING_EPISODE;
-                break;
-        }
+        this.video.play();
     } catch(e) {
-        spinner.classList.add('hidden');
-        video.classList.add('hidden');
-        mediaPlayer.classList.add('hidden');
-        app.state = app.states.DEFAULT;
+        app.clickHandler.onVideoPlayError();
         console.error(e);
     }
 };
@@ -62,23 +66,17 @@ VideoPlayer.prototype.play = function(url, type) {
  * @return {boolean}
  */
 VideoPlayer.prototype.isPlaying = function() {
-    var video = document.getElementById('video');
-    return !video.paused;
+    return !this.video.paused;
 };
 
 /**
  * Stop the play back
  */
 VideoPlayer.prototype.stop = function() {
-    var video = document.getElementById('video'),
-        mediaPlayer = document.getElementById('media-player');
-
     if (this.isPlaying()) {
-        mediaPlayer.classList.add('hidden');
-        video.classList.add('hidden');
-        video.pause();
-        video.currentTime = 0;
-        video.removeAttribute('src');
-        video.load();
+        this.video.pause();
+        this.video.currentTime = 0;
+        this.video.removeAttribute('src');
+        this.video.load();
     }
 };

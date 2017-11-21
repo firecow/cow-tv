@@ -8,21 +8,23 @@ ItemManager = function() {
 /**
  * @param {function()=} opt_callback
  */
-ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
-    var url = 'https://www.dr.dk/mu/bundle?BundleType=%22Channel%22&DrChannel=true&ChannelType=TV&WebChannel=false',
+ItemManager.prototype.prepareLiveStrip = function(opt_callback) {
+    var url = 'https://www.dr.dk/mu-online/api/1.4/channel/all-active-dr-tv-channels',
         callback = opt_callback || function() {},
-        liveChildren = document.getElementById('live-children');
+        liveStrip = document.getElementById('live-strip'),
+        request = new JsonGetRequest(url);
 
-    JsonGetRequest.prepare(url, function(err, request) {
-        var itemDatas;
-
+    request.prepare(function(err, request) {
+        var data;
         if (err) {
             throw err;
         }
 
-        itemDatas = request.getData()['Data'];
-
-        itemDatas.sort(function(a, b) {
+        data = request.getData();
+        data = data.filter(function(e) {
+            return e['WebChannel'] === false;
+        });
+        data.sort(function(a, b) {
             var aTitle = a['Title'].toUpperCase().replace(/\s+/g, ''),
                 bTitle = b['Title'].toUpperCase().replace(/\s+/g, '');
             if (aTitle === bTitle) {
@@ -31,54 +33,98 @@ ItemManager.prototype.prepareLiveTVItems = function(opt_callback) {
             return aTitle > bTitle;
         });
 
-        itemDatas.forEach(function(itemData) {
-            var streamingServers = itemData['StreamingServers'];
-            if (!streamingServers || streamingServers.length == 0) {
-                return;
-            }
+        for (var i = 0; i < data.length; i++) {
+            var itemData = data[i];
+            liveStrip.appendChild(this.createItem(itemData));
+        }
 
-            var item = document.createElement('div');
-            var img = document.createElement('img');
-            var title = document.createElement('div');
-
-            item.classList.add('item');
-            img.classList.add('img');
-            title.classList.add('title', 'text', 'font-size-small');
-
-            var streamingServer = itemData['StreamingServers'][1];
-            var quality = streamingServer['Qualities'][0];
-            var streams = quality['Streams'][0];
-
-            item.dataset.videoUrl = streamingServer['Server'] + '/' + streams['Stream'];
-
-            var assets = itemData['Assets'];
-            var asset = assets.find(function(a) {
-                return a['Name'].indexOf("PAUSEBILLEDE") === -1;
-            });
-            asset = asset || assets[0];
-
-            img.src = asset['Uri'];
-
-            title.innerText = itemData['Title'];
-
-            item.addEventListener('mouseup', function(e) {
-                if (app.scrollingControl.totalDx < 5) {
-                    app.videoPlayer.play(item.dataset.videoUrl);
-                }
-                e.preventDefault();
-            }.bind(this));
-            item.addEventListener('touchend', function(e) {
-                if (app.scrollingControl.totalDx < 5) {
-                    app.videoPlayer.play(item.dataset.videoUrl);
-                }
-                e.preventDefault();
-            }.bind(this));
-
-            item.appendChild(img);
-            item.appendChild(title);
-
-            liveChildren.appendChild(item);
-        }.bind(this));
         callback();
     }.bind(this));
+};
+
+/**
+ * @param {function()=} opt_callback
+ */
+ItemManager.prototype.prepareMostViewed = function(opt_callback) {
+    var url = 'https://www.dr.dk/mu-online/api/1.4/list/view/mostviewed?channeltype=TV',
+        callback = opt_callback || function() {},
+        mostviewedStrip = document.getElementById('mostviewed-strip'),
+        request = new JsonGetRequest(url);
+
+    request.prepare(function(err, request) {
+        var data;
+        if (err) {
+            throw err;
+        }
+
+        data = request.getData();
+        for (var i = 0; i < data['Items'].length; i++) {
+            var itemData = data['Items'][i];
+            mostviewedStrip.appendChild(this.createItem(itemData));
+        }
+
+        callback();
+    }.bind(this));
+};
+
+/**
+ * @param {*} itemData
+ * @return {Element}
+ */
+ItemManager.prototype.createItem = function(itemData) {
+    var item = document.createElement('div');
+    var img = document.createElement('img');
+    var title = document.createElement('div');
+    var subTitle = document.createElement('div');
+    var type = itemData['Type'];
+
+    item.classList.add('item');
+    item.dataset.type = type;
+
+    var streamingUrl = this.getStreamingUrl(itemData);
+    if (streamingUrl) {
+        item.dataset.videoUrl = streamingUrl;
+    }
+    if (itemData["PrimaryAsset"] && itemData["PrimaryAsset"]["Uri"]) {
+        item.dataset.videoResource = itemData["PrimaryAsset"]["Uri"];
+    }
+
+    img.classList.add('img');
+    img.draggable = false;
+    img.src = itemData['PrimaryImageUri'];
+
+    title.classList.add('title');
+    title.innerText = itemData['Title'];
+
+    subTitle.classList.add('title');
+    subTitle.innerText = "\n";
+
+    item.addEventListener('click', function() {
+        app.clickHandler.onItemClicked(item);
+    }, false);
+
+    item.appendChild(title);
+    item.appendChild(img);
+    item.appendChild(subTitle);
+    return item;
+};
+
+/**
+ * @param {*} itemData
+ * @return {?string}
+ */
+ItemManager.prototype.getStreamingUrl = function(itemData) {
+    if (!itemData['StreamingServers']) {
+        return null;
+    }
+
+    var streamingServer = itemData['StreamingServers'].find(function(s) {
+        return s['LinkType'] === 'HLS';
+    });
+    var quality = streamingServer['Qualities'].sort(function(a, b) {
+        return b['Kbps'] - a['Kbps'];
+    })[0];
+    var streams = quality['Streams'][0];
+
+    return streamingServer['Server'] + '/' + streams['Stream'];
 };

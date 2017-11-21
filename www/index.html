@@ -8,29 +8,25 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
-    <script src="lib/Models/Channel.js"></script>
-    <script src="lib/Models/Serie.js"></script>
-    <script src="lib/Models/Episode.js"></script>
-    <script src="lib/Elements/Tile.js"></script>
+    <script src="vendor/hls.js"></script>
+    <script src="polyfill/array.js"></script>
+    <script src="polyfill/string.js"></script>
 
-    <script src="polyfill/arraypoly.js"></script>
+    <script src="lib/mousedragscroll.js"></script>
+    <script src="lib/eventhandler.js"></script>
     <script src="lib/resizer.js"></script>
     <script src="lib/main.js"></script>
     <script src="lib/jsongetrequest.js"></script>
-    <script src="lib/channel_manager.js"></script>
-    <script src="lib/series_manager.js"></script>
+    <script src="lib/itemmanager.js"></script>
     <script src="lib/dpadnavigation.js"></script>
-    <script src="lib/scrollingcontrol.js"></script>
     <script src="lib/fullscreenapi.js"></script>
     <script src="lib/videoplayer.js"></script>
-    <script src="lib/beammedia.js"></script>
-    <script src="vendor/hls.js"></script>
+
     <script src="cordova.js"></script>
 
-    <title>Cow TV</title>
+    <title>DR Play</title>
 </head>
-<body>
-<div id="background"></div>
+<body class="accelerateMe">
 
 <div id="scaler">
 
@@ -65,41 +61,24 @@
         </div>
     </div>
 
-    <div id="home-content">
-        <div class="header font-size-medium text">Live TV</div>
+    <div id="home-content" class="mousedragscroll noselect">
+        <div class="header noselect">Live TV</div>
+        <div id="live-strip" class="strip mousedragscroll"></div>
 
-        <div id="live-strip" class="strip">
-            <div id="live-children" class="children"></div>
-        </div>
+        <div class="header noselect">Mest Sete Programmer</div>
+        <div id="mostviewed-strip" class="strip mousedragscroll"></div>
 
-        <div class="header font-size-medium text">Populære</div>
+        <div class="header noselect">Nyheder</div>
+        <div id="news-strip" class="strip mousedragscroll"></div>
 
-        <div id="popular-strip" class="strip">
-            <div id="popular-children" class="children"></div>
-        </div>
-
-        <div class="header font-size-medium text">Nyheder</div>
-
-        <div id="news-strip" class="strip">
-            <div id="news-children" class="children"></div>
-        </div>
-
-        <div class="header font-size-medium text">Favoritter</div>
-
-        <div id="favorite-stripe" class="strip">
-            <div id="favorite-children" class="children"></div>
-        </div>
+        <div class="header noselect title">Favoritter</div>
+        <div id="favorite-strip" class="strip mousedragscroll"></div>
     </div>
-
 </div>
 
-<div id="media-player" class="hidden">
-    <video id="video"></video>
-</div>
+<video id="video" class="hidden"></video>
 
-<div id="spinner" class="hidden">
-    <img width="500" id="spinner-icon" src="media/spinner.svg">
-</div>
+<img width="500" id="spinner" class="hidden" src="media/spinner.svg">
 
 </body>
 </html>

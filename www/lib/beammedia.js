@@ -1,6 +1,0 @@
-/**
- * @constructor
- */
-BeamMedia = function() {
-
-};
