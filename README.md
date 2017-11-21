@@ -6,7 +6,7 @@ DR-Play's main purpose is to be faster than DR TV's existing app, by being a lot
 Cordova is used to deploy on multiple platforms.
 
 Trello Board:
-https://trello.com/b/MR8NZW2J/cow-tv
+https://trello.com/b/MR8NZW2J
 
 Getting Started:
 - Get Node https://nodejs.org/en/
