@@ -1,7 +1,7 @@
 {
   "vendor": "Rocha",
-  "largeIcon": "largeIcon.png",
-  "icon": "res/icon.png",
+  "largeIcon": "res/icon_130x130.png",
+  "icon": "res/icon_80x80.png",
   "main": "www/index.html",
   "id": "dk.rocha.dr-tv-player",
   "title": "DR TV Player",
