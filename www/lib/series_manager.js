@@ -20,6 +20,7 @@ SeriesManager.prototype.fetchSeries = function(callback) {
         itemDatas = request.getData()['Data'];
 
         itemDatas.forEach(function(item) {
+            console.log(item['Title']);
             console.log(item);
 
             this.series.push(new Serie(item['Title']));
