@@ -89,7 +89,6 @@ ItemManager.prototype.createItem = function(itemData) {
         item.dataset.videoResource = itemData["PrimaryAsset"]["Uri"];
     }
 
-
     img.classList.add('img');
     img.draggable = false;
     img.src = itemData['PrimaryImageUri'];
@@ -101,7 +100,7 @@ ItemManager.prototype.createItem = function(itemData) {
     subTitle.innerText = "\n";
 
     item.addEventListener('click', function() {
-        app.clickHandler.onItemClick(item);
+        app.clickHandler.onItemClicked(item);
     }, false);
 
     item.appendChild(title);
@@ -128,16 +127,4 @@ ItemManager.prototype.getStreamingUrl = function(itemData) {
     var streams = quality['Streams'][0];
 
     return streamingServer['Server'] + '/' + streams['Stream'];
-};
-
-var asset = {
-    "Kind": "Image",
-    "Uri": "https://www.dr.dk/mu/bar/5a0454bda11f9f0e5c734e7e",
-    "StartPublish": "2017-11-09T13:14:31Z",
-    "EndPublish": "9999-12-31T22:59:59Z",
-    "ContentType": "image/jpeg",
-    "Id": "j9shwa02",
-    "Name": "DR3_PAUSEBILLEDE.jpg",
-    "Size": 178806,
-    "Trashed": false
 };

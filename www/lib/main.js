@@ -3,7 +3,7 @@ var windowLoaded = function() {
         videoPlayer: new VideoPlayer(),
         dPadNavigation: new DPadNavigation(),
         fullscreenApi: new FullscreenApi(),
-        clickHandler: new ClickHandler(),
+        clickHandler: new EventHandler(),
         mouseDragScroll: new MouseDragScroll(),
         resizer: new Resizer(),
         itemManager: new ItemManager()
