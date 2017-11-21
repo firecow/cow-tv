@@ -1,5 +1,5 @@
 {
-  "name": "cow-tv",
+  "name": "dr-play",
   "version": "1.0.0",
   "description": "A media browser for danish state radio and televsion, using http://dr.dk/mu REST API",
   "scripts": {
@@ -12,19 +12,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/firecow/cow-tv.git"
+    "url": "https://github.com/firecow/dr-play.git"
   },
   "keywords": [
     "dr",
     "tv",
     "dr tv",
-    "cow",
-    "tv",
-    "cow tv"
+    "play",
+    "dr play"
   ],
   "author": "Mads Jon Nielsen <madsjon@gmail.com>",
   "license": "ISC",
-  "homepage": "https://github.com/firecow/cow-tv#readme",
+  "homepage": "https://github.com/firecow/dr-play#readme",
   "dependencies": {
     "cordova": "^7.1.0",
     "cordova-android": "^6.3.0",
