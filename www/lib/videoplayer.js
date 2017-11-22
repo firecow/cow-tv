@@ -6,8 +6,8 @@ VideoPlayer = function() {
     this.video.addEventListener("click", function(e) {
         app.clickHandler.onVideoPlayerClick(e);
     });
-    this.video.addEventListener('canplaythrough', function() {
-        app.clickHandler.onVideoCanPlayThrough();
+    this.video.addEventListener('playing', function() {
+        app.clickHandler.onVideoPlaying();
     });
     this.video.addEventListener('error', function() {
         app.clickHandler.onVideoPlayError();

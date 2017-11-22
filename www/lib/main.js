@@ -7,12 +7,15 @@ var windowLoaded = function() {
         clickHandler: new EventHandler(),
         mouseDragScroll: new MouseDragScroll(),
         resizer: new Resizer(),
-        itemManager: new ItemManager()
+        itemManager: new ItemManager(),
+        stateHandler: new StateHandler(),
+        animator: new Animator()
     };
 
     app.itemManager.prepareLiveStrip();
     app.itemManager.prepareMostViewed();
     app.fullscreenApi.init();
+    app.stateHandler.init();
     app.resizer.onResize();
 };
 

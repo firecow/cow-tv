@@ -37,6 +37,10 @@ DPadNavigation = function() {
             e.preventDefault();
         }
     }.bind(this));
+
+    document.addEventListener("backbutton", function() {
+        app.stateHandler.back();
+    }, false);
 };
 
 
@@ -154,7 +158,5 @@ DPadNavigation.prototype.enter = function() {
  *
  */
 DPadNavigation.prototype.back = function() {
-    if (app.videoPlayer.isPlaying()) {
-        app.clickHandler.onVideoPlayerClick();
-    }
+    app.stateHandler.back();
 };

@@ -2,33 +2,28 @@
  * @constructor
  */
 EventHandler = function() {
-    this.video = document.getElementById('video');
     this.spinner = document.getElementById('spinner');
-    this.scaler = document.getElementById('scaler');
 };
 
 /**
- *
+ * Video player element have been clicked.
  */
 EventHandler.prototype.onVideoPlayerClick = function() {
-    this.showElements([this.scaler]);
-    this.hideElements([this.spinner, this.video]);
-    app.videoPlayer.stop();
+    console.log("Nothing happens onVideoPlayerClick");
 };
 
 /**
- *
+ * Video player is now playing.
  */
-EventHandler.prototype.onVideoCanPlayThrough = function() {
-    this.hideElements([this.spinner]);
+EventHandler.prototype.onVideoPlaying = function() {
+    app.animator.fadeOut([this.spinner]);
 };
 
 /**
- *
+ * Video player have met an error.
  */
 EventHandler.prototype.onVideoPlayError = function() {
-    this.showElements([this.scaler]);
-    this.hideElements([this.spinner, this.video]);
+    app.stateHandler.back();
 };
 
 /**
@@ -43,14 +38,18 @@ EventHandler.prototype.onItemClicked = function(item) {
 };
 
 /**
+ * @private
  * @param {Element} item
  */
 EventHandler.prototype.onChannelClick = function(item) {
-    this.showElements([this.video, this.spinner]);
-    app.videoPlayer.play(item.dataset.videoUrl);
+    app.stateHandler.pushState({
+        type: "playVideo",
+        streamingUrl: item.dataset.videoUrl
+    });
 };
 
 /**
+ * @private
  * @param {Element} item
  */
 EventHandler.prototype.onProgramCardClick = function(item) {
@@ -61,25 +60,9 @@ EventHandler.prototype.onProgramCardClick = function(item) {
             return l['Target'] == "HLS";
         });
 
-        this.showElements([this.video, this.spinner]);
-        app.videoPlayer.play(link['Uri']);
+        app.stateHandler.pushState({
+            type: "playVideo",
+            streamingUrl: link['Uri']
+        });
     }.bind(this));
-};
-
-/**
- * @param {Array<Element>} elements
- */
-EventHandler.prototype.showElements = function(elements) {
-    elements.forEach(function(ele) {
-        ele.classList.remove('hidden');
-    });
-};
-
-/**
- * @param {Array<Element>} elements
- */
-EventHandler.prototype.hideElements = function(elements) {
-    elements.forEach(function(ele) {
-        ele.classList.add('hidden');
-    });
 };
