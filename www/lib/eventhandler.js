@@ -29,18 +29,6 @@ EventHandler.prototype.onVideoPlayError = function() {
 /**
  * @param {Element} item
  */
-EventHandler.prototype.onItemClicked = function(item) {
-    if (item.dataset.type === "Channel") {
-        this.onChannelClick(item);
-    } else if (item.dataset.type === "ProgramCard"){
-        this.onProgramCardClick(item);
-    }
-};
-
-/**
- * @private
- * @param {Element} item
- */
 EventHandler.prototype.onChannelClick = function(item) {
     app.stateHandler.pushState({
         type: "playVideo",
@@ -49,7 +37,6 @@ EventHandler.prototype.onChannelClick = function(item) {
 };
 
 /**
- * @private
  * @param {Element} item
  */
 EventHandler.prototype.onProgramCardClick = function(item) {

@@ -35,7 +35,7 @@ ItemManager.prototype.prepareLiveStrip = function(opt_callback) {
 
         for (var i = 0; i < data.length; i++) {
             var itemData = data[i];
-            liveStrip.appendChild(this.createItem(itemData));
+            liveStrip.appendChild(this.createChannelItem(itemData));
         }
 
         callback();
@@ -60,7 +60,7 @@ ItemManager.prototype.prepareMostViewed = function(opt_callback) {
         data = request.getData();
         for (var i = 0; i < data['Items'].length; i++) {
             var itemData = data['Items'][i];
-            mostviewedStrip.appendChild(this.createItem(itemData));
+            mostviewedStrip.appendChild(this.createProgramCardItem(itemData));
         }
 
         callback();
@@ -71,7 +71,7 @@ ItemManager.prototype.prepareMostViewed = function(opt_callback) {
  * @param {*} itemData
  * @return {Element}
  */
-ItemManager.prototype.createItem = function(itemData) {
+ItemManager.prototype.createChannelItem = function(itemData) {
     var item = document.createElement('div');
     var img = document.createElement('img');
     var title = document.createElement('div');
@@ -80,14 +80,7 @@ ItemManager.prototype.createItem = function(itemData) {
 
     item.classList.add('item');
     item.dataset.type = type;
-
-    var streamingUrl = this.getStreamingUrl(itemData);
-    if (streamingUrl) {
-        item.dataset.videoUrl = streamingUrl;
-    }
-    if (itemData["PrimaryAsset"] && itemData["PrimaryAsset"]["Uri"]) {
-        item.dataset.videoResource = itemData["PrimaryAsset"]["Uri"];
-    }
+    item.dataset.videoUrl = this.getStreamingUrl(itemData);
 
     img.classList.add('img');
     img.draggable = false;
@@ -100,7 +93,43 @@ ItemManager.prototype.createItem = function(itemData) {
     subTitle.innerText = "\n";
 
     item.addEventListener('click', function() {
-        app.clickHandler.onItemClicked(item);
+        app.eventHandler.onChannelClick(item);
+    }, false);
+
+    item.appendChild(title);
+    item.appendChild(img);
+    item.appendChild(subTitle);
+    return item;
+};
+
+/**
+ * @param {*} itemData
+ * @return {Element}
+ */
+ItemManager.prototype.createProgramCardItem = function(itemData) {
+    var item = document.createElement('div');
+    var img = document.createElement('img');
+    var title = document.createElement('div');
+    var subTitle = document.createElement('div');
+    var type = itemData['Type'];
+
+    item.classList.add('item');
+    item.dataset.type = type;
+
+    item.dataset.videoResource = itemData["PrimaryAsset"]["Uri"];
+
+    img.classList.add('img');
+    img.draggable = false;
+    img.src = itemData['PrimaryImageUri'];
+
+    title.classList.add('title');
+    title.innerText = itemData['Title'];
+
+    subTitle.classList.add('title');
+    subTitle.innerText = "\n";
+
+    item.addEventListener('click', function() {
+        app.eventHandler.onProgramCardClick(item);
     }, false);
 
     item.appendChild(title);

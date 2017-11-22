@@ -147,9 +147,9 @@ DPadNavigation.prototype.enter = function() {
     var selectedItem = this.getSelectedItem();
 
     if (app.videoPlayer.isPlaying()) {
-        app.clickHandler.onVideoPlayerClick();
+        app.eventHandler.onVideoPlayerClick();
     } else if (selectedItem != null) {
-        app.clickHandler.onItemClicked(selectedItem);
+        app.eventHandler.onItemClicked(selectedItem);
     }
 };
 

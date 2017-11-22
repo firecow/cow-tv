@@ -4,13 +4,13 @@
 VideoPlayer = function() {
     this.video = document.getElementById('video');
     this.video.addEventListener("click", function(e) {
-        app.clickHandler.onVideoPlayerClick(e);
+        app.eventHandler.onVideoPlayerClick(e);
     });
     this.video.addEventListener('playing', function() {
-        app.clickHandler.onVideoPlaying();
+        app.eventHandler.onVideoPlaying();
     });
     this.video.addEventListener('error', function() {
-        app.clickHandler.onVideoPlayError();
+        app.eventHandler.onVideoPlayError();
     });
 
     // Debug logs.
@@ -56,7 +56,7 @@ VideoPlayer.prototype.play = function(url) {
         }
         this.video.play();
     } catch(e) {
-        app.clickHandler.onVideoPlayError();
+        app.eventHandler.onVideoPlayError();
         console.error(e);
     }
 };
