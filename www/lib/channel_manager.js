@@ -11,20 +11,23 @@ ChannelManager.prototype.initChannels = function() {
 
 };
 
-ChannelManager.prototype.fetchChannels = function (callback) {
-	
-	var url = 'https://www.dr.dk/mu/bundle?BundleType=%22Channel%22&DrChannel=true&ChannelType=TV&WebChannel=false';
-	
-	JsonGetRequest.prepare(url, function(err, request) {
-        var itemDatas;
+ChannelManager.prototype.fetchChannels = function (opt_callback) {
+    var url = 'https://www.dr.dk/mu-online/api/1.4/channel/all-active-dr-tv-channels',
+        callback = opt_callback || function() {},
+        // liveStrip = document.getElementById('live-strip'),
+        request = new JsonGetRequest(url);
 
+    request.prepare(function(err, request) {
+        var data;
         if (err) {
             throw err;
         }
 
-        itemDatas = request.getData()['Data'];
-
-        itemDatas.sort(function(a, b) {
+        data = request.getData();
+        data = data.filter(function(e) {
+            return e['WebChannel'] === false;
+        });
+        data.sort(function(a, b) {
             var aTitle = a['Title'].toUpperCase().replace(/\s+/g, ''),
                 bTitle = b['Title'].toUpperCase().replace(/\s+/g, '');
             if (aTitle === bTitle) {
@@ -33,45 +36,54 @@ ChannelManager.prototype.fetchChannels = function (callback) {
             return aTitle > bTitle;
         });
 
-        itemDatas.forEach(function(itemData) {
-            var streamingServers = itemData['StreamingServers'];
-            if (!streamingServers || streamingServers.length == 0) {
-                return;
-            }
-
-            var assets = itemData['Assets'];
-            var asset = assets.find(function(a) {
-                return a['Name'].indexOf("PAUSEBILLEDE") === -1;
-            });
-            asset = asset || assets[0];
-
+        for (var i = 0; i < data.length; i++) {
+            var itemData = data[i];
             this.channels.push(new Channel(
                 itemData['Slug'],
                 itemData['Title'],
-                asset['Uri'],
-                itemData['StreamingServers'][1]
+                itemData['PrimaryImageUri'],
+                this.getStreamingUrl(itemData)
             ));
-        }.bind(this));
+        }
 
         callback();
-
     }.bind(this));
+
+
 };
 
 ChannelManager.prototype.prepareLiveChannelsStrip = function () {
 
-    var liveChildren = document.getElementById('live-children');
+    var liveStrip = document.getElementById('live-strip');
 
     this.channels.forEach(function(channel) {
 
-        var quality = channel.streamingServer['Qualities'][0];
-        var streams = quality['Streams'][0];
+        var tile = new Tile(channel.logoUrl, channel.title, channel.streamingServer, Tile.type.LIVE_CHANNEL);
 
-        var tile = new Tile(channel.logoUrl, channel.title, channel.streamingServer['Server'] + '/' + streams['Stream'], Tile.type.EPISODE);
-
-        liveChildren.appendChild(tile.createDOMElement());
+        liveStrip.appendChild(tile.createDOMElement());
 
     });
 
 
+};
+
+
+/**
+ * @param {*} itemData
+ * @return {?string}
+ */
+ChannelManager.prototype.getStreamingUrl = function(itemData) {
+    if (!itemData['StreamingServers']) {
+        return null;
+    }
+
+    var streamingServer = itemData['StreamingServers'].find(function(s) {
+        return s['LinkType'] === 'HLS';
+    });
+    var quality = streamingServer['Qualities'].sort(function(a, b) {
+        return b['Kbps'] - a['Kbps'];
+    })[0];
+    var streams = quality['Streams'][0];
+
+    return streamingServer['Server'] + '/' + streams['Stream'];
 };

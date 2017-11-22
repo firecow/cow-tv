@@ -6,9 +6,10 @@ var Tile = function(imgUrl, title, videoUrl, type) {
 };
 
 Tile.type = {
-    LIVE_CHANNEL : 0,
-    SERIES : 1,
-    EPISODE : 2
+    LIVE_CHANNEL : 1,
+    SERIES : 2,
+    EPISODE : 3,
+    PROGRAM_CARD : 4
 };
 
 Tile.prototype.createDOMElement = function() {
@@ -22,26 +23,25 @@ Tile.prototype.createDOMElement = function() {
 
     titleElement.innerText = this.title;
     imgElement.src = this.imgUrl;
-
-    itemElement.dataset.videoUrl = this.videoUrl;
     itemElement.dataset.type = this.type;
-
-    itemElement.addEventListener('mouseup', function(e) {
-        if (app.scrollingControl.totalDx < 5) {
-            app.videoPlayer.play(itemElement.dataset.videoUrl, itemElement.dataset.type);
-        }
-        e.preventDefault();
-    }.bind(this));
-
-    itemElement.addEventListener('touchend', function(e) {
-        if (app.scrollingControl.totalDx < 5) {
-            app.videoPlayer.play(itemElement.dataset.videoUrl, itemElement.dataset.type);
-        }
-        e.preventDefault();
-    }.bind(this));
 
     itemElement.appendChild(imgElement);
     itemElement.appendChild(titleElement);
+
+    switch (this.type) {
+        case Tile.type.LIVE_CHANNEL:
+            itemElement.dataset.videoUrl = this.videoUrl;
+            itemElement.addEventListener('click', function() {
+                app.eventHandler.onChannelClick(itemElement);
+            });
+            break;
+        case Tile.type.PROGRAM_CARD:
+            itemElement.dataset.videoResource = this.videoUrl;
+            itemElement.addEventListener('click', function() {
+                app.eventHandler.onProgramCardClick(itemElement);
+            });
+    }
+
 
     return itemElement;
 
