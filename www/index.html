@@ -10,6 +10,7 @@
 
     <script src="vendor/hls.js"></script>
     <script src="polyfill/array.js"></script>
+    <script src="polyfill/number.js"></script>
     <script src="polyfill/string.js"></script>
 
     <script src="lib/statehandler.js"></script>
@@ -66,10 +67,10 @@
 
     <div id="home-content" class="mousedragscroll noselect">
         <div class="header noselect">Live TV</div>
-        <div id="live-strip" class="strip mousedragscroll"></div>
+        <div id="live-strip" class="strip mousedragscroll selectable-row"></div>
 
         <div class="header noselect">Mest Sete Programmer</div>
-        <div id="mostviewed-strip" class="strip mousedragscroll"></div>
+        <div id="mostviewed-strip" class="strip mousedragscroll selectable-row"></div>
 
         <div class="header noselect">Nyheder</div>
         <div id="news-strip" class="strip mousedragscroll"></div>

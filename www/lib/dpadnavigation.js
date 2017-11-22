@@ -43,12 +43,25 @@ DPadNavigation = function() {
     }, false);
 };
 
+/**
+ * @return {?HTMLElement}
+ */
+DPadNavigation.prototype.getSelectedRow = function() {
+    var matches = document.getElementsByClassName('selected-row');
+    if (matches.length === 0) {
+        return null;
+    } else if (matches.length > 1) {
+        console.warn(matches.length + ' row selected');
+        return matches[0];
+    }
+    return matches[0];
+};
 
 /**
  * @return {?HTMLElement}
  */
 DPadNavigation.prototype.getSelectedItem = function() {
-    var matches = document.querySelectorAll('.item.selected');
+    var matches = document.getElementsByClassName('selected-item');
     if (matches.length === 0) {
         return null;
     } else if (matches.length > 1) {
@@ -59,43 +72,106 @@ DPadNavigation.prototype.getSelectedItem = function() {
 };
 
 /**
- * @param {number} dx
- * @param {number} dy
+ * -1 left, 1 right
+ * @param {number} dx -1 or 1
  */
-DPadNavigation.prototype.moveCursor = function(dx, dy) {
+DPadNavigation.prototype.moveHorizontal = function(dx) {
     var selectedItem = this.getSelectedItem(),
-        newSelectedItem = null,
+        selectedRow = this.getSelectedRow(),
+        firstRow,
         firstItem;
 
+    if (selectedRow === null) {
+        firstRow = document.getElementById('live-strip');
+        if (firstRow != null) {
+            this.selectRow(firstRow);
+        }
+    }
+
+    selectedRow = this.getSelectedRow();
     if (selectedItem === null) {
-        firstItem = document.getElementsByClassName('item')[0];
+        firstItem = selectedRow.getElementsByClassName('selectable-item')[0];
         if (firstItem != null) {
             this.selectItem(firstItem);
         }
         return;
     }
 
-    newSelectedItem = dx === -1 ? selectedItem.previousSibling || newSelectedItem : newSelectedItem;
-    newSelectedItem = dx === 1 ? selectedItem.nextSibling || newSelectedItem : newSelectedItem;
 
-    if (newSelectedItem !== null) {
-        this.selectItem(newSelectedItem);
+    var selectableItemsOnRow = [].slice.call(selectedRow.getElementsByClassName('selectable-item'));
+    var selectedIndex = selectableItemsOnRow.indexOf(selectedItem);
+
+    selectedIndex += dx;
+    selectedIndex = selectedIndex.clamp(0, selectableItemsOnRow.length - 1);
+
+    this.selectItem(selectableItemsOnRow[selectedIndex]);
+};
+
+
+/**
+ * -1 up, 1 down
+ * @param {number} dy -1 or 1
+ */
+DPadNavigation.prototype.moveVertical = function(dy) {
+    var selectedItem = this.getSelectedItem(),
+        selectedRow = this.getSelectedRow(),
+        firstRow,
+        firstItem;
+
+    if (selectedRow === null) {
+        firstRow = document.getElementById('live-strip');
+        if (firstRow != null) {
+            this.selectRow(firstRow);
+        }
     }
+
+    selectedRow = this.getSelectedRow();
+    if (selectedItem === null) {
+        firstItem = selectedRow.getElementsByClassName('selectable-item')[0];
+        if (firstItem != null) {
+            this.selectItem(firstItem);
+        }
+        return;
+    }
+
+    var selectableRows = [].slice.call(document.getElementsByClassName('selectable-row'));
+    var selectedIndex = selectableRows.indexOf(selectedRow);
+
+    selectedIndex += dy;
+    selectedIndex = selectedIndex.clamp(0, selectableRows.length - 1);
+    this.selectRow(selectableRows[selectedIndex]);
+    this.selectItem(selectableRows[selectedIndex].getElementsByClassName('selectable-item')[0])
 };
 
 /**
  * Selects this item.
- * @param {HTMLElement} item
+ * @param {Element} item
  */
 DPadNavigation.prototype.selectItem = function(item) {
     var selectedItem = this.getSelectedItem();
 
-    // Move selected
+    // Current selected item, should not be selected anymore.
     if (selectedItem !== null) {
-        selectedItem.classList.remove('selected');
+        selectedItem.classList.remove('selected-item');
     }
-    item.classList.add('selected');
+    item.classList.add('selected-item');
+    item.focus();
     this.layoutStrip();
+};
+
+/**
+ * Selects this item.
+ * @param {Element} row
+ */
+DPadNavigation.prototype.selectRow = function(row) {
+    var selectedRow = this.getSelectedRow();
+
+    // Current selected item, should not be selected anymore.
+    if (selectedRow !== null) {
+        selectedRow.classList.remove('selected-row');
+    }
+    row.classList.add('selected-row');
+    // this.layoutStrip();
 };
 
 /**
@@ -103,41 +179,41 @@ DPadNavigation.prototype.selectItem = function(item) {
  */
 DPadNavigation.prototype.layoutStrip = function() {
     var item = this.getSelectedItem(),
-        liveStrip = document.getElementById('live-strip');
+        row = this.getSelectedRow();
 
-    if (item === null) {
+    if (item === null || row === null) {
         return;
     }
 
-    liveStrip.scrollLeft = item.offsetLeft - liveStrip.offsetWidth * 0.5 + item.offsetWidth * 0.5;
+    row.scrollLeft = item.offsetLeft - row.offsetWidth * 0.5 + item.offsetWidth * 0.5;
 };
 
 /**
  * Move left pressed.
  */
 DPadNavigation.prototype.moveLeft = function() {
-    this.moveCursor(-1, 0);
+    this.moveHorizontal(-1);
 };
 
 /**
  * Move right pressed.
  */
 DPadNavigation.prototype.moveRight = function() {
-    this.moveCursor(1, 0);
+    this.moveHorizontal(1);
 };
 
 /**
  * Move up pressed.
  */
 DPadNavigation.prototype.moveUp = function() {
-    this.moveCursor(0, -1);
+    this.moveVertical(-1);
 };
 
 /**
  * Move down pressed.
  */
 DPadNavigation.prototype.moveDown = function() {
-    this.moveCursor(0, 1);
+    this.moveVertical(1);
 };
 
 /**

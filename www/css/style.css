@@ -119,11 +119,15 @@ video::-webkit-media-controls {
     background: #3b3b3b;
 }
 
-.selected {
+.selected-row {
+    background: #a1ff65;
+}
+
+.selected-item {
     background: #ff9200;
 }
 
-.selected .title {
+.selected-item .title {
     color: #262626;
     font-weight: bolder;
 }

@@ -79,10 +79,12 @@ ItemManager.prototype.createChannelItem = function(itemData) {
     var type = itemData['Type'];
 
     item.classList.add('item');
+    item.classList.add('selectable-item');
     item.dataset.type = type;
     item.dataset.videoUrl = this.getStreamingUrl(itemData);
 
     img.classList.add('img');
+
     img.draggable = false;
     img.src = itemData['PrimaryImageUri'];
 
@@ -114,6 +116,7 @@ ItemManager.prototype.createProgramCardItem = function(itemData) {
     var type = itemData['Type'];
 
     item.classList.add('item');
+    item.classList.add('selectable-item');
     item.dataset.type = type;
 
     item.dataset.videoResource = itemData["PrimaryAsset"]["Uri"];
