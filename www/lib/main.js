@@ -1,5 +1,6 @@
 var windowLoaded = function() {
     window.app = {
+        device: new Device(),
         videoPlayer: new VideoPlayer(),
         dPadNavigation: new DPadNavigation(),
         fullscreenApi: new FullscreenApi(),
@@ -11,6 +12,7 @@ var windowLoaded = function() {
 
     app.itemManager.prepareLiveStrip();
     app.itemManager.prepareMostViewed();
+    app.fullscreenApi.init();
     app.resizer.onResize();
 };
 

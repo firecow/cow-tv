@@ -2,6 +2,13 @@
  * @constructor
  */
 FullscreenApi = function() {
+
+};
+
+/**
+ * Initializes the fullscreen api class.
+ */
+FullscreenApi.prototype.init = function() {
     var fullscreenIcon = document.getElementById('fullscreen-icon'),
         clickFunction,
         iconChangeFunction;
@@ -30,7 +37,6 @@ FullscreenApi = function() {
         fullscreenIcon.addEventListener('mouseup', clickFunction);
         fullscreenIcon.classList.remove('hidden');
     }
-
 };
 
 /**
@@ -54,7 +60,7 @@ FullscreenApi.prototype.toggleFullscreen = function() {
  */
 FullscreenApi.prototype.isInFullscreen = function() {
     var fullscreenElement;
-    if (window.cordova) {
+    if (app.device.isCordova() || app.device.isWebOS()) {
         return false;
     }
     fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement || document.msFullscreenElement;
@@ -66,7 +72,7 @@ FullscreenApi.prototype.isInFullscreen = function() {
  * @return {boolean}
  */
 FullscreenApi.prototype.isFullscreenSupported = function() {
-    if (window.cordova) {
+    if (app.device.isCordova() || app.device.isWebOS()) {
         return false;
     }
     return document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullscreenEnabled || document.mozFullscreenEnabled || false;

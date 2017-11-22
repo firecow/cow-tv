@@ -45,12 +45,11 @@ VideoPlayer = function() {
  * @param {string} url
  */
 VideoPlayer.prototype.play = function(url) {
-    var isCordova = !!window.cordova;
     var hls;
 
     try {
         this.video.src = url;
-        if(Hls.isSupported() && !isCordova) {
+        if(Hls.isSupported() && !app.device.isCordova()) {
             hls = new Hls();
             hls.loadSource(url);
             hls.attachMedia(this.video);
