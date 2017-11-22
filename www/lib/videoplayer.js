@@ -49,7 +49,7 @@ VideoPlayer.prototype.play = function(url) {
 
     try {
         this.video.src = url;
-        if(Hls.isSupported() && !app.device.isCordova()) {
+        if(Hls.isSupported() && !app.device.isCordova() && !app.device.isWebOS()) {
             hls = new Hls();
             hls.loadSource(url);
             hls.attachMedia(this.video);
