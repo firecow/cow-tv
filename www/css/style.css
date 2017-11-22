@@ -25,6 +25,7 @@ video::-webkit-media-controls {
     transform-origin: 0 0 0;
     top: 50%;
     left: 50%;
+    width: 20%;
     transform: translate(-50%, -50%);
 }
 
