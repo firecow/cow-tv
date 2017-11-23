@@ -1,3 +1,0 @@
-var Episode = function() {
-
-};
