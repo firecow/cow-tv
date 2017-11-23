@@ -10,7 +10,6 @@ Animator = function() {
  */
 Animator.prototype.fadeIn = function(elements) {
     elements.forEach(function(ele) {
-        ele.classList.add('visible');
         ele.classList.remove('hidden');
     });
 };
@@ -21,6 +20,5 @@ Animator.prototype.fadeIn = function(elements) {
 Animator.prototype.fadeOut = function(elements) {
     elements.forEach(function(ele) {
         ele.classList.add('hidden');
-        ele.classList.remove('visible');
     });
 };

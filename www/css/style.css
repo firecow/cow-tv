@@ -80,16 +80,8 @@ video::-webkit-media-controls {
     color: white;
 }
 
-.visible {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.35s linear;
-}
-
 .hidden {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s 0.35s, opacity 0.35s linear;
+    display: none;
 }
 
 .item .title {
