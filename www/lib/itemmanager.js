@@ -78,8 +78,7 @@ ItemManager.prototype.createChannelItem = function(itemData) {
     var subTitle = document.createElement('div');
     var type = itemData['Type'];
 
-    item.classList.add('item');
-    item.classList.add('selectable-item');
+    item.classList.add('item', 'selectable-item');
     item.dataset.type = type;
     item.dataset.videoUrl = this.getStreamingUrl(itemData);
 
@@ -88,10 +87,10 @@ ItemManager.prototype.createChannelItem = function(itemData) {
     img.draggable = false;
     img.src = itemData['PrimaryImageUri'];
 
-    title.classList.add('title');
+    title.classList.add('title', 'padding');
     title.innerText = itemData['Title'];
 
-    subTitle.classList.add('title');
+    subTitle.classList.add('title', 'padding');
     subTitle.innerText = "\n";
 
     item.addEventListener('click', function() {
@@ -115,8 +114,7 @@ ItemManager.prototype.createProgramCardItem = function(itemData) {
     var subTitle = document.createElement('div');
     var type = itemData['Type'];
 
-    item.classList.add('item');
-    item.classList.add('selectable-item');
+    item.classList.add('item', 'selectable-item');
     item.dataset.type = type;
 
     item.dataset.videoResource = itemData["PrimaryAsset"]["Uri"];
@@ -125,10 +123,10 @@ ItemManager.prototype.createProgramCardItem = function(itemData) {
     img.draggable = false;
     img.src = itemData['PrimaryImageUri'];
 
-    title.classList.add('title');
+    title.classList.add('title', 'padding');
     title.innerText = itemData['Title'];
 
-    subTitle.classList.add('title');
+    subTitle.classList.add('title', 'padding');
     subTitle.innerText = "\n";
 
     item.addEventListener('click', function() {
