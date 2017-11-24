@@ -16,7 +16,6 @@ var windowLoaded = function() {
     // app.itemManager.prepareLiveStrip();
     app.channelManager.initChannels();
     app.styleSheetManipulator.setMinResolutionRules(document.body.offsetWidth, document.body.offsetHeight);
-    app.itemManager.prepareLiveStrip();
     app.itemManager.prepareMostViewed();
     app.stateHandler.init();
     app.debugInfo.updateDebugText();

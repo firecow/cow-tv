@@ -24,6 +24,7 @@ Tile.prototype.createDOMElement = function() {
     titleElement.innerText = this.title;
     imgElement.src = this.imgUrl;
     itemElement.dataset.type = this.type;
+    itemElement.dataset.title = this.title;
 
     itemElement.appendChild(imgElement);
     itemElement.appendChild(titleElement);

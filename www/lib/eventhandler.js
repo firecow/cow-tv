@@ -34,6 +34,7 @@ EventHandler.prototype.onChannelClick = function(item) {
         type: "playVideo",
         streamingUrl: item.dataset.videoUrl
     });
+    app.channelManager.setCurrentChannel(item.dataset.title);
 };
 
 /**

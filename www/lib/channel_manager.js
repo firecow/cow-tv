@@ -3,10 +3,11 @@ ChannelManager = function () {
 };
 
 ChannelManager.prototype.channels = [];
+ChannelManager.prototype.currentChannel = null;
 
 ChannelManager.prototype.initChannels = function() {
     this.fetchChannels(function() {
-        this.prepareLiveChannelsStrip();
+
     }.bind(this));
 
 };
@@ -36,14 +37,13 @@ ChannelManager.prototype.fetchChannels = function (opt_callback) {
             return aTitle > bTitle;
         });
 
+        var liveStrip = document.getElementById('live-strip');
         for (var i = 0; i < data.length; i++) {
             var itemData = data[i];
-            this.channels.push(new Channel(
-                itemData['Slug'],
-                itemData['Title'],
-                itemData['PrimaryImageUri'],
-                this.getStreamingUrl(itemData)
-            ));
+            var tile = new Tile(itemData['PrimaryImageUri'], itemData['Title'], this.getStreamingUrl(itemData), Tile.type.LIVE_CHANNEL);
+            var domElement = tile.createDOMElement();
+            this.channels.push(domElement);
+            liveStrip.appendChild(domElement);
         }
 
         callback();
@@ -52,22 +52,18 @@ ChannelManager.prototype.fetchChannels = function (opt_callback) {
 
 };
 
-ChannelManager.prototype.prepareLiveChannelsStrip = function () {
 
-    var liveStrip = document.getElementById('live-strip');
 
-    this.channels.forEach(function(channel) {
+ChannelManager.prototype.changeChannel = function (steps) {
+    app.eventHandler.onChannelClick(this.channels[this.currentChannel + steps]);
+}
 
-        var tile = new Tile(channel.logoUrl, channel.title, channel.streamingServer, Tile.type.LIVE_CHANNEL);
-
-        liveStrip.appendChild(tile.createDOMElement());
-
+ChannelManager.prototype.setCurrentChannel = function (title) {
+    this.currentChannel = this.channels.findIndex(function(channel) {
+        if(channel.dataset.title == title) return true;
     });
 
-
-};
-
-
+}
 /**
  * @param {*} itemData
  * @return {?string}

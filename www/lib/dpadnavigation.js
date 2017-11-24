@@ -10,7 +10,9 @@ DPadNavigation = function() {
         '40': this.moveDown.bind(this), // Down
         '39': this.moveRight.bind(this), // Right
         '38': this.moveUp.bind(this), // Up
-        '37': this.moveLeft.bind(this) // Left
+        '37': this.moveLeft.bind(this), // Left
+        '33': this.channelUp.bind(this), // Channel up
+        '34': this.channelDown.bind(this), // Channel down
     };
 
     /**
@@ -29,6 +31,7 @@ DPadNavigation = function() {
             this.keyDownCodeMap[keyCode]();
             e.preventDefault();
         }
+        console.log(keyCode);
     }.bind(this));
     window.addEventListener('keyup', function(e) {
         var keyCode = e.keyCode;
@@ -135,6 +138,8 @@ DPadNavigation.prototype.moveVertical = function(dy) {
     }
 
     var selectableRows = [].slice.call(document.getElementsByClassName('selectable-row'));
+    console.log(selectableRows);
+    console.log('fubar');
     var selectedIndex = selectableRows.indexOf(selectedRow);
 
     selectedIndex += dy;
@@ -236,3 +241,12 @@ DPadNavigation.prototype.enter = function() {
 DPadNavigation.prototype.back = function() {
     app.stateHandler.back();
 };
+
+
+DPadNavigation.prototype.channelUp = function() {
+    app.channelManager.changeChannel(1);
+};
+
+DPadNavigation.prototype.channelDown = function () {
+    app.channelManager.changeChannel(-1);
+}
