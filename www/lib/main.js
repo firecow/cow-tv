@@ -13,6 +13,15 @@ var windowLoaded = function() {
     app.itemManager.prepareLiveStrip();
     app.itemManager.prepareMostViewed();
     app.stateHandler.init();
+
+    var debugInfo = document.getElementById("debug-info");
+    debugInfo.innerText = window.devicePixelRatio + "dpr " + document.body.offsetWidth + "x" + document.body.offsetHeight;
+    window.addEventListener('resize', function() {
+        debugInfo.innerText = window.devicePixelRatio + "dpr " + document.body.offsetWidth + "x" + document.body.offsetHeight;
+    });
+    setTimeout(function() {
+        debugInfo.classList.add('hidden');
+    }, 5000);
 };
 
 window.addEventListener('load', windowLoaded);
