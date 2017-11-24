@@ -5,14 +5,16 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" title="main-style">
 
     <script src="vendor/hls.js"></script>
     <script src="polyfill/array.js"></script>
     <script src="polyfill/number.js"></script>
     <script src="polyfill/string.js"></script>
 
+    <script src="lib/debuginfo.js"></script>
+    <script src="lib/stylesheetmanipulator.js"></script>
     <script src="lib/statehandler.js"></script>
     <script src="lib/animator.js"></script>
     <script src="lib/device.js"></script>
@@ -53,7 +55,7 @@
 
 <img id="spinner" class="hidden center-mid" src="media/spinner.svg">
 
-<div id="debug-info" style="position:absolute; font-size: 2vmin; color: white;"></div>
+<div id="debug-info"></div>
 
 </body>
 </html>

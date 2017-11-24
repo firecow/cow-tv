@@ -7,21 +7,16 @@ var windowLoaded = function() {
         mouseDragScroll: new MouseDragScroll(),
         itemManager: new ItemManager(),
         stateHandler: new StateHandler(),
-        animator: new Animator()
+        animator: new Animator(),
+        styleSheetManipulator: new StyleSheetManipulator(),
+        debugInfo: new DebugInfo()
     };
 
+    app.styleSheetManipulator.setMinResolutionRules(document.body.offsetWidth, document.body.offsetHeight);
     app.itemManager.prepareLiveStrip();
     app.itemManager.prepareMostViewed();
     app.stateHandler.init();
-
-    var debugInfo = document.getElementById("debug-info");
-    debugInfo.innerText = window.devicePixelRatio + "dpr " + document.body.offsetWidth + "x" + document.body.offsetHeight;
-    window.addEventListener('resize', function() {
-        debugInfo.innerText = window.devicePixelRatio + "dpr " + document.body.offsetWidth + "x" + document.body.offsetHeight;
-    });
-    setTimeout(function() {
-        debugInfo.classList.add('hidden');
-    }, 5000);
+    app.debugInfo.updateDebugText();
 };
 
 window.addEventListener('load', windowLoaded);
