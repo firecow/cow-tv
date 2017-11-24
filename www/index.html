@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <meta name="viewport" content="initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" title="main-style">
 
     <script src="vendor/hls.js"></script>
     <script src="polyfill/array.js"></script>
+    <script src="polyfill/number.js"></script>
     <script src="polyfill/string.js"></script>
 
+    <script src="lib/debuginfo.js"></script>
+    <script src="lib/stylesheetmanipulator.js"></script>
     <script src="lib/Elements/Tile.js"></script>
 
     <script src="lib/Models/Channel.js"></script>
@@ -23,72 +26,43 @@
     <script src="lib/device.js"></script>
     <script src="lib/mousedragscroll.js"></script>
     <script src="lib/eventhandler.js"></script>
-    <script src="lib/resizer.js"></script>
     <script src="lib/main.js"></script>
     <script src="lib/jsongetrequest.js"></script>
     <script src="lib/itemmanager.js"></script>
     <script src="lib/channel_manager.js"></script>
     <script src="lib/dpadnavigation.js"></script>
-    <script src="lib/fullscreenapi.js"></script>
     <script src="lib/videoplayer.js"></script>
 
     <script src="cordova.js"></script>
 
     <title>DR Play</title>
 </head>
-<body class="accelerateMe">
+<body>
 
-<div id="scaler">
+<div id="home">
+    <div id="strips">
+        <div class="v-scroller mousedragscroll accelerateMe">
+            <div class="header padding">Live TV</div>
+            <div id="live-strip" class="strip mousedragscroll selectable-row accelerateMe"></div>
 
-    <div id="top-bar">
+            <div class="header padding">Mest Sete</div>
+            <div id="mostviewed-strip" class="strip mousedragscroll selectable-row accelerateMe"></div>
 
-        <div id="top-bar-right-aligned">
-            <div id="fullscreen-icon" class="icon-holder hidden">
-                <svg id="enable-fullscreen" class="icon" viewBox="0 0 24 24">
-                    <use xlink:href="media/fullscreen.svg#request"></use>
-                </svg>
-                <svg id="exit-fullscreen" class="icon hidden" viewBox="0 0 24 24">
-                    <use xlink:href="media/fullscreen.svg#exit"></use>
-                </svg>
-            </div>
-            <div id="cast-icon" class="icon-holder hidden">
-                <svg class="icon" viewBox="0 0 24 24">
-                    <use xlink:href="media/cast.svg#normal"></use>
-                </svg>
-                <svg class="icon hidden" viewBox="0 0 24 24">
-                    <use xlink:href="media/cast.svg#anim_0"></use>
-                </svg>
-                <svg class="icon hidden" viewBox="0 0 24 24">
-                    <use xlink:href="media/cast.svg#anim_1"></use>
-                </svg>
-                <svg class="icon hidden" viewBox="0 0 24 24">
-                    <use xlink:href="media/cast.svg#anim_2"></use>
-                </svg>
-                <svg class="icon hidden" viewBox="0 0 24 24">
-                    <use xlink:href="media/cast.svg#connected"></use>
-                </svg>
-            </div>
+            <div class="header padding">Nyheder</div>
+            <div id="news-strip" class="strip mousedragscroll accelerateMe"></div>
+
+            <div class="header padding">Favoritter</div>
+            <div id="favorite-strip" class="strip mousedragscroll accelerateMe"></div>
+
         </div>
-    </div>
-
-    <div id="home-content" class="mousedragscroll noselect">
-        <div class="header noselect">Live TV</div>
-        <div id="live-strip" class="strip mousedragscroll"></div>
-
-        <div class="header noselect">Mest Sete Programmer</div>
-        <div id="mostviewed-strip" class="strip mousedragscroll"></div>
-
-        <div class="header noselect">Nyheder</div>
-        <div id="news-strip" class="strip mousedragscroll"></div>
-
-        <div class="header noselect title">Favoritter</div>
-        <div id="favorite-strip" class="strip mousedragscroll"></div>
     </div>
 </div>
 
-<video id="video" class="hidden"></video>
+<video id="video" class="hidden accelerateMe"></video>
 
-<img id="spinner" class="hidden" src="media/spinner.svg">
+<img id="spinner" class="hidden center-mid accelerateMe" src="media/spinner.svg">
+
+<div id="debug-info"></div>
 
 </body>
 </html>

@@ -12,7 +12,7 @@ MouseDragScroll = function() {
         var dx;
         if (this.mouseDown !== null) {
             dx = e.clientX - this.mouseDown.event.clientX;
-            this.mouseDown.elem.scrollLeft -= dx / Resizer.getScale();
+            this.mouseDown.elem.scrollLeft -= dx;
             this.mouseDown.event = e;
         }
     }.bind(this));

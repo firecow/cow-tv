@@ -4,7 +4,7 @@
 StateHandler = function() {
     this.video = document.getElementById('video');
     this.spinner = document.getElementById('spinner');
-    this.scaler = document.getElementById('scaler');
+    this.home = document.getElementById('home');
 
     window.addEventListener('popstate', function(e) {
         this.setState(e.state);
@@ -25,7 +25,7 @@ StateHandler.prototype.setState = function(state) {
     console.log('Setting state', state);
 
     if (state === null) {
-        app.animator.fadeIn([this.scaler]);
+        app.animator.fadeIn([this.home]);
         app.animator.fadeOut([this.spinner, this.video]);
         app.videoPlayer.stop();
         // Gogo home screen.
@@ -36,7 +36,7 @@ StateHandler.prototype.setState = function(state) {
     switch (state.type) {
         case "playVideo":
             app.animator.fadeIn([this.video, this.spinner]);
-            app.animator.fadeOut([this.scaler]);
+            app.animator.fadeOut([this.home]);
             app.videoPlayer.play(state.streamingUrl);
             break;
     }

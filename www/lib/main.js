@@ -3,22 +3,23 @@ var windowLoaded = function() {
         device: new Device(),
         videoPlayer: new VideoPlayer(),
         dPadNavigation: new DPadNavigation(),
-        fullscreenApi: new FullscreenApi(),
         eventHandler: new EventHandler(),
         mouseDragScroll: new MouseDragScroll(),
-        resizer: new Resizer(),
         itemManager: new ItemManager(),
         channelManager: new ChannelManager(),
         stateHandler: new StateHandler(),
-        animator: new Animator()
+        animator: new Animator(),
+        styleSheetManipulator: new StyleSheetManipulator(),
+        debugInfo: new DebugInfo()
     };
 
     // app.itemManager.prepareLiveStrip();
     app.channelManager.initChannels();
+    app.styleSheetManipulator.setMinResolutionRules(document.body.offsetWidth, document.body.offsetHeight);
+    app.itemManager.prepareLiveStrip();
     app.itemManager.prepareMostViewed();
-    app.fullscreenApi.init();
     app.stateHandler.init();
-    app.resizer.onResize();
+    app.debugInfo.updateDebugText();
 };
 
 window.addEventListener('load', windowLoaded);
