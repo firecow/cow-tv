@@ -8,9 +8,6 @@ html, body {
 
     /* Disable dragging images and selecting text */
     user-select: none;
-
-    /* Force hardware rendering */
-    transform: translate3d(0, 0, 0);
 }
 
 #video {
@@ -46,6 +43,11 @@ html, body {
 }
 
 /* Class */
+.accelerateMe {
+    /* Force hardware rendering */
+    transform: translate3d(0, 0, 0);
+}
+
 .v-scroller {
     overflow-y: auto;
 }
