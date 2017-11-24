@@ -11,7 +11,7 @@ DebugInfo = function() {
     // Hide after 5s.
     setTimeout(function() {
         this.debugInfo.classList.add('hidden');
-    }.bind(this), 5000);
+    }.bind(this), 10000);
 };
 
 /**
