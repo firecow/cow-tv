@@ -75,7 +75,6 @@ ItemManager.prototype.createChannelItem = function(itemData) {
     var item = document.createElement('div');
     var img = document.createElement('img');
     var title = document.createElement('div');
-    var subTitle = document.createElement('div');
     var type = itemData['Type'];
 
     item.classList.add('item', 'selectable-item');
@@ -90,16 +89,12 @@ ItemManager.prototype.createChannelItem = function(itemData) {
     title.classList.add('title', 'padding');
     title.innerText = itemData['Title'];
 
-    subTitle.classList.add('title', 'padding');
-    subTitle.innerText = "\n";
-
     item.addEventListener('click', function() {
         app.eventHandler.onChannelClick(item);
     }, false);
 
     item.appendChild(title);
     item.appendChild(img);
-    item.appendChild(subTitle);
     return item;
 };
 
@@ -112,6 +107,7 @@ ItemManager.prototype.createProgramCardItem = function(itemData) {
     var img = document.createElement('img');
     var title = document.createElement('div');
     var subTitle = document.createElement('div');
+    var subTitle1 = document.createElement('div');
     var type = itemData['Type'];
 
     item.classList.add('item', 'selectable-item');
@@ -123,11 +119,32 @@ ItemManager.prototype.createProgramCardItem = function(itemData) {
     img.draggable = false;
     img.src = itemData['PrimaryImageUri'];
 
+    var titleString = itemData['Title'].toTitleCase();
+    var episodeNumber = '\n';
+    var episodeName = '\n';
+
+    var episodeNumberMatch = titleString.match(/\(.*\)/);
+    if (episodeNumberMatch != null) {
+        episodeNumber = episodeNumberMatch[0];
+        titleString = titleString.replace(episodeNumber, '');
+    }
+
+    var episideNameAfterDashMatch = titleString.match(/- .*/);
+    if (episideNameAfterDashMatch != null) {
+        var episodeNameMatch = episideNameAfterDashMatch[0];
+        titleString = titleString.replace(episodeNameMatch, '');
+
+        episodeName = episodeNameMatch.replace('-', '').trim();
+    }
+
     title.classList.add('title', 'padding');
-    title.innerText = itemData['Title'];
+    title.innerText = titleString;
 
     subTitle.classList.add('title', 'padding');
-    subTitle.innerText = "\n";
+    subTitle.innerText = episodeName;
+
+    subTitle1.classList.add('title', 'padding');
+    subTitle1.innerText = episodeNumber;
 
     item.addEventListener('click', function() {
         app.eventHandler.onProgramCardClick(item);
@@ -136,6 +153,7 @@ ItemManager.prototype.createProgramCardItem = function(itemData) {
     item.appendChild(title);
     item.appendChild(img);
     item.appendChild(subTitle);
+    item.appendChild(subTitle1);
     return item;
 };
 
