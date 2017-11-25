@@ -27,7 +27,7 @@ html, body {
 }
 
 #home {
-    position:absolute;
+    position: absolute;
     width: 100vw;
 }
 
@@ -37,15 +37,16 @@ html, body {
 }
 
 #debug-info {
-    position:absolute;
+    position: absolute;
     font-size: 2vmin;
     color: white;
 }
 
 /* Class */
-.accelerateMe {
+.forceHW {
     /* Force hardware rendering */
     transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 .v-scroller {
@@ -53,7 +54,7 @@ html, body {
 }
 
 .center-mid {
-    position:absolute;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
