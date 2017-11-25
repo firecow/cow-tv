@@ -49,13 +49,13 @@ VideoPlayer.prototype.play = function(url) {
 
     try {
         this.video.src = url;
-        if(Hls.isSupported() && !app.device.isCordova() && !app.device.isWebOS()) {
+        if (Hls.isSupported() && !app.device.isCordova() && !app.device.isWebOS()) {
             hls = new Hls();
             hls.loadSource(url);
             hls.attachMedia(this.video);
         }
         this.video.play();
-    } catch(e) {
+    } catch (e) {
         app.eventHandler.onVideoPlayError();
         console.error(e);
     }
