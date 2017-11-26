@@ -15,7 +15,7 @@ StyleSheetManipulator.prototype.setMinResolutionRules = function(width, height) 
     var minDimension = Math.min(width, height);
     var m = 1 / (minDimension / 320);
 
-    this.setCssProperty('#spinner', 'width', 20 * m);
+    this.setCssProperty('#spinner', 'width', 40 * m);
     this.setCssProperty('#debug-info', 'font-size', 5 * m);
 
     this.setCssProperty('.padding', 'padding', 0.9 * m);
