@@ -85,6 +85,10 @@ SelectionHandler.prototype.moveRight = function() {
  * @return {Element}
  */
 SelectionHandler.prototype.getSelectedItem = function(selectedRow) {
+    if (selectedRow.classList.contains('selected-item')) {
+        return selectedRow;
+    }
+
     var matches = selectedRow.getElementsByClassName('selected-item');
     if (matches.length !== 1) {
         throw new Error(matches.length + ' items selected');
@@ -97,6 +101,10 @@ SelectionHandler.prototype.getSelectedItem = function(selectedRow) {
  */
 SelectionHandler.prototype.getSelectedRow = function() {
     var currentStateElement = app.stateHandler.getCurrentStateMainElement();
+    if (currentStateElement.classList.contains('selected-row')) {
+        return currentStateElement;
+    }
+
     var matches = currentStateElement.getElementsByClassName('selected-row');
     if (matches.length !== 1) {
         throw new Error(matches.length + ' rows selected');
