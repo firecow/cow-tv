@@ -6,21 +6,12 @@ DPadNavigation = function() {
     /**
      * @type {Object<number, function()>}
      */
-    this.keyDownCodeMap = {
-        '40': this.moveDown.bind(this), // Down
-        '39': this.moveRight.bind(this), // Right
-        '38': this.moveUp.bind(this), // Up
-        '37': this.moveLeft.bind(this) // Left
-    };
+    this.keyDownCodeMap = {};
 
     /**
      * @type {Object<number, function()>}
      */
-    this.keyUpCodeMap = {
-        '13': this.enter.bind(this), // Enter
-        '27': this.back.bind(this), // Escape
-        '8': this.back.bind(this) // Backspace
-    };
+    this.keyUpCodeMap = {};
 
     // Register event listeners.
     window.addEventListener('keydown', function(e) {
@@ -43,196 +34,27 @@ DPadNavigation = function() {
     }, false);
 };
 
-/**
- * @return {?HTMLElement}
- */
-DPadNavigation.prototype.getSelectedRow = function() {
-    var matches = document.getElementsByClassName('selected-row');
-    if (matches.length === 0) {
-        return null;
-    } else if (matches.length > 1) {
-        console.warn(matches.length + ' row selected');
-        return matches[0];
-    }
-    return matches[0];
-};
 
-/**
- * @return {?HTMLElement}
- */
-DPadNavigation.prototype.getSelectedItem = function() {
-    var matches = document.getElementsByClassName('selected-item');
-    if (matches.length === 0) {
-        return null;
-    } else if (matches.length > 1) {
-        console.warn(matches.length + ' items selected');
-        return matches[0];
-    }
-    return matches[0];
-};
+DPadNavigation.prototype.init = function() {
+    var selectionHandler = app.selectionHandler;
+    var eventHandler = app.eventHandler;
 
-/**
- * -1 left, 1 right
- * @param {number} dx -1 or 1
- */
-DPadNavigation.prototype.moveHorizontal = function(dx) {
-    var selectedItem = this.getSelectedItem(),
-        selectedRow = this.getSelectedRow(),
-        firstRow,
-        firstItem;
+    /**
+     * @type {Object<number, function()>}
+     */
+    this.keyDownCodeMap = {
+        '40': selectionHandler.moveDown.bind(selectionHandler), // Down
+        '39': selectionHandler.moveRight.bind(selectionHandler), // Right
+        '38': selectionHandler.moveUp.bind(selectionHandler), // Up
+        '37': selectionHandler.moveLeft.bind(selectionHandler) // Left
+    };
 
-    if (selectedRow === null) {
-        firstRow = document.getElementById('live-strip');
-        if (firstRow != null) {
-            this.selectRow(firstRow);
-        }
-    }
-
-    selectedRow = this.getSelectedRow();
-    if (selectedItem === null) {
-        firstItem = selectedRow.getElementsByClassName('selectable-item')[0];
-        if (firstItem != null) {
-            this.selectItem(firstItem);
-        }
-        return;
-    }
-
-
-    var selectableItemsOnRow = [].slice.call(selectedRow.getElementsByClassName('selectable-item'));
-    var selectedIndex = selectableItemsOnRow.indexOf(selectedItem);
-
-    selectedIndex += dx;
-    selectedIndex = selectedIndex.clamp(0, selectableItemsOnRow.length - 1);
-
-    this.selectItem(selectableItemsOnRow[selectedIndex]);
-};
-
-
-/**
- * -1 up, 1 down
- * @param {number} dy -1 or 1
- */
-DPadNavigation.prototype.moveVertical = function(dy) {
-    var selectedItem = this.getSelectedItem(),
-        selectedRow = this.getSelectedRow(),
-        firstRow,
-        firstItem;
-
-    if (selectedRow === null) {
-        firstRow = document.getElementById('live-strip');
-        if (firstRow != null) {
-            this.selectRow(firstRow);
-        }
-    }
-
-    selectedRow = this.getSelectedRow();
-    if (selectedItem === null) {
-        firstItem = selectedRow.getElementsByClassName('selectable-item')[0];
-        if (firstItem != null) {
-            this.selectItem(firstItem);
-        }
-        return;
-    }
-
-    var selectableRows = [].slice.call(document.getElementsByClassName('selectable-row'));
-    var selectedIndex = selectableRows.indexOf(selectedRow);
-
-    selectedIndex += dy;
-    selectedIndex = selectedIndex.clamp(0, selectableRows.length - 1);
-    this.selectRow(selectableRows[selectedIndex]);
-    this.selectItem(selectableRows[selectedIndex].getElementsByClassName('selectable-item')[0])
-};
-
-/**
- * Selects this item.
- * @param {Element} item
- */
-DPadNavigation.prototype.selectItem = function(item) {
-    var selectedItem = this.getSelectedItem();
-
-    // Current selected item, should not be selected anymore.
-    if (selectedItem !== null) {
-        selectedItem.classList.remove('selected-item');
-    }
-    item.classList.add('selected-item');
-    item.focus();
-    this.layoutStrip();
-};
-
-/**
- * Selects this item.
- * @param {Element} row
- */
-DPadNavigation.prototype.selectRow = function(row) {
-    var selectedRow = this.getSelectedRow();
-
-    // Current selected item, should not be selected anymore.
-    if (selectedRow !== null) {
-        selectedRow.classList.remove('selected-row');
-    }
-    row.classList.add('selected-row');
-    // this.layoutStrip();
-};
-
-/**
- * Layout selected item.
- */
-DPadNavigation.prototype.layoutStrip = function() {
-    var item = this.getSelectedItem(),
-        row = this.getSelectedRow();
-
-    if (item === null || row === null) {
-        return;
-    }
-
-    row.scrollLeft = item.offsetLeft - row.offsetWidth * 0.5 + item.offsetWidth * 0.5;
-};
-
-/**
- * Move left pressed.
- */
-DPadNavigation.prototype.moveLeft = function() {
-    this.moveHorizontal(-1);
-};
-
-/**
- * Move right pressed.
- */
-DPadNavigation.prototype.moveRight = function() {
-    this.moveHorizontal(1);
-};
-
-/**
- * Move up pressed.
- */
-DPadNavigation.prototype.moveUp = function() {
-    this.moveVertical(-1);
-};
-
-/**
- * Move down pressed.
- */
-DPadNavigation.prototype.moveDown = function() {
-    this.moveVertical(1);
-};
-
-/**
- * Enter pressed.
- */
-DPadNavigation.prototype.enter = function() {
-    var selectedItem = this.getSelectedItem();
-
-    if (app.videoPlayer.isPlaying()) {
-        app.eventHandler.onVideoPlayerClick();
-    } else if (selectedItem != null) {
-        selectedItem.click();
-    }
-};
-
-/**
- * Back button pressed.
- *
- */
-DPadNavigation.prototype.back = function() {
-    app.stateHandler.back();
+    /**
+     * @type {Object<number, function()>}
+     */
+    this.keyUpCodeMap = {
+        '13': eventHandler.onDPadClick.bind(eventHandler), // Enter
+        '27': eventHandler.onDPadBack.bind(eventHandler), // Escape
+        '8': eventHandler.onDPadBack.bind(eventHandler) // Backspace
+    };
 };

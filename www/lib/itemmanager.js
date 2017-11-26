@@ -35,7 +35,13 @@ ItemManager.prototype.prepareLiveStrip = function(opt_callback) {
 
         for (var i = 0; i < data.length; i++) {
             var itemData = data[i];
-            liveStrip.appendChild(this.createChannelItem(itemData));
+            var channelItem = this.createChannelItem(itemData);
+
+            // Set default selectable item
+            if (i == 0) {
+                channelItem.classList.add('selected-item');
+            }
+            liveStrip.appendChild(channelItem);
         }
 
         callback();
@@ -60,7 +66,11 @@ ItemManager.prototype.prepareMostViewed = function(opt_callback) {
         data = request.getData();
         for (var i = 0; i < data['Items'].length; i++) {
             var itemData = data['Items'][i];
-            mostviewedStrip.appendChild(this.createProgramCardItem(itemData));
+            var programCardItem = this.createProgramCardItem(itemData);
+            if (i == 0) {
+                programCardItem.classList.add('selected-item');
+            }
+            mostviewedStrip.appendChild(programCardItem);
         }
 
         callback();

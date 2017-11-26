@@ -26,12 +26,27 @@ EventHandler.prototype.onVideoPlayError = function() {
     app.stateHandler.back();
 };
 
+
+/**
+ * A DPad enter button have been pressed. (Enter, OK)
+ */
+EventHandler.prototype.onDPadClick = function() {
+    app.selectionHandler.onDPadClick();
+};
+
+/**
+ * A DPad back button have been pressed. (Backspace, Backbutton, Escape)
+ */
+EventHandler.prototype.onDPadBack = function() {
+    app.stateHandler.back();
+};
+
 /**
  * @param {Element} item
  */
 EventHandler.prototype.onChannelClick = function(item) {
     app.stateHandler.pushState({
-        type: "playVideo",
+        type: "video-channel",
         streamingUrl: item.dataset.videoUrl
     });
 };
@@ -48,7 +63,7 @@ EventHandler.prototype.onProgramCardClick = function(item) {
         });
 
         app.stateHandler.pushState({
-            type: "playVideo",
+            type: "video-program",
             streamingUrl: link['Uri']
         });
     }.bind(this));

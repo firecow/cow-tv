@@ -2,7 +2,8 @@
  * @constructor
  */
 StateHandler = function() {
-    this.video = document.getElementById('video');
+    this.videoChannel = document.getElementById('video-channel');
+    this.videoProgram = document.getElementById('video-program');
     this.spinner = document.getElementById('spinner');
     this.home = document.getElementById('home');
 
@@ -19,25 +20,49 @@ StateHandler.prototype.init = function() {
 };
 
 /**
+ * @return {string}
+ */
+StateHandler.prototype.getCurrentStateType = function() {
+    return history.state ? history.state.type : 'home';
+};
+
+/**
+ * @return {Element}
+ */
+StateHandler.prototype.getCurrentStateMainElement = function() {
+    var currentStateType = this.getCurrentStateType();
+    var element = document.getElementById(currentStateType);
+    if (!element) {
+        throw new Error('No main element found for state type. ' + currentStateType);
+    }
+    return element;
+};
+
+/**
  * @param {*} state
  */
 StateHandler.prototype.setState = function(state) {
-    console.log('Setting state', state);
-
     if (state === null) {
         app.animator.fadeIn([this.home]);
-        app.animator.fadeOut([this.spinner, this.video]);
-        app.videoPlayer.stop();
+        app.animator.fadeOut([this.spinner, this.videoChannel, this.videoProgram]);
+        this.videoChannel.player.stop();
+        this.videoProgram.player.stop();
         // Gogo home screen.
         return;
     }
 
-
     switch (state.type) {
-        case "playVideo":
-            app.animator.fadeIn([this.video, this.spinner]);
-            app.animator.fadeOut([this.home]);
-            app.videoPlayer.play(state.streamingUrl);
+        case "video-channel":
+            app.animator.fadeIn([this.videoChannel, this.spinner]);
+            app.animator.fadeOut([this.home, this.videoProgram]);
+            this.videoProgram.player.stop();
+            this.videoChannel.player.play(state.streamingUrl);
+            break;
+        case "video-program":
+            app.animator.fadeIn([this.videoProgram, this.spinner]);
+            app.animator.fadeOut([this.home, this.videoChannel]);
+            this.videoChannel.player.stop();
+            this.videoProgram.player.play(state.streamingUrl);
             break;
     }
 };
@@ -64,4 +89,3 @@ StateHandler.prototype.pushState = function(stateObject) {
     window.history.pushState(stateObject, stateObject.type);
     this.setState(stateObject);
 };
-

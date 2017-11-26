@@ -1,7 +1,7 @@
 var windowLoaded = function() {
     window.app = {
         device: new Device(),
-        videoPlayer: new VideoPlayer(),
+        selectionHandler: new SelectionHandler(),
         dPadNavigation: new DPadNavigation(),
         eventHandler: new EventHandler(),
         mouseDragScroll: new MouseDragScroll(),
@@ -12,9 +12,16 @@ var windowLoaded = function() {
         debugInfo: new DebugInfo()
     };
 
+    var videoChannel = document.getElementById('video-channel');
+    videoChannel.player = new VideoPlayer(videoChannel);
+
+    var videoProgram = document.getElementById('video-program');
+    videoProgram.player = new VideoPlayer(videoProgram);
+
     app.styleSheetManipulator.setMinResolutionRules(document.body.offsetWidth, document.body.offsetHeight);
     app.itemManager.prepareLiveStrip();
     app.itemManager.prepareMostViewed();
+    app.dPadNavigation.init();
     app.stateHandler.init();
     app.debugInfo.updateDebugText();
 };

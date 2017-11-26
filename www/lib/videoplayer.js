@@ -1,16 +1,16 @@
 /**
  * @constructor
  */
-VideoPlayer = function() {
-    this.video = document.getElementById('video');
-    this.video.addEventListener("click", function(e) {
-        app.eventHandler.onVideoPlayerClick(e);
+VideoPlayer = function(element) {
+    this.video = element;
+    this.video.addEventListener("click", function() {
+        app.eventHandler.onVideoPlayerClick(element);
     });
     this.video.addEventListener('playing', function() {
-        app.eventHandler.onVideoPlaying();
+        app.eventHandler.onVideoPlaying(element);
     });
     this.video.addEventListener('error', function() {
-        app.eventHandler.onVideoPlayError();
+        app.eventHandler.onVideoPlayError(element);
     });
 
     // Debug logs.

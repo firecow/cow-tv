@@ -20,6 +20,7 @@
     <script src="lib/device.js"></script>
     <script src="lib/mousedragscroll.js"></script>
     <script src="lib/eventhandler.js"></script>
+    <script src="lib/selectionhandler.js"></script>
     <script src="lib/main.js"></script>
     <script src="lib/jsongetrequest.js"></script>
     <script src="lib/itemmanager.js"></script>
@@ -36,7 +37,7 @@
     <div id="strips">
         <div class="v-scroller mousedragscroll">
             <div class="header padding">Live TV</div>
-            <div id="live-strip" class="strip mousedragscroll selectable-row"></div>
+            <div id="live-strip" class="strip mousedragscroll selectable-row selected-row"></div>
 
             <div class="header padding">Mest Sete</div>
             <div id="mostviewed-strip" class="strip mousedragscroll selectable-row"></div>
@@ -51,7 +52,9 @@
     </div>
 </div>
 
-<video id="video" class="hidden" poster="img/black.jpg"></video>
+<video id="video-channel" class="video hidden selected-row selected-item" poster="img/black.jpg"></video>
+
+<video id="video-program" class="video hidden selected-row selected-item" poster="img/black.jpg"></video>
 
 <img id="spinner" class="hidden" src="media/spinner.svg">
 
