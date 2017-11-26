@@ -1,13 +1,18 @@
 /* Tag */
-html, body {
+html {
+    background-color: #262626;
+    height: 100%;
+    width: 100%;
+
+    /* Disable dragging images and selecting text */
+    user-select: none;
+}
+
+body {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
-    background-color: #262626;
-
-    /* Disable dragging images and selecting text */
-    user-select: none;
 }
 
 #video {
@@ -22,8 +27,12 @@ html, body {
 }
 
 #spinner {
+    position: absolute;
     transform-origin: 0 0 0;
     width: 20vmin;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #home {
@@ -43,20 +52,8 @@ html, body {
 }
 
 /* Class */
-.forceHW {
-    /* Force hardware rendering */
-    transform: translate3d(0, 0, 0);
-}
-
 .v-scroller {
     overflow-y: auto;
-}
-
-.center-mid {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%, -50%);
 }
 
 .padding {
@@ -101,7 +98,7 @@ html, body {
 }
 
 .selected-row {
-    background: #a1ff65;
+    background: #4f4f4f;
 }
 
 .selected-item {

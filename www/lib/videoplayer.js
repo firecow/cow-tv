@@ -48,11 +48,12 @@ VideoPlayer.prototype.play = function(url) {
     var hls;
 
     try {
-        this.video.src = url;
         if (Hls.isSupported() && !app.device.isCordova() && !app.device.isWebOS()) {
             hls = new Hls();
             hls.loadSource(url);
             hls.attachMedia(this.video);
+        } else {
+            this.video.src = url;
         }
         this.video.play();
     } catch (e) {
