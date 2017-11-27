@@ -29,9 +29,13 @@ body {
     width: 100vw;
 }
 
+#home #logo {
+    width: 20vmin;
+}
+
 #home #strips {
     position: relative;
-    height: 100vh;
+    height: 90vh;
 }
 
 #debug-info {

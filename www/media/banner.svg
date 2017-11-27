@@ -28,30 +28,37 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="19.209627"
-     inkscape:cx="13.439785"
-     inkscape:cy="6.1907728"
+     inkscape:zoom="19.209628"
+     inkscape:cx="17.569335"
+     inkscape:cy="10.671608"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     showgrid="false"
+     showgrid="true"
      showguides="true"
      showborder="true"
      inkscape:showpageshadow="false"
      height="32mm"
      inkscape:guide-bbox="true"
      units="px"
-     inkscape:window-width="1180"
-     inkscape:window-height="748"
-     inkscape:window-x="59"
-     inkscape:window-y="29"
+     inkscape:window-width="1550"
+     inkscape:window-height="1018"
+     inkscape:window-x="183"
+     inkscape:window-y="0"
      inkscape:window-maximized="0"
      objecttolerance="2"
      gridtolerance="2"
-     guidetolerance="2">
+     guidetolerance="2"
+     inkscape:pagecheckerboard="true"
+     borderlayer="true">
     <inkscape:grid
        type="xygrid"
        id="grid4137"
        dotted="false" />
+    <sodipodi:guide
+       position="4.233333,5.7159918"
+       orientation="1,0"
+       id="guide36"
+       inkscape:locked="false" />
   </sodipodi:namedview>
   <metadata
      id="metadata4132">
@@ -61,7 +68,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -70,14 +77,14 @@
      id="layer2"
      inkscape:label="bg"
      transform="translate(0,-3.7041664)"
-     style="display:inline">
+     style="display:inline;opacity:1">
     <rect
-       style="fill:#ffffff;stroke-width:0.31447405"
+       style="fill:#ffffff;stroke-width:0.30669826"
        id="rect4216"
-       width="8.752306"
-       height="4.8436403"
-       x="-0.013761765"
-       y="3.6679142" />
+       width="8.4666662"
+       height="4.7624998"
+       x="-5.6725458e-016"
+       y="3.7041664" />
   </g>
   <g
      inkscape:label="Layer 1"
@@ -87,11 +94,11 @@
      style="display:inline">
     <path
        inkscape:connector-curvature="0"
-       d="M 0,292.22634 H 4.2943586 V 297 H 0 Z"
+       d="M 0,295.4125 H 8.466666 V 297 H 0 Z"
        id="path3983"
-       style="stroke-width:0.10268979" />
+       style="stroke-width:0.08315066" />
     <g
-       transform="matrix(0.05570248,0,0,0.05570248,-0.13594524,294.01685)"
+       transform="matrix(0.05579012,0,0,0.05579012,1.6955448,295.56519)"
        style="fill:#ffffff"
        id="g3987">
       <path
@@ -101,8 +108,8 @@
     </g>
     <path
        inkscape:connector-curvature="0"
-       style="fill:#ff6600;stroke-width:0.21835452"
-       d="m 7.3105168,292.21002 h 1.1529511 v 4.83936 H 7.3105168 Z"
+       style="fill:#ff6600;stroke-width:0.20753506"
+       d="M 7.4083327,292.2375 H 8.466666 V 297 H 7.4083327 Z"
        id="path3993" />
     <path
        sodipodi:type="star"
@@ -119,7 +126,8 @@
        inkscape:rounded="0"
        inkscape:randomized="0"
        d="M 4.2333332,0.24390149 7.0125988,5.0577311 1.4540673,5.057731 Z"
-       transform="matrix(0,0.45441708,-0.45441708,0,7.1264871,292.72979)"
-       inkscape:transform-center-x="-0.36458111" />
+       transform="matrix(0,0.35921773,-0.35921773,0,5.0733763,292.24434)"
+       inkscape:transform-center-x="-0.28820217"
+       inkscape:transform-center-y="-4.8413507e-006" />
   </g>
 </svg>

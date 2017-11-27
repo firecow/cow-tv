@@ -15,6 +15,8 @@ StyleSheetManipulator.prototype.setMinResolutionRules = function(width, height) 
     var minDimension = Math.min(width, height);
     var m = 1 / (minDimension / 320);
 
+    this.setCssProperty('#home #logo', 'width', 30 * m);
+
     this.setCssProperty('#spinner', 'width', 40 * m);
     this.setCssProperty('#debug-info', 'font-size', 5 * m);
 
