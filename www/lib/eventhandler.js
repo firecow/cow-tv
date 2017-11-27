@@ -14,9 +14,11 @@ EventHandler.prototype.onVideoPlayerClick = function() {
 
 /**
  * Video player is now playing.
+ * @param {HTMLVideoElement} player
  */
-EventHandler.prototype.onVideoPlaying = function() {
+EventHandler.prototype.onVideoLoaded = function(player) {
     app.animator.fadeOut([this.spinner]);
+    player.play();
 };
 
 /**

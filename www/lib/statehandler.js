@@ -56,13 +56,13 @@ StateHandler.prototype.setState = function(state) {
             app.animator.fadeIn([this.videoChannel, this.spinner]);
             app.animator.fadeOut([this.home, this.videoProgram]);
             this.videoProgram.player.stop();
-            this.videoChannel.player.play(state.streamingUrl);
+            this.videoChannel.player.load(state.streamingUrl);
             break;
         case "video-program":
             app.animator.fadeIn([this.videoProgram, this.spinner]);
             app.animator.fadeOut([this.home, this.videoChannel]);
             this.videoChannel.player.stop();
-            this.videoProgram.player.play(state.streamingUrl);
+            this.videoProgram.player.load(state.streamingUrl);
             break;
     }
 };

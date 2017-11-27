@@ -6,8 +6,8 @@ VideoPlayer = function(element) {
     this.video.addEventListener("click", function() {
         app.eventHandler.onVideoPlayerClick(element);
     });
-    this.video.addEventListener('playing', function() {
-        app.eventHandler.onVideoPlaying(element);
+    this.video.addEventListener('loadeddata', function() {
+        app.eventHandler.onVideoLoaded(element);
     });
     this.video.addEventListener('error', function() {
         app.eventHandler.onVideoPlayError(element);
@@ -44,7 +44,7 @@ VideoPlayer = function(element) {
 /**
  * @param {string} url
  */
-VideoPlayer.prototype.play = function(url) {
+VideoPlayer.prototype.load = function(url) {
     var hls;
 
     try {
@@ -55,7 +55,6 @@ VideoPlayer.prototype.play = function(url) {
         } else {
             this.video.src = url;
         }
-        this.video.play();
     } catch (e) {
         app.eventHandler.onVideoPlayError();
         console.error(e);
@@ -70,7 +69,7 @@ VideoPlayer.prototype.isPlaying = function() {
 };
 
 /**
- * Stop the play back
+ * Stop the video player
  */
 VideoPlayer.prototype.stop = function() {
     if (this.isPlaying()) {
