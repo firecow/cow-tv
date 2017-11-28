@@ -16,9 +16,9 @@
    id="svg4135"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    sodipodi:docname="banner.svg"
-   inkscape:export-filename="D:\Workspace\dr-play\res\icon_400x400.png"
-   inkscape:export-xdpi="390"
-   inkscape:export-ydpi="390">
+   inkscape:export-filename="D:\Workspace\dr-play\res\banner.png"
+   inkscape:export-xdpi="3840"
+   inkscape:export-ydpi="3840">
   <defs
      id="defs4129" />
   <sodipodi:namedview
@@ -40,10 +40,10 @@
      height="32mm"
      inkscape:guide-bbox="true"
      units="px"
-     inkscape:window-width="1550"
-     inkscape:window-height="1018"
-     inkscape:window-x="183"
-     inkscape:window-y="0"
+     inkscape:window-width="796"
+     inkscape:window-height="403"
+     inkscape:window-x="140"
+     inkscape:window-y="410"
      inkscape:window-maximized="0"
      objecttolerance="2"
      gridtolerance="2"
@@ -55,10 +55,12 @@
        id="grid4137"
        dotted="false" />
     <sodipodi:guide
-       position="4.233333,5.7159918"
+       position="4.233333,5.5562495"
        orientation="1,0"
        id="guide36"
-       inkscape:locked="false" />
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
   </sodipodi:namedview>
   <metadata
      id="metadata4132">
@@ -68,7 +70,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -98,7 +100,7 @@
        id="path3983"
        style="stroke-width:0.08315066" />
     <g
-       transform="matrix(0.05579012,0,0,0.05579012,1.6955448,295.56519)"
+       transform="matrix(0.05579012,0,0,0.05579012,1.9572408,295.57896)"
        style="fill:#ffffff"
        id="g3987">
       <path
@@ -107,13 +109,8 @@
          id="path3985" />
     </g>
     <path
-       inkscape:connector-curvature="0"
-       style="fill:#ff6600;stroke-width:0.20753506"
-       d="M 7.4083327,292.2375 H 8.466666 V 297 H 7.4083327 Z"
-       id="path3993" />
-    <path
        sodipodi:type="star"
-       style="display:inline;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
+       style="display:inline;fill:#ff6600;fill-opacity:1;stroke-width:0.26458332"
        id="path4232"
        sodipodi:sides="3"
        sodipodi:cx="4.2333331"
@@ -126,7 +123,7 @@
        inkscape:rounded="0"
        inkscape:randomized="0"
        d="M 4.2333332,0.24390149 7.0125988,5.0577311 1.4540673,5.057731 Z"
-       transform="matrix(0,0.35921773,-0.35921773,0,5.0733763,292.24434)"
+       transform="matrix(0,0.35921773,-0.35921773,0,5.3488458,292.24434)"
        inkscape:transform-center-x="-0.28820217"
        inkscape:transform-center-y="-4.8413507e-006" />
   </g>
