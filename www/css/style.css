@@ -11,7 +11,9 @@
     --text-family: Roboto, sans-serif;
     --text-color: white;
 
-    --item-bg-color: #1a1a1a;
+    --item-bg-color: rgba(255, 255, 255, 0.05);
+
+    --selected-bg-color: rgba(255, 255, 255, 0.15);
 
     --padding: 5px;
 }
@@ -27,6 +29,7 @@ html {
 }
 
 body {
+    -webkit-overflow-scrolling: touch;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -122,11 +125,11 @@ body {
 }
 
 .selected-row {
-    /*background-color: #ac5600;*/
+    background-color: var(--selected-bg-color);
 }
 
 .selected-row .selected-item {
-    /*background-color: #ac5600;*/
+    background-color: var(--selected-bg-color);
 }
 
 .selected-row .selected-item .title {
@@ -140,7 +143,6 @@ body {
     white-space: nowrap;
     overflow-y: hidden;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
 }
 
 .strip .item {
@@ -159,16 +161,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-    padding: 0;
-    border: 0;
-}
-
-::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0);
-}
-
-::-webkit-scrollbar-thumb {
-    background: #ac5600;
+    width: 0px;
+    height: 0px;
+    background: transparent; /* make scrollbar transparent */
 }
