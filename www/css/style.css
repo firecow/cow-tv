@@ -1,10 +1,28 @@
+:root {
+    --bg-color: black;
+
+    --header-color: black;
+    --header-text-color: white;
+    --header-text-size: 16px;
+    --title-text-size: 12px;
+    --description-text-size: 10px;
+
+    --text-size: 8px;
+    --text-family: Roboto, sans-serif;
+    --text-color: white;
+
+    --item-bg-color: #1a1a1a;
+
+    --padding: 5px;
+}
+
 /* Tag */
 html {
-    background-color: #262626;
+    background-color: var(--bg-color);
     height: 100%;
     width: 100%;
 
-    /* Disable dragging images and selecting text */
+    /* Disable selecting text */
     user-select: none;
 }
 
@@ -18,7 +36,7 @@ body {
 #spinner {
     position: absolute;
     transform-origin: 0 0 0;
-    width: 20vmin;
+    width: 100px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -26,40 +44,39 @@ body {
 
 #home {
     position: absolute;
-    width: 100vw;
+    width: 100%;
 }
 
 #home #logo {
-    width: 20vmin;
+    width: 100px;
 }
 
 #home #strips {
     position: relative;
-    height: 90vh;
+    height: 100%;
 }
 
 #debug-info {
     position: absolute;
-    font-size: 2vmin;
+    font-size: var(--text-size);
     color: white;
 }
 
 /* Class */
 .v-scroller {
-    overflow-y: auto;
-}
-
-.padding {
-    padding: 1.5vmin;
+    overflow-y: hidden;
 }
 
 .header {
-    margin-top: 5vmin;
-    text-align: center;
+    background-color: var(--header-color);
+    margin-top: 10px;
+    padding: var(--padding);
+    padding-left: 20px;
+    text-align: left;
 
-    font-size: 2.5vmin;
-    font-family: Roboto, sans-serif;
-    color: white;
+    font-size: var(--header-text-size);
+    font-family: var(--text-family);
+    color: var(--header-text-color);
 }
 
 .hidden {
@@ -67,15 +84,29 @@ body {
 }
 
 .item .title {
+    padding: var(--padding);
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: middle;
 
-    font-size: 2vmin;
-    font-family: Roboto, sans-serif;
-    color: white;
+    font-size: var(--title-text-size);
+    font-family: var(--text-family);
+    color: var(--text-color);
+}
+
+.item .description {
+    padding: var(--padding);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+
+    font-size: var(--description-text-size);
+    font-family: var(--text-family);
+    color: var(--text-color);
 }
 
 .item .img {
@@ -83,24 +114,23 @@ body {
 }
 
 .item {
-    width: 35vmin;
-    background: #3b3b3b;
+    background-color: var(--item-bg-color);
+    width: 168px;
 
-    margin-left: 1vmin;
-    margin-right: 1vmin;
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
 .selected-row {
-    background: #4f4f4f;
+    /*background-color: #ac5600;*/
 }
 
 .selected-row .selected-item {
-    background: #ff9200;
+    /*background-color: #ac5600;*/
 }
 
 .selected-row .selected-item .title {
-    color: #262626;
-    font-weight: bolder;
+
 }
 
 .strip {
@@ -108,6 +138,7 @@ body {
     margin-right: 0;
     display: block;
     white-space: nowrap;
+    overflow-y: hidden;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -128,8 +159,8 @@ body {
 }
 
 ::-webkit-scrollbar {
-    width: 1.0vmin;
-    height: 1.0vmin;
+    width: 0;
+    height: 0;
     padding: 0;
     border: 0;
 }

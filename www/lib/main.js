@@ -8,7 +8,6 @@ var windowLoaded = function() {
         itemManager: new ItemManager(),
         stateHandler: new StateHandler(),
         animator: new Animator(),
-        styleSheetManipulator: new StyleSheetManipulator(),
         debugInfo: new DebugInfo()
     };
 
@@ -18,7 +17,6 @@ var windowLoaded = function() {
     var videoProgram = document.getElementById('video-program');
     videoProgram.player = new VideoPlayer(videoProgram);
 
-    app.styleSheetManipulator.setMinResolutionRules(document.body.offsetWidth, document.body.offsetHeight);
     app.itemManager.prepareLiveStrip();
     app.itemManager.prepareMostViewed();
     app.dPadNavigation.init();
