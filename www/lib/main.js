@@ -2,7 +2,7 @@ var windowLoaded = function() {
     window.app = {
         device: new Device(),
         selectionHandler: new SelectionHandler(),
-        dPadNavigation: new DPadNavigation(),
+        keyPressHandler: new KeypressHandler(),
         eventHandler: new EventHandler(),
         mouseDragScroll: new MouseDragScroll(),
         itemManager: new ItemManager(),
@@ -19,7 +19,7 @@ var windowLoaded = function() {
 
     app.itemManager.prepareLiveStrip();
     app.itemManager.prepareMostViewed();
-    app.dPadNavigation.init();
+    app.keyPressHandler.init();
     app.stateHandler.init();
     app.debugInfo.updateDebugText();
 };

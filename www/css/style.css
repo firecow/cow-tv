@@ -11,8 +11,6 @@
     --text-family: Roboto, sans-serif;
     --text-color: white;
 
-    --item-bg-color: rgba(255, 255, 255, 0.05);
-
     --selected-bg-color: rgba(255, 255, 255, 0.15);
 
     --padding: 5px;
@@ -117,7 +115,6 @@ body {
 }
 
 .item {
-    background-color: var(--item-bg-color);
     width: 168px;
 
     margin-left: 2px;
@@ -149,15 +146,25 @@ body {
     display: inline-block;
 }
 
-.video {
+.videoContainer {
     position: absolute;
     background-color: #000000;
     width: 100%;
     height: 100%;
 }
 
+.control-icon {
+    height: 100%;
+}
+
+.video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
 .video::-webkit-media-controls {
-    display: none;
+   display: none;
 }
 
 ::-webkit-scrollbar {

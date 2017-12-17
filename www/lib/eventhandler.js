@@ -28,20 +28,61 @@ EventHandler.prototype.onVideoPlayError = function() {
     app.stateHandler.back();
 };
 
-
 /**
- * A DPad enter button have been pressed. (Enter, OK)
+ * Enter have been pressed.
  */
-EventHandler.prototype.onDPadClick = function() {
-    app.selectionHandler.onDPadClick();
+EventHandler.prototype.clickSelectedItem = function() {
+    app.selectionHandler.clickSelectedItem();
 };
 
 /**
- * A DPad back button have been pressed. (Backspace, Backbutton, Escape)
+ * Escape have been pressed.
  */
-EventHandler.prototype.onDPadBack = function() {
+EventHandler.prototype.onEscapePressed = function() {
     app.stateHandler.back();
 };
+
+/**
+ * Backspace have been pressed.
+ */
+EventHandler.prototype.onBackspacePressed = function() {
+    app.stateHandler.back();
+};
+
+/**
+ * Forwad, ProgramUp or Page up have been pressed.
+ */
+EventHandler.prototype.onForwardPressed = function() {
+    console.log("Forward");
+};
+
+/**
+ * Backward, ProgramDown or Page down have been pressed.
+ */
+EventHandler.prototype.onBackwardPressed = function() {
+    console.log("Backward");
+};
+
+/**
+ *
+ */
+EventHandler.prototype.onPlayPausePressed = function() {
+   app.stateHandler.playPause();
+};
+
+// /**
+//  * Volume up have been pressed.
+//  */
+// EventHandler.prototype.onVolumeUpPressed = function() {
+//
+// };
+//
+// /**
+//  * Volume down have been pressed.
+//  */
+// EventHandler.prototype.onVolumeDownPressed = function() {
+//
+// };
 
 /**
  * @param {Element} item

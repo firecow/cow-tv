@@ -23,7 +23,7 @@
     <script src="lib/main.js"></script>
     <script src="lib/jsongetrequest.js"></script>
     <script src="lib/itemmanager.js"></script>
-    <script src="lib/dpadnavigation.js"></script>
+    <script src="lib/keypresshandler.js"></script>
     <script src="lib/videoplayer.js"></script>
 
     <script src="cordova.js"></script>
@@ -52,9 +52,19 @@
     </div>
 </div>
 
-<video id="video-channel" class="video hidden selected-row selected-item" poster="media/black.jpg"></video>
+<div id="video-channel" class="hidden videoContainer">
+    <video class="video" poster="media/black.jpg"></video>
+    <div style="position:absolute; height: 70px; width: 100%; bottom: 20px; text-align:center;">
+        <!--<img class="control-icon" src="media/prev.svg">-->
+        <!--<img class="control-icon" src="media/next.svg">-->
+    </div>
+</div>
 
-<video id="video-program" class="video hidden selected-row selected-item" poster="media/black.jpg"></video>
+<div id="video-program" class="hidden videoContainer">
+    <video class="video" poster="media/black.jpg"></video>
+
+</div>
+
 
 <img id="spinner" class="hidden" src="media/spinner.svg">
 

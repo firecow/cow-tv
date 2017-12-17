@@ -1,7 +1,7 @@
 /**
  * @constructor
  */
-DPadNavigation = function() {
+KeypressHandler = function() {
 
     /**
      * @type {Object<number, function()>}
@@ -23,6 +23,7 @@ DPadNavigation = function() {
     }.bind(this));
     window.addEventListener('keyup', function(e) {
         var keyCode = e.keyCode;
+        console.log(e.keyCode);
         if (this.keyUpCodeMap[keyCode]) {
             this.keyUpCodeMap[keyCode]();
             e.preventDefault();
@@ -35,7 +36,7 @@ DPadNavigation = function() {
 };
 
 
-DPadNavigation.prototype.init = function() {
+KeypressHandler.prototype.init = function() {
     var selectionHandler = app.selectionHandler;
     var eventHandler = app.eventHandler;
 
@@ -53,8 +54,18 @@ DPadNavigation.prototype.init = function() {
      * @type {Object<number, function()>}
      */
     this.keyUpCodeMap = {
-        '13': eventHandler.onDPadClick.bind(eventHandler), // Enter
-        '27': eventHandler.onDPadBack.bind(eventHandler), // Escape
-        '8': eventHandler.onDPadBack.bind(eventHandler) // Backspace
+        '13': eventHandler.clickSelectedItem.bind(eventHandler), // Enter
+        '27': eventHandler.onEscapePressed.bind(eventHandler), // Escape
+        '8': eventHandler.onBackspacePressed.bind(eventHandler), // Backspace
+        '33': eventHandler.onForwardPressed.bind(eventHandler), // Page Up
+        '34': eventHandler.onBackwardPressed.bind(eventHandler), // Page Down
+
+        '179': eventHandler.onPlayPausePressed.bind(eventHandler), // Play/Pause
+
+        '227': null, // Backward.
+        '228': null // Forward.
+
+        // '175': eventHandler.onVolumeUpPressed.bind(eventHandler), // Volume up
+        // '174': eventHandler.onVolumeDownPressed.bind(eventHandler) // Volume down
     };
 };

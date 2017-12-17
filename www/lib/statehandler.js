@@ -68,6 +68,18 @@ StateHandler.prototype.setState = function(state) {
 };
 
 /**
+ * Play or pause.
+ */
+StateHandler.prototype.playPause = function() {
+    var stateType = this.getCurrentStateType();
+    switch (stateType) {
+        case "video-program":
+            this.videoProgram.player.togglePlayPause();
+            break;
+    }
+};
+
+/**
  * Go back in history.
  */
 StateHandler.prototype.back = function() {

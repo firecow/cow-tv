@@ -10,7 +10,7 @@ var SelectionHandler = function() {
 /**
  * A DPad enter button have been pressed. (Enter, OK)
  */
-SelectionHandler.prototype.onDPadClick = function() {
+SelectionHandler.prototype.clickSelectedItem = function() {
     var row = this.getSelectedRow();
     var item = this.getSelectedItem(row);
     item.click();

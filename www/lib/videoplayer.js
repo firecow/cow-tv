@@ -1,17 +1,24 @@
 /**
  * @constructor
  */
-VideoPlayer = function(element) {
-    this.video = element;
+VideoPlayer = function(videoContainer) {
+    /**
+     * @type {HTMLVideoElement}
+     */
+    this.video = videoContainer.getElementsByTagName("video")[0];
+    if (this.video == null) {
+        throw new Error("No video tag in video container");
+    }
+
     this.video.addEventListener("click", function() {
-        app.eventHandler.onVideoPlayerClick(element);
-    });
+        app.eventHandler.onVideoPlayerClick(this.video);
+    }.bind(this));
     this.video.addEventListener('loadeddata', function() {
-        app.eventHandler.onVideoLoaded(element);
-    });
+        app.eventHandler.onVideoLoaded(this.video);
+    }.bind(this));
     this.video.addEventListener('error', function() {
-        app.eventHandler.onVideoPlayError(element);
-    });
+        app.eventHandler.onVideoPlayError(this.video);
+    }.bind(this));
 
     // Debug logs.
     this.video.addEventListener('play', function(e) {
@@ -62,20 +69,22 @@ VideoPlayer.prototype.load = function(url) {
 };
 
 /**
- * @return {boolean}
+ * Toggle play pause.
  */
-VideoPlayer.prototype.isPlaying = function() {
-    return !this.video.paused;
+VideoPlayer.prototype.togglePlayPause = function() {
+    if (this.video.paused) {
+        this.video.play();
+    } else {
+        this.video.pause();
+    }
 };
 
 /**
  * Stop the video player
  */
 VideoPlayer.prototype.stop = function() {
-    if (this.isPlaying()) {
-        this.video.pause();
-        this.video.currentTime = 0;
-        this.video.removeAttribute('src');
-        this.video.load();
-    }
+    this.video.pause();
+    this.video.currentTime = 0;
+    this.video.removeAttribute('src');
+    this.video.load();
 };
