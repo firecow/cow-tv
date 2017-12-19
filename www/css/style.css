@@ -97,14 +97,36 @@ body {
     color: var(--text-color);
 }
 
-.item .description {
+.item .episodeName {
+    position: absolute;
+    bottom: 3px;
     padding: var(--padding);
-    text-align: center;
+    text-align: left;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: middle;
 
+    border-radius: 0 5px 0 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: var(--description-text-size);
+    font-family: var(--text-family);
+    color: var(--text-color);
+}
+
+.item .episodeNumber {
+    position: absolute;
+    top: 24px;
+    right: 0;
+    padding: var(--padding);
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+
+    border-radius: 0 0 0 5px;
+    background-color: rgba(0, 0, 0, 0.5);
     font-size: var(--description-text-size);
     font-family: var(--text-family);
     color: var(--text-color);
@@ -115,6 +137,7 @@ body {
 }
 
 .item {
+    position: relative;
     width: 168px;
 
     margin-left: 2px;

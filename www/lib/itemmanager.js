@@ -118,7 +118,8 @@ ItemManager.prototype.createProgramCardItem = function(itemData) {
     var item = document.createElement('div');
     var img = document.createElement('img');
     var title = document.createElement('div');
-    var description = document.createElement('div');
+    var episodeName = document.createElement('div');
+    var episodeNumber = document.createElement('div');
     var type = itemData['Type'];
     var slug = itemData['Slug'];
 
@@ -132,40 +133,48 @@ ItemManager.prototype.createProgramCardItem = function(itemData) {
     img.draggable = false;
     img.src = itemData['PrimaryImageUri'];
 
+    item.appendChild(title);
+    item.appendChild(img);
+
     var episodeNameMatch;
-    var episodeName;
     var titleString = itemData['Title'].toTitleCase();
     var episodeNumberMatch = titleString.match(/\(.*\)/);
     if (episodeNumberMatch != null) {
-        var episodeNumber = episodeNumberMatch[0];
-        titleString = titleString.replace(episodeNumber, '');
+        titleString = titleString.replace(episodeNumberMatch[0], '');
+        episodeNumber.innerText = episodeNumberMatch[0];
+        item.appendChild(episodeNumber);
     }
 
     var episideNameAfterDashMatch = titleString.match(/- .*/);
-    var episideNameAfterSemiColon = titleString.match(/: "(.*)"/);
+    var episideNameAfterSemiColon = titleString.match(/: (.*)/);
+    var episideNameAfterSemiColonWithColor = titleString.match(/: "(.*)"/);
     if (episideNameAfterDashMatch != null) {
         episodeNameMatch = episideNameAfterDashMatch[0];
         titleString = titleString.replace(episodeNameMatch, '');
-        episodeName = episodeNameMatch.replace('-', '').trim();
+        episodeName.innerText = episodeNameMatch.replace('-', '').trim();
+        item.appendChild(episodeName);
+    } else if (episideNameAfterSemiColonWithColor != null) {
+        episodeNameMatch = episideNameAfterSemiColonWithColor[1];
+        titleString = titleString.replace(episideNameAfterSemiColonWithColor[0], '');
+        episodeName.innerText = episodeNameMatch.trim();
+        item.appendChild(episodeName);
     } else if (episideNameAfterSemiColon != null) {
         episodeNameMatch = episideNameAfterSemiColon[1];
         titleString = titleString.replace(episideNameAfterSemiColon[0], '');
-        episodeName = episodeNameMatch.trim();
+        episodeName.innerText = episodeNameMatch.trim();
+        item.appendChild(episodeName);
     }
 
     title.classList.add('title');
     title.innerText = titleString;
 
-    description.classList.add('description');
-    description.innerText = (episodeName || "") + "\n" + (episodeNumber || "\n");
+    episodeName.classList.add('episodeName');
+    episodeNumber.classList.add('episodeNumber');
 
     item.addEventListener('click', function() {
         app.eventHandler.onProgramCardClick(item);
     }, false);
 
-    item.appendChild(title);
-    item.appendChild(img);
-    item.appendChild(description);
     return item;
 };
 
