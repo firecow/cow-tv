@@ -42,7 +42,11 @@ if (!Array.prototype.findIndex) {
 
 
 if (!Array.from) {
-    Array.from = function() {
-
+    /**
+     * @param {*} collection
+     * @return {Array}
+     */
+    Array.from = function(collection) {
+        return [].slice.call(collection);
     }
 }
