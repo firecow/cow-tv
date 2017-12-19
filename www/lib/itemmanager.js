@@ -128,10 +128,9 @@ ItemManager.prototype.createProgramCardItem = function(itemData) {
     img.draggable = false;
     img.src = itemData['PrimaryImageUri'];
 
+    var episodeNameMatch;
+    var episodeName;
     var titleString = itemData['Title'].toTitleCase();
-    var descriptionString = '\n';
-
-
     var episodeNumberMatch = titleString.match(/\(.*\)/);
     if (episodeNumberMatch != null) {
         var episodeNumber = episodeNumberMatch[0];
@@ -139,17 +138,22 @@ ItemManager.prototype.createProgramCardItem = function(itemData) {
     }
 
     var episideNameAfterDashMatch = titleString.match(/- .*/);
+    var episideNameAfterSemiColon = titleString.match(/: "(.*)"/);
     if (episideNameAfterDashMatch != null) {
-        var episodeNameMatch = episideNameAfterDashMatch[0];
+        episodeNameMatch = episideNameAfterDashMatch[0];
         titleString = titleString.replace(episodeNameMatch, '');
-        var episodeName = episodeNameMatch.replace('-', '').trim();
+        episodeName = episodeNameMatch.replace('-', '').trim();
+    } else if (episideNameAfterSemiColon != null) {
+        episodeNameMatch = episideNameAfterSemiColon[1];
+        titleString = titleString.replace(episideNameAfterSemiColon[0], '');
+        episodeName = episodeNameMatch.trim();
     }
 
     title.classList.add('title');
     title.innerText = titleString;
 
     description.classList.add('description');
-    description.innerText = (episodeNumber || "") + "\n" + (episodeName || "\n");
+    description.innerText = (episodeName || "") + "\n" + (episodeNumber || "\n");
 
     item.addEventListener('click', function() {
         app.eventHandler.onProgramCardClick(item);
