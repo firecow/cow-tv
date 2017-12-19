@@ -40,11 +40,11 @@
      height="32mm"
      inkscape:guide-bbox="true"
      units="px"
-     inkscape:window-width="796"
-     inkscape:window-height="403"
-     inkscape:window-x="140"
-     inkscape:window-y="410"
-     inkscape:window-maximized="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
      objecttolerance="2"
      gridtolerance="2"
      guidetolerance="2"
@@ -81,12 +81,12 @@
      transform="translate(0,-3.7041664)"
      style="display:inline;opacity:1">
     <rect
-       style="fill:#ffffff;stroke-width:0.30669826"
+       style="fill:#ffffff;stroke-width:0.32480022"
        id="rect4216"
-       width="8.4666662"
-       height="4.7624998"
-       x="-5.6725458e-016"
-       y="3.7041664" />
+       width="8.9958324"
+       height="5.0270829"
+       x="-0.26458332"
+       y="3.4395831" />
   </g>
   <g
      inkscape:label="Layer 1"
@@ -96,9 +96,9 @@
      style="display:inline">
     <path
        inkscape:connector-curvature="0"
-       d="M 0,295.4125 H 8.466666 V 297 H 0 Z"
+       d="M -0.26458331,295.4125 H 8.7312493 v 1.85208 h -8.99583261 z"
        id="path3983"
-       style="stroke-width:0.08315066" />
+       style="stroke-width:0.0925771" />
     <g
        transform="matrix(0.05579012,0,0,0.05579012,1.9572408,295.57896)"
        style="fill:#ffffff"
