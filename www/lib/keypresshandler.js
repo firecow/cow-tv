@@ -23,7 +23,6 @@ KeypressHandler = function() {
     }.bind(this));
     window.addEventListener('keyup', function(e) {
         var keyCode = e.keyCode;
-        console.log(e.keyCode);
         if (this.keyUpCodeMap[keyCode]) {
             this.keyUpCodeMap[keyCode]();
             e.preventDefault();
