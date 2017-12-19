@@ -21,7 +21,7 @@ MouseDragScroll = function() {
         this.mouseDown = null;
     }.bind(this));
 
-    var elements = [].slice.call(document.getElementsByClassName("mousedragscroll"));
+    var elements = Array.from(document.getElementsByClassName("mousedragscroll"));
     elements.forEach(function(elem) {
         this.initDragScrollOnElement(elem);
     }, this);

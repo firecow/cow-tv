@@ -53,14 +53,14 @@ EventHandler.prototype.onBackspacePressed = function() {
  * Forwad, ProgramUp or Page up have been pressed.
  */
 EventHandler.prototype.onForwardPressed = function() {
-    console.log("Forward");
+    app.stateHandler.skipForward();
 };
 
 /**
  * Backward, ProgramDown or Page down have been pressed.
  */
 EventHandler.prototype.onBackwardPressed = function() {
-    console.log("Backward");
+    app.stateHandler.skipBackward();
 };
 
 /**
@@ -90,6 +90,7 @@ EventHandler.prototype.onPlayPausePressed = function() {
 EventHandler.prototype.onChannelClick = function(item) {
     app.stateHandler.pushState({
         type: "video-channel",
+        slug: item.dataset.slug,
         streamingUrl: item.dataset.videoUrl
     });
 };
@@ -107,6 +108,7 @@ EventHandler.prototype.onProgramCardClick = function(item) {
 
         app.stateHandler.pushState({
             type: "video-program",
+            slug: item.dataset.slug,
             streamingUrl: link['Uri']
         });
     }.bind(this));

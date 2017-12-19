@@ -24,7 +24,7 @@ SelectionHandler.prototype.moveUp = function() {
     var selectedRow = this.getSelectedRow();
 
     var currentStateElement = app.stateHandler.getCurrentStateMainElement();
-    var selectableRows = [].slice.call(currentStateElement.getElementsByClassName('selectable-row'));
+    var selectableRows = Array.from(currentStateElement.getElementsByClassName('selectable-row'));
     var selectedIndex = selectableRows.indexOf(selectedRow);
 
     selectedIndex += -1;
@@ -39,7 +39,7 @@ SelectionHandler.prototype.moveDown = function() {
     var selectedRow = this.getSelectedRow();
 
     var currentStateElement = app.stateHandler.getCurrentStateMainElement();
-    var selectableRows = [].slice.call(currentStateElement.getElementsByClassName('selectable-row'));
+    var selectableRows = Array.from(currentStateElement.getElementsByClassName('selectable-row'));
     var selectedIndex = selectableRows.indexOf(selectedRow);
 
     selectedIndex += 1;
@@ -55,7 +55,7 @@ SelectionHandler.prototype.moveLeft = function() {
     var selectedRow = this.getSelectedRow();
     var selectedItem = this.getSelectedItem(selectedRow);
 
-    var selectableItemsOnRow = [].slice.call(selectedRow.getElementsByClassName('selectable-item'));
+    var selectableItemsOnRow = Array.from(selectedRow.getElementsByClassName('selectable-item'));
     var selectedIndex = selectableItemsOnRow.indexOf(selectedItem);
 
     selectedIndex += -1;
@@ -71,7 +71,7 @@ SelectionHandler.prototype.moveRight = function() {
     var selectedRow = this.getSelectedRow();
     var selectedItem = this.getSelectedItem(selectedRow);
 
-    var selectableItemsOnRow = [].slice.call(selectedRow.getElementsByClassName('selectable-item'));
+    var selectableItemsOnRow = Array.from(selectedRow.getElementsByClassName('selectable-item'));
     var selectedIndex = selectableItemsOnRow.indexOf(selectedItem);
 
     selectedIndex += 1;

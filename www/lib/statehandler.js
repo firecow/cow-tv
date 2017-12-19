@@ -8,7 +8,7 @@ StateHandler = function() {
     this.home = document.getElementById('home');
 
     window.addEventListener('popstate', function(e) {
-        this.setState(e.state);
+        this.doStateChange(e.state);
     }.bind(this));
 };
 
@@ -16,7 +16,7 @@ StateHandler = function() {
  * Initializes the statehandler to window.history.state
  */
 StateHandler.prototype.init = function() {
-    this.setState(history.state);
+    this.doStateChange(history.state);
 };
 
 /**
@@ -41,7 +41,7 @@ StateHandler.prototype.getCurrentStateMainElement = function() {
 /**
  * @param {*} state
  */
-StateHandler.prototype.setState = function(state) {
+StateHandler.prototype.doStateChange = function(state) {
     if (state === null) {
         app.animator.fadeIn([this.home]);
         app.animator.fadeOut([this.spinner, this.videoChannel, this.videoProgram]);
@@ -56,12 +56,14 @@ StateHandler.prototype.setState = function(state) {
             app.animator.fadeIn([this.videoChannel, this.spinner]);
             app.animator.fadeOut([this.home, this.videoProgram]);
             this.videoProgram.player.stop();
+            this.videoChannel.dataset.slug = state.slug;
             this.videoChannel.player.load(state.streamingUrl);
             break;
         case "video-program":
             app.animator.fadeIn([this.videoProgram, this.spinner]);
             app.animator.fadeOut([this.home, this.videoChannel]);
             this.videoChannel.player.stop();
+            this.videoProgram.dataset.slug = state.slug;
             this.videoProgram.player.load(state.streamingUrl);
             break;
     }
@@ -99,5 +101,62 @@ StateHandler.prototype.back = function() {
  */
 StateHandler.prototype.pushState = function(stateObject) {
     window.history.pushState(stateObject, stateObject.type);
-    this.setState(stateObject);
+    this.doStateChange(stateObject);
+};
+
+/**
+ * @param {*} stateObject
+ */
+StateHandler.prototype.replaceState = function(stateObject) {
+    window.history.replaceState(stateObject, stateObject.type);
+    this.doStateChange(stateObject);
+};
+
+/**
+ * Skip forwards.
+ */
+StateHandler.prototype.skipForward = function() {
+    var stateType = this.getCurrentStateType();
+    switch (stateType) {
+        case "video-channel":
+            var currentSlug = this.videoChannel.dataset.slug;
+            var elements = Array.from(document.getElementsByClassName("channel"));
+            var channelCount = elements.length;
+            var currentIndex = elements.findIndex(function(e) {
+                return e.dataset.slug === currentSlug;
+            });
+            var newIndex = (currentIndex + 1) % channelCount;
+            var newItem = elements[newIndex];
+            this.replaceState({
+                type: "video-channel",
+                slug: newItem.dataset.slug,
+                streamingUrl: newItem.dataset.videoUrl
+            });
+            break;
+    }
+};
+
+/**
+ * Skip backwards.
+ */
+StateHandler.prototype.skipBackward = function() {
+    var stateType = this.getCurrentStateType();
+    switch (stateType) {
+        case "video-channel":
+            var currentSlug = this.videoChannel.dataset.slug;
+            var elements = Array.from(document.getElementsByClassName("channel"));
+            var channelCount = elements.length;
+            var currentIndex = elements.findIndex(function(e) {
+                return e.dataset.slug === currentSlug;
+            });
+            var newIndex = (currentIndex - 1) % channelCount;
+            newIndex = newIndex == -1 ? channelCount - 1 : newIndex;
+            var newItem = elements[newIndex];
+            this.replaceState({
+                type: "video-channel",
+                slug: newItem.dataset.slug,
+                streamingUrl: newItem.dataset.videoUrl
+            });
+            break;
+    }
 };

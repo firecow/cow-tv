@@ -86,9 +86,11 @@ ItemManager.prototype.createChannelItem = function(itemData) {
     var img = document.createElement('img');
     var title = document.createElement('div');
     var type = itemData['Type'];
+    var slug = itemData['Slug'];
 
-    item.classList.add('item', 'selectable-item');
+    item.classList.add('channel', 'item', 'selectable-item');
     item.dataset.type = type;
+    item.dataset.slug = slug;
     item.dataset.videoUrl = this.getStreamingUrl(itemData);
 
     img.classList.add('img');
@@ -118,9 +120,11 @@ ItemManager.prototype.createProgramCardItem = function(itemData) {
     var title = document.createElement('div');
     var description = document.createElement('div');
     var type = itemData['Type'];
+    var slug = itemData['Slug'];
 
-    item.classList.add('item', 'selectable-item');
+    item.classList.add('program', 'item', 'selectable-item');
     item.dataset.type = type;
+    item.dataset.slug = slug;
 
     item.dataset.videoResource = itemData["PrimaryAsset"]["Uri"];
 
