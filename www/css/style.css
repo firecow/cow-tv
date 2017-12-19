@@ -99,7 +99,7 @@ body {
 
 .item .episodeName {
     position: absolute;
-    bottom: 3px;
+    bottom: 4px;
     padding: var(--padding);
     text-align: left;
     white-space: nowrap;
@@ -144,16 +144,8 @@ body {
     margin-right: 2px;
 }
 
-.selected-row {
-    background-color: var(--selected-bg-color);
-}
-
 .selected-row .selected-item {
-    background-color: var(--selected-bg-color);
-}
-
-.selected-row .selected-item .title {
-
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .strip {
