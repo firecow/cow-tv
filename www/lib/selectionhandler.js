@@ -24,6 +24,7 @@ SelectionHandler.prototype.clickSelectedItem = function() {
 SelectionHandler.prototype.moveUp = function() {
     var mainElement = app.stateHandler.getCurrentStateMainElement();
     var selectedRow = this.getSelectedRow(mainElement);
+    var selectedItem = this.getSelectedItem(selectedRow);
 
     var currentStateElement = app.stateHandler.getCurrentStateMainElement();
     var selectableRows = Array.from(currentStateElement.getElementsByClassName('selectable-row'));
@@ -32,6 +33,18 @@ SelectionHandler.prototype.moveUp = function() {
     selectedIndex += -1;
     selectedIndex = selectedIndex.clamp(0, selectableRows.length - 1);
     this.selectRow(selectedRow, selectableRows[selectedIndex]);
+
+    var newRow = selectableRows[selectedIndex];
+    this.selectRow(selectedRow, newRow);
+
+    var itemX = selectedItem.offsetLeft - selectedRow.scrollLeft;
+    var selectableItems = Array.from(newRow.getElementsByClassName('selectable-item'));
+    selectableItems.sort(function(a, b) {
+        var distanceA = Math.abs((a.offsetLeft - newRow.scrollLeft) - itemX);
+        var distanceB = Math.abs((b.offsetLeft - newRow.scrollLeft) - itemX);
+        return distanceA - distanceB;
+    });
+    this.selectItem(newRow, selectableItems[0]);
 };
 
 /**
@@ -40,6 +53,7 @@ SelectionHandler.prototype.moveUp = function() {
 SelectionHandler.prototype.moveDown = function() {
     var mainElement = app.stateHandler.getCurrentStateMainElement();
     var selectedRow = this.getSelectedRow(mainElement);
+    var selectedItem = this.getSelectedItem(selectedRow);
 
     var currentStateElement = app.stateHandler.getCurrentStateMainElement();
     var selectableRows = Array.from(currentStateElement.getElementsByClassName('selectable-row'));
@@ -47,7 +61,18 @@ SelectionHandler.prototype.moveDown = function() {
 
     selectedIndex += 1;
     selectedIndex = selectedIndex.clamp(0, selectableRows.length - 1);
-    this.selectRow(selectedRow, selectableRows[selectedIndex]);
+
+    var newRow = selectableRows[selectedIndex];
+    this.selectRow(selectedRow, newRow);
+
+    var itemX = selectedItem.offsetLeft - selectedRow.scrollLeft;
+    var selectableItems = Array.from(newRow.getElementsByClassName('selectable-item'));
+    selectableItems.sort(function(a, b) {
+        var distanceA = Math.abs((a.offsetLeft - newRow.scrollLeft) - itemX);
+        var distanceB = Math.abs((b.offsetLeft - newRow.scrollLeft) - itemX);
+        return distanceA - distanceB;
+    });
+    this.selectItem(newRow, selectableItems[0]);
 };
 
 
@@ -66,6 +91,7 @@ SelectionHandler.prototype.moveLeft = function() {
     selectedIndex = selectedIndex.clamp(0, selectableItemsOnRow.length - 1);
 
     this.selectItem(selectedRow, selectableItemsOnRow[selectedIndex]);
+    this.layoutStrip(selectedRow, selectableItemsOnRow[selectedIndex]);
 };
 
 /**
@@ -83,6 +109,7 @@ SelectionHandler.prototype.moveRight = function() {
     selectedIndex = selectedIndex.clamp(0, selectableItemsOnRow.length - 1);
 
     this.selectItem(selectedRow, selectableItemsOnRow[selectedIndex]);
+    this.layoutStrip(selectedRow, selectableItemsOnRow[selectedIndex]);
 };
 
 /**
@@ -128,7 +155,6 @@ SelectionHandler.prototype.selectItem = function(row, to) {
         from.classList.remove('selected-item');
     }
     to.classList.add('selected-item');
-    this.layoutStrip(row, to);
 };
 
 /**
