@@ -11,7 +11,8 @@ var SelectionHandler = function() {
  * A DPad enter button have been pressed. (Enter, OK)
  */
 SelectionHandler.prototype.clickSelectedItem = function() {
-    var row = this.getSelectedRow();
+    var mainElement = app.stateHandler.getCurrentStateMainElement();
+    var row = this.getSelectedRow(mainElement);
     var item = this.getSelectedItem(row);
     item.click();
     item.focus();
@@ -21,7 +22,8 @@ SelectionHandler.prototype.clickSelectedItem = function() {
  * DPad move up have been pressed.
  */
 SelectionHandler.prototype.moveUp = function() {
-    var selectedRow = this.getSelectedRow();
+    var mainElement = app.stateHandler.getCurrentStateMainElement();
+    var selectedRow = this.getSelectedRow(mainElement);
 
     var currentStateElement = app.stateHandler.getCurrentStateMainElement();
     var selectableRows = Array.from(currentStateElement.getElementsByClassName('selectable-row'));
@@ -36,7 +38,8 @@ SelectionHandler.prototype.moveUp = function() {
  * DPad move down have been pressed.
  */
 SelectionHandler.prototype.moveDown = function() {
-    var selectedRow = this.getSelectedRow();
+    var mainElement = app.stateHandler.getCurrentStateMainElement();
+    var selectedRow = this.getSelectedRow(mainElement);
 
     var currentStateElement = app.stateHandler.getCurrentStateMainElement();
     var selectableRows = Array.from(currentStateElement.getElementsByClassName('selectable-row'));
@@ -52,7 +55,8 @@ SelectionHandler.prototype.moveDown = function() {
  * DPad move left have been pressed.
  */
 SelectionHandler.prototype.moveLeft = function() {
-    var selectedRow = this.getSelectedRow();
+    var mainElement = app.stateHandler.getCurrentStateMainElement();
+    var selectedRow = this.getSelectedRow(mainElement);
     var selectedItem = this.getSelectedItem(selectedRow);
 
     var selectableItemsOnRow = Array.from(selectedRow.getElementsByClassName('selectable-item'));
@@ -61,14 +65,15 @@ SelectionHandler.prototype.moveLeft = function() {
     selectedIndex += -1;
     selectedIndex = selectedIndex.clamp(0, selectableItemsOnRow.length - 1);
 
-    this.selectItem(selectedItem, selectableItemsOnRow[selectedIndex]);
+    this.selectItem(selectedRow, selectableItemsOnRow[selectedIndex]);
 };
 
 /**
  * DPad move right have been pressed.
  */
 SelectionHandler.prototype.moveRight = function() {
-    var selectedRow = this.getSelectedRow();
+    var mainElement = app.stateHandler.getCurrentStateMainElement();
+    var selectedRow = this.getSelectedRow(mainElement);
     var selectedItem = this.getSelectedItem(selectedRow);
 
     var selectableItemsOnRow = Array.from(selectedRow.getElementsByClassName('selectable-item'));
@@ -77,19 +82,19 @@ SelectionHandler.prototype.moveRight = function() {
     selectedIndex += 1;
     selectedIndex = selectedIndex.clamp(0, selectableItemsOnRow.length - 1);
 
-    this.selectItem(selectedItem, selectableItemsOnRow[selectedIndex]);
+    this.selectItem(selectedRow, selectableItemsOnRow[selectedIndex]);
 };
 
 /**
- * @param {Element} selectedRow
+ * @param {Element} row
  * @return {Element}
  */
-SelectionHandler.prototype.getSelectedItem = function(selectedRow) {
-    if (selectedRow.classList.contains('selected-item')) {
-        return selectedRow;
+SelectionHandler.prototype.getSelectedItem = function(row) {
+    if (row.classList.contains('selected-item')) {
+        return row;
     }
 
-    var matches = selectedRow.getElementsByClassName('selected-item');
+    var matches = row.getElementsByClassName('selected-item');
     if (matches.length !== 1) {
         throw new Error(matches.length + ' items selected');
     }
@@ -97,15 +102,15 @@ SelectionHandler.prototype.getSelectedItem = function(selectedRow) {
 };
 
 /**
+ * @param {Element} mainElement
  * @return {Element}
  */
-SelectionHandler.prototype.getSelectedRow = function() {
-    var currentStateElement = app.stateHandler.getCurrentStateMainElement();
-    if (currentStateElement.classList.contains('selected-row')) {
-        return currentStateElement;
+SelectionHandler.prototype.getSelectedRow = function(mainElement) {
+    if (mainElement.classList.contains('selected-row')) {
+        return mainElement;
     }
 
-    var matches = currentStateElement.getElementsByClassName('selected-row');
+    var matches = mainElement.getElementsByClassName('selected-row');
     if (matches.length !== 1) {
         throw new Error(matches.length + ' rows selected');
     }
@@ -114,15 +119,16 @@ SelectionHandler.prototype.getSelectedRow = function() {
 
 /**
  * Selects this item.
- * @param {Element} from
+ * @param {Element} row
  * @param {Element} to
  */
-SelectionHandler.prototype.selectItem = function(from, to) {
+SelectionHandler.prototype.selectItem = function(row, to) {
+    var from = this.getSelectedItem(row);
     if (from !== null) {
         from.classList.remove('selected-item');
     }
     to.classList.add('selected-item');
-    this.layoutStrip();
+    this.layoutStrip(row, to);
 };
 
 /**
@@ -138,11 +144,10 @@ SelectionHandler.prototype.selectRow = function(from, to) {
 
 /**
  * Layout selected item.
+ * @param {Element} row
+ * @param {Element} item
  */
-SelectionHandler.prototype.layoutStrip = function() {
-    var row = this.getSelectedRow(),
-        item = this.getSelectedItem(row);
-
+SelectionHandler.prototype.layoutStrip = function(row, item) {
     if (item === null) {
         return;
     }
