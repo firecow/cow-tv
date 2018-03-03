@@ -1,4 +1,5 @@
 /.idea/
+/builds/
 /.settings/
 /node_modules/
 /platforms/

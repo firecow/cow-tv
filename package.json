@@ -5,8 +5,8 @@
   "scripts": {
     "cordova": "cordova",
     "android-run": "cordova run android",
-    "android-build-debug": "cordova build android",
-    "android-build-release": "cordova build android --release",
+    "android-build-debug": "cordova build android && cp platforms/android/build/outputs/apk/android-debug.apk builds/dr-play-debug.apk",
+    "android-build-release": "cordova build android --release && cp platforms/android/build/outputs/apk/android-debug.apk builds/dr-play-release.apk",
     "webserver": "http-server www/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
