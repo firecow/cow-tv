@@ -3,15 +3,17 @@
 
     --header-color: black;
     --header-text-color: white;
-    --header-text-size: 16px;
-    --title-text-size: 12px;
-    --description-text-size: 10px;
+    --header-text-size: 18px;
+    --title-text-size: 14px;
+    --description-text-size: 12px;
 
     --text-size: 8px;
     --text-family: Roboto, sans-serif;
     --text-color: white;
 
     --selected-bg-color: rgba(255, 255, 255, 0.15);
+
+    --item-width: 200px;
 
     --padding: 5px;
 }
@@ -108,7 +110,7 @@ body {
     vertical-align: middle;
 
     border-radius: 0 5px 0 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     font-size: var(--description-text-size);
     font-family: var(--text-family);
     color: var(--text-color);
@@ -126,7 +128,7 @@ body {
     vertical-align: middle;
 
     border-radius: 0 0 0 5px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     font-size: var(--description-text-size);
     font-family: var(--text-family);
     color: var(--text-color);
@@ -138,7 +140,7 @@ body {
 
 .item {
     position: relative;
-    width: 168px;
+    width: var(--item-width);
 
     margin-left: 2px;
     margin-right: 2px;
