@@ -180,12 +180,13 @@ body {
     height: 100%;
 }
 
+/*noinspection CssInvalidPseudoSelector*/
 .video::-webkit-media-controls {
    display: none;
 }
 
 ::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
     background: transparent; /* make scrollbar transparent */
 }
