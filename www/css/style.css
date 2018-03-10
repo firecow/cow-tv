@@ -37,6 +37,14 @@ body {
     will-change: transform;
 }
 
+img {
+    display: block;
+}
+
+#hometop {
+    background: linear-gradient(to bottom, #ffffff 0%,#ffffff 66%,#000000 66%);
+}
+
 #spinner {
     position: absolute;
     transform-origin: 0 0 0;
@@ -63,7 +71,7 @@ body {
 #debug-info {
     position: absolute;
     font-size: var(--text-size);
-    color: white;
+    color: black;
 }
 
 /* Class */
@@ -175,6 +183,7 @@ body {
 }
 
 .video {
+    display: block;
     position: absolute;
     width: 100%;
     height: 100%;
