@@ -8,7 +8,8 @@ var windowLoaded = function() {
         itemManager: new ItemManager(),
         stateHandler: new StateHandler(),
         animator: new Animator(),
-        debugInfo: new DebugInfo()
+        debugInfo: new DebugInfo(),
+        fpsCounter: new FpsCounter()
     };
 
     var videoChannel = document.getElementById('video-channel');
