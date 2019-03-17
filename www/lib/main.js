@@ -8,8 +8,8 @@ var windowLoaded = function() {
         itemManager: new ItemManager(),
         stateHandler: new StateHandler(),
         animator: new Animator(),
-        debugInfo: new DebugInfo(),
-        fpsCounter: new FpsCounter()
+        // debugInfo: new DebugInfo(),
+        // fpsCounter: new FpsCounter()
     };
 
     var videoChannel = document.getElementById('video-channel');
@@ -19,10 +19,10 @@ var windowLoaded = function() {
     videoProgram.player = new VideoPlayer(videoProgram);
 
     app.itemManager.prepareLiveStrip();
-    app.itemManager.prepareMostViewed();
+    // app.itemManager.prepareMostViewed();
     app.keyPressHandler.init();
     app.stateHandler.init();
-    app.debugInfo.updateDebugText();
+    // app.debugInfo.updateDebugText();
 };
 
 window.addEventListener('load', windowLoaded);

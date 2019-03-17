@@ -1,25 +1,6 @@
-:root {
-    --bg-color: black;
-
-    --header-color: black;
-    --header-text-color: white;
-    --header-text-size: 18px;
-    --title-text-size: 14px;
-    --description-text-size: 12px;
-
-    --text-family: Roboto, sans-serif;
-    --text-color: white;
-
-    --selected-bg-color: rgba(255, 255, 255, 0.15);
-
-    --item-width: 200px;
-
-    --padding: 5px;
-}
-
 /* Tag */
 html {
-    background-color: var(--bg-color);
+    background-color: black;
     height: 100%;
     width: 100%;
 
@@ -77,7 +58,7 @@ img {
 
 #debug-info {
     position: absolute;
-    font-size: var(--title-text-size);
+    font-size: 14px;
     color: black;
 }
 
@@ -86,38 +67,27 @@ img {
     overflow-y: hidden;
 }
 
-.header {
-    background-color: var(--header-color);
-    margin-top: 10px;
-    padding: var(--padding) var(--padding) var(--padding) 20px;
-    text-align: left;
-
-    font-size: var(--header-text-size);
-    font-family: var(--text-family);
-    color: var(--header-text-color);
-}
-
 .hidden {
     display: none;
 }
 
 .item .title {
-    padding: var(--padding);
+    padding: 5px;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: middle;
 
-    font-size: var(--title-text-size);
-    font-family: var(--text-family);
-    color: var(--text-color);
+    font-size: 14px;
+    font-family: Roboto, sans-serif;
+    color: white;
 }
 
 .item .episodeName {
     position: absolute;
     bottom: 4px;
-    padding: var(--padding);
+    padding: 5px;
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
@@ -126,16 +96,16 @@ img {
 
     border-radius: 0 5px 0 0;
     background-color: rgba(0, 0, 0, 0.7);
-    font-size: var(--description-text-size);
-    font-family: var(--text-family);
-    color: var(--text-color);
+    font-size: 12px;
+    font-family: Roboto, sans-serif;
+    color: white;
 }
 
 .item .episodeNumber {
     position: absolute;
     top: 24px;
     right: 0;
-    padding: var(--padding);
+    padding: 5px;
     text-align: right;
     white-space: nowrap;
     overflow: hidden;
@@ -144,9 +114,9 @@ img {
 
     border-radius: 0 0 0 5px;
     background-color: rgba(0, 0, 0, 0.7);
-    font-size: var(--description-text-size);
-    font-family: var(--text-family);
-    color: var(--text-color);
+    font-size: 12px;
+    font-family: Roboto, sans-serif;
+    color: white;
 }
 
 .item .img {
@@ -155,7 +125,7 @@ img {
 
 .item {
     position: relative;
-    width: var(--item-width);
+    width:200px;
 
     margin-left: 2px;
     margin-right: 2px;
